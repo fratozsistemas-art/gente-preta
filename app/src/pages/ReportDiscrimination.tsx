@@ -1,0 +1,97 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAppStore } from '../store/useAppStore';
+import { healthUnits } from '../data/project';
+import TopBar from '../components/TopBar';
+
+export default function ReportDiscrimination() {
+  const navigate = useNavigate();
+  const addReport = useAppStore((s) => s.addReport);
+  const [location, setLocation] = useState('');
+  const [description, setDescription] = useState('');
+  const [wantsFollowUp, setWantsFollowUp] = useState(true);
+  const [done, setDone] = useState(false);
+
+  function submit() {
+    addReport({ location, description, wantsFollowUp });
+    setDone(true);
+  }
+
+  if (done) {
+    return (
+      <div>
+        <TopBar title="Direito à Saúde" showBack />
+        <div className="px-5 pt-16 text-center">
+          <div className="text-5xl mb-4">⚖️</div>
+          <h2 className="font-bold text-earth-900 text-lg mb-2">Relato registrado</h2>
+          <p className="text-sm text-earth-600 mb-8">
+            {wantsFollowUp
+              ? 'Seu relato foi encaminhado com consentimento para acompanhamento institucional (canal de encaminhamento real, reconciliação C4 da Arquitetura V4).'
+              : 'Seu relato foi registrado de forma anônima e contribui para os dados agregados de discriminação institucional por UBS.'}
+          </p>
+          <button onClick={() => navigate('/')} className="w-full rounded-xl bg-brand-600 text-white font-semibold py-3">
+            Voltar ao início
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <TopBar title="Direito à Saúde" showBack />
+      <div className="px-5 pt-4 pb-8 space-y-5">
+        <p className="text-sm text-earth-600">
+          Sofreu discriminação em um atendimento de saúde? Seu relato ajuda a identificar padrões institucionais
+          e pode ser encaminhado para acompanhamento, se você quiser.
+        </p>
+
+        <div>
+          <label className="block text-xs font-semibold text-earth-700 mb-1.5">Onde aconteceu?</label>
+          <select
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            className="w-full rounded-lg border border-earth-200 p-3 text-sm bg-white"
+          >
+            <option value="">Selecione a UBS ou local...</option>
+            {healthUnits.map((u) => (
+              <option key={u.id} value={u.name}>{u.name}</option>
+            ))}
+            <option value="Outro">Outro local</option>
+          </select>
+        </div>
+
+        <div>
+          <label className="block text-xs font-semibold text-earth-700 mb-1.5">Descreva o que aconteceu</label>
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            rows={5}
+            placeholder="Conte com suas palavras..."
+            className="w-full rounded-lg border border-earth-200 p-3 text-sm"
+          />
+        </div>
+
+        <label className="flex items-start gap-3 rounded-xl border border-earth-200 p-4 cursor-pointer">
+          <input
+            type="checkbox"
+            checked={wantsFollowUp}
+            onChange={(e) => setWantsFollowUp(e.target.checked)}
+            className="mt-1 h-4 w-4 accent-brand-600"
+          />
+          <span className="text-sm text-earth-700">
+            Quero ser contatado(a) para acompanhamento institucional deste relato.
+          </span>
+        </label>
+
+        <button
+          onClick={submit}
+          disabled={!description}
+          className="w-full rounded-xl bg-brand-600 text-white font-semibold py-3.5 disabled:opacity-40"
+        >
+          Enviar relato
+        </button>
+      </div>
+    </div>
+  );
+}

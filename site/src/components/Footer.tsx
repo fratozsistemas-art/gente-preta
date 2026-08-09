@@ -1,0 +1,50 @@
+import { Link } from 'react-router-dom';
+
+export default function Footer() {
+  return (
+    <footer className="bg-earth-900 text-earth-100 mt-24">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4 text-sm">
+        <div>
+          <div className="flex items-center gap-2 font-bold text-white text-base mb-3">
+            <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-brand-500 text-white text-sm">GP</span>
+            Hub Gente Preta
+          </div>
+          <p className="text-earth-300">
+            Plataforma de inteligência comunitária para equidade em saúde da população negra.
+          </p>
+        </div>
+        <div>
+          <h4 className="text-white font-semibold mb-3">Navegue</h4>
+          <ul className="space-y-2 text-earth-300">
+            <li><Link to="/saude" className="hover:text-white">Biblioteca de Saúde</Link></li>
+            <li><Link to="/ensaios-clinicos" className="hover:text-white">Ensaios Clínicos</Link></li>
+            <li><Link to="/memoria" className="hover:text-white">Memória e Herança</Link></li>
+            <li><Link to="/comunidade" className="hover:text-white">Comunidade</Link></li>
+            <li><Link to="/rede-sus" className="hover:text-white">Rede SUS</Link></li>
+          </ul>
+        </div>
+        <div>
+          <h4 className="text-white font-semibold mb-3">Instituição</h4>
+          <ul className="space-y-2 text-earth-300">
+            <li><Link to="/sobre" className="hover:text-white">Sobre o Projeto</Link></li>
+            <li><Link to="/transparencia" className="hover:text-white">Transparência e Governança</Link></li>
+            <li><Link to="/arquitetura" className="hover:text-white">Arquitetura Reconciliada V4</Link></li>
+          </ul>
+        </div>
+        <div>
+          <h4 className="text-white font-semibold mb-3">App Sentinela</h4>
+          <p className="text-earth-300 mb-3">Escaneie o QR Code ou acesse pelo navegador do celular.</p>
+          <Link
+            to="/app"
+            className="inline-block rounded-md bg-brand-600 text-white px-4 py-2 font-medium hover:bg-brand-700"
+          >
+            Baixar / Acessar App
+          </Link>
+        </div>
+      </div>
+      <div className="border-t border-earth-800 py-4 text-center text-xs text-earth-400">
+        © {new Date().getFullYear()} Hub Gente Preta — AECID · SEJUS/DF · APRECIA · FEPECS · CUFA/DF · ABRADFAL
+      </div>
+    </footer>
+  );
+}

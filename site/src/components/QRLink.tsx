@@ -1,0 +1,26 @@
+import { QRCodeSVG } from 'qrcode.react';
+import { APP_URL } from '../config';
+
+interface QRLinkProps {
+  size?: number;
+  path?: string; // caminho dentro do App Sentinela, ex: '/', '/onboarding'
+  label?: string;
+}
+
+export default function QRLink({ size = 220, path = '/', label }: QRLinkProps) {
+  const url = `${APP_URL.replace(/\/$/, '')}${path}`;
+
+  return (
+    <div className="inline-flex flex-col items-center gap-3 rounded-2xl border border-earth-200 bg-white p-6 shadow-sm">
+      <div className="rounded-xl bg-white p-3 border border-earth-100">
+        <QRCodeSVG value={url} size={size} level="M" includeMargin />
+      </div>
+      <p className="text-xs text-earth-500 text-center max-w-[220px]">
+        {label || 'Aponte a câmera do celular para acessar o App Sentinela direto no navegador — sem necessidade de instalação.'}
+      </p>
+      <a href={url} target="_blank" rel="noopener noreferrer" className="text-xs text-brand-600 font-medium hover:underline break-all">
+        {url.replace(/^https?:\/\//, '')}
+      </a>
+    </div>
+  );
+}
