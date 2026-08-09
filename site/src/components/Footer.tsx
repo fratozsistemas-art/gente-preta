@@ -35,7 +35,7 @@ export default function Footer() {
           <h4 className="text-white font-semibold mb-3">App Sentinela</h4>
           <p className="text-earth-300 mb-3">Escaneie o QR Code ou acesse pelo navegador do celular.</p>
           <Link
-            to="/app"
+            to="/acessar-app"
             className="inline-block rounded-md bg-brand-600 text-white px-4 py-2 font-medium hover:bg-brand-700"
           >
             Baixar / Acessar App

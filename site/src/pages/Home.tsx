@@ -23,7 +23,7 @@ export default function Home() {
               reduzir as inequidades que a população negra enfrenta no SUS — começando pelo Distrito Federal.
             </p>
             <div className="flex flex-wrap gap-3">
-              <Link to="/app" className="rounded-md bg-brand-600 text-white px-5 py-3 font-semibold hover:bg-brand-700">
+              <Link to="/acessar-app" className="rounded-md bg-brand-600 text-white px-5 py-3 font-semibold hover:bg-brand-700">
                 Baixar o App Sentinela
               </Link>
               <Link to="/saude" className="rounded-md border border-earth-300 px-5 py-3 font-semibold text-earth-800 hover:bg-earth-50">

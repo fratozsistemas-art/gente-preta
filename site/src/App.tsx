@@ -30,7 +30,7 @@ function App() {
           <Route path="/rede-sus" element={<SusNetwork />} />
           <Route path="/transparencia" element={<Transparency />} />
           <Route path="/arquitetura" element={<Architecture />} />
-          <Route path="/app" element={<AppAccess />} />
+          <Route path="/acessar-app" element={<AppAccess />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
