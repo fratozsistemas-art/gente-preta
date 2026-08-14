@@ -84,20 +84,6 @@ export const dataDomains = [
   },
 ];
 
-// UBS piloto — Distrito Federal (dados ilustrativos até integração e-SUS)
-export const healthUnits = [
-  { id: 'ubs-01', name: 'UBS 1 Ceilândia', ra: 'Ceilândia', lat: -15.8153, lng: -48.1074 },
-  { id: 'ubs-02', name: 'UBS 2 Samambaia', ra: 'Samambaia', lat: -15.8752, lng: -48.0904 },
-  { id: 'ubs-03', name: 'UBS 3 Planaltina', ra: 'Planaltina', lat: -15.6169, lng: -47.6547 },
-  { id: 'ubs-04', name: 'UBS 4 Recanto das Emas', ra: 'Recanto das Emas', lat: -15.9057, lng: -48.0656 },
-  { id: 'ubs-05', name: 'UBS 5 Itapoã', ra: 'Itapoã', lat: -15.7472, lng: -47.7492 },
-  { id: 'ubs-06', name: 'UBS 6 São Sebastião', ra: 'São Sebastião', lat: -15.8967, lng: -47.7783 },
-  { id: 'ubs-07', name: 'UBS 7 Paranoá', ra: 'Paranoá', lat: -15.7642, lng: -47.7719 },
-  { id: 'ubs-08', name: 'UBS 8 Estrutural', ra: 'Estrutural', lat: -15.7669, lng: -47.9750 },
-  { id: 'ubs-09', name: 'UBS 9 Varjão', ra: 'Varjão', lat: -15.7192, lng: -47.9092 },
-  { id: 'ubs-10', name: 'UBS 10 Brazlândia', ra: 'Brazlândia', lat: -15.6683, lng: -48.1439 },
-];
-
 // Regiões de Saúde do DF (Superintendências) — Fonte oficial: saude.df.gov.br/regioes-de-saude
 export const healthRegions = [
   {
@@ -316,6 +302,480 @@ export const regionalHospitals = [
     lat: -15.8342,
     lng: -48.0575,
     fonte: 'https://www.saude.df.gov.br/hospital-de-taguatinga',
+  },
+];
+
+// ============================================================================
+// UPAs — Unidades de Pronto Atendimento 24h
+// Fonte oficial: saude.df.gov.br/upa-24h + Relatórios Anuais de Gestão Regional (SES-DF, 2022/2023)
+// As 13 UPAs listadas oficialmente pela SES-DF, com endereço e região de saúde.
+// ============================================================================
+export const emergencyUnits = [
+  {
+    id: 'upa-brazlandia',
+    sigla: 'UPA',
+    nome: 'UPA Brazlândia',
+    regionId: 'srsoe',
+    ra: 'Brazlândia',
+    endereco: 'Quadra 37, Área Especial 1, Vila São José',
+    cep: '72.737-000',
+    fonte: 'https://www.saude.df.gov.br/upa-24h',
+  },
+  {
+    id: 'upa-ceilandia-1',
+    sigla: 'UPA',
+    nome: 'UPA Ceilândia I',
+    regionId: 'srsoe',
+    ra: 'Ceilândia',
+    endereco: 'QNN 27, Área Especial D',
+    cep: '72.225-270',
+    fonte: 'https://www.saude.df.gov.br/upa-24h',
+  },
+  {
+    id: 'upa-ceilandia-2',
+    sigla: 'UPA',
+    nome: 'UPA Ceilândia II',
+    regionId: 'srsoe',
+    ra: 'Ceilândia',
+    endereco: 'Expansão do Setor O, QNO 23, Área Especial',
+    fonte: 'https://www.saude.df.gov.br/upa-24h',
+  },
+  {
+    id: 'upa-gama',
+    sigla: 'UPA',
+    nome: 'UPA Gama',
+    regionId: 'srssu',
+    ra: 'Gama',
+    endereco: 'Quadra 105, Conjunto J, Área Especial 2, Setor Central',
+    cep: '72.445-070',
+    fonte: 'https://www.saude.df.gov.br/upa-24h',
+  },
+  {
+    id: 'upa-nucleo-bandeirante',
+    sigla: 'UPA',
+    nome: 'UPA Núcleo Bandeirante',
+    regionId: 'srscs',
+    ra: 'Núcleo Bandeirante',
+    endereco: 'DF-075, Km 180, Área Especial, EPNB (Placa das Mercedes)',
+    cep: '71.732-010',
+    fonte: 'https://www.saude.df.gov.br/upa-24h',
+  },
+  {
+    id: 'upa-paranoa',
+    sigla: 'UPA',
+    nome: 'UPA Paranoá',
+    regionId: 'srsle',
+    ra: 'Paranoá',
+    endereco: 'Área Especial Hospitalar, Quadra 2, Conjunto K, Lote 1',
+    cep: '71.570-050',
+    fonte: 'https://www.saude.df.gov.br/paranoa-urgencia-e-emergencia',
+  },
+  {
+    id: 'upa-planaltina',
+    sigla: 'UPA',
+    nome: 'UPA Planaltina',
+    regionId: 'srsno',
+    ra: 'Planaltina',
+    endereco: "Quadra 22, MD 1, Lote AE1, Setor Habitacional Mestre D'Armas",
+    cep: '73.403-330',
+    fonte: 'https://www.saude.df.gov.br/upa-24h',
+  },
+  {
+    id: 'upa-recanto-das-emas',
+    sigla: 'UPA',
+    nome: 'UPA Recanto das Emas',
+    regionId: 'srsso',
+    ra: 'Recanto das Emas',
+    endereco: 'Quadra 400/600, Área Especial',
+    cep: '72.625-000',
+    fonte: 'https://www.saude.df.gov.br/rec-urgencia-e-emergencia',
+  },
+  {
+    id: 'upa-riacho-fundo-2',
+    sigla: 'UPA',
+    nome: 'UPA Riacho Fundo II',
+    regionId: 'srscs',
+    ra: 'Riacho Fundo II',
+    endereco: 'QN 31, Conjunto 3, Lote 1',
+    cep: '71.880-140',
+    fonte: 'https://www.saude.df.gov.br/upa-24h',
+  },
+  {
+    id: 'upa-samambaia',
+    sigla: 'UPA',
+    nome: 'UPA Samambaia',
+    regionId: 'srsso',
+    ra: 'Samambaia',
+    endereco: 'QS 107, Conjunto 04, Área Especial 01',
+    cep: '72.301-524',
+    fonte: 'https://www.saude.df.gov.br/upa-samambaia',
+  },
+  {
+    id: 'upa-sao-sebastiao',
+    sigla: 'UPA',
+    nome: 'UPA São Sebastião',
+    regionId: 'srsle',
+    ra: 'São Sebastião',
+    endereco: 'Quadra 102, Conjunto 1, Lote 1, Residencial Oeste',
+    cep: '71.692-101',
+    fonte: 'https://www.saude.df.gov.br/upa-sao-sebastiao',
+  },
+  {
+    id: 'upa-sobradinho',
+    sigla: 'UPA',
+    nome: 'UPA Sobradinho',
+    regionId: 'srsno',
+    ra: 'Sobradinho II',
+    endereco: 'DF 420, Km 03, em frente à AR 13, próximo ao COER',
+    cep: '73.080-050',
+    fonte: 'https://www.saude.df.gov.br/upa-sobradinho',
+  },
+  {
+    id: 'upa-vicente-pires',
+    sigla: 'UPA',
+    nome: 'UPA Vicente Pires',
+    regionId: 'srsso',
+    ra: 'Vicente Pires',
+    endereco: 'Rua 10, Quadra 4D, Chácara 135',
+    cep: '72.007-240',
+    fonte: 'https://www.saude.df.gov.br/upa-24h',
+  },
+];
+
+// ============================================================================
+// CEPAV — Centros de Especialidades para Atenção a Pessoas em Situação de
+// Violência Sexual, Familiar e Doméstica ("Flores em Rede")
+// Fonte oficial: saude.df.gov.br/carta-servicos-violencia
+// ============================================================================
+export const cepavUnits = [
+  {
+    id: 'cepav-margarida',
+    nome: 'CEPAV Margarida',
+    regionId: 'srsce',
+    endereco: 'Ambulatório do HRAN, 1º Andar, Sala 04 — SMHN Q2, Asa Norte',
+    telefone: '(61) 3449-4740 / 99237-0336',
+    email: 'cepav.margarida@saude.df.gov.br',
+    publicoAlvo: 'Mulheres (a partir de 18 anos) em violência doméstica, intrafamiliar e sexual; homens em situação de violência sexual',
+  },
+  {
+    id: 'cepav-jardim',
+    nome: 'CEPAV Jardim',
+    regionId: 'srsce',
+    endereco: 'Ambulatório do HRAN, 1º Andar, Sala 04 — SMHN Q2, Asa Norte',
+    email: 'cepav.jardim@saude.df.gov.br',
+    publicoAlvo: 'Pessoas em acompanhamento pelos demais CEPAV da rede',
+  },
+  {
+    id: 'cepav-jasmim',
+    nome: 'CEPAV Jasmim',
+    regionId: 'srsce',
+    endereco: 'Ambulatório do HRAN, 1º Andar, Sala 04 — SMHN Q2, Asa Norte',
+    telefone: '(61) 3449-4739 / 99451-2967',
+    email: 'cepav.jasmim@saude.df.gov.br',
+    publicoAlvo: 'Crianças e familiares em violência sexual, física, negligência e maus-tratos; adolescentes ofensores sexuais',
+  },
+  {
+    id: 'cepav-caliandra',
+    nome: 'CEPAV Caliandra',
+    regionId: 'srsce',
+    endereco: 'Adolescentro — SGAS Quadra 605, Lote 32/33, Asa Sul',
+    email: 'cepav.caliandra@saude.df.gov.br',
+    publicoAlvo: 'Adolescentes de 12 a 17 anos em situação de violência sexual',
+  },
+  {
+    id: 'cepav-alecrim',
+    nome: 'CEPAV Alecrim',
+    regionId: 'srsce',
+    endereco: 'Ambulatório do HRAN, Térreo, Corredor Vermelho, Sala 03 — SMHN Q2, Asa Norte',
+    telefone: '(61) 3449-4738',
+    email: 'cepav.alecrim@saude.df.gov.br',
+    publicoAlvo: 'Pessoa adulta autora de violência sexual intrafamiliar de crianças e adolescentes',
+  },
+  {
+    id: 'cepav-primavera',
+    nome: 'CEPAV Primavera',
+    regionId: 'srscs',
+    endereco: 'Policlínica da Região Centro-Sul — HRGu, Área Especial QI 06, Lote C, Guará I',
+    telefone: '(61) 3449-5127 / WhatsApp (61) 99451-0035',
+    email: 'srscs.pavprimavera@saude.df.gov.br',
+    publicoAlvo: 'Pessoas em situação de violência em qualquer ciclo de vida, e suas famílias',
+  },
+  {
+    id: 'cepav-alfazema',
+    nome: 'CEPAV Alfazema',
+    regionId: 'srscs',
+    endereco: 'Policlínica da Região Centro-Sul — Núcleo Bandeirante, 3ª Avenida, Área Especial nº 03',
+    telefone: '(61) 2017-1145 ramal 8170 / WhatsApp (61) 9451-2245',
+    email: 'srscs.pavalfazema@saude.df.gov.br',
+    publicoAlvo: 'Pessoas em situação de violência em qualquer ciclo de vida, e suas famílias',
+  },
+  {
+    id: 'cepav-flor-de-lotus',
+    nome: 'CEPAV Flor de Lótus',
+    regionId: 'srsoe',
+    endereco: 'Hospital Regional de Ceilândia (HRC) — QNM 27, Área Especial 1',
+    telefone: '(61) 2017-2000 ramal 3155',
+    email: 'srsoe.nupav@saude.df.gov.br',
+    publicoAlvo: 'Crianças, adolescentes, mulheres e homens em situação de violência sexual, familiar e doméstica',
+  },
+  {
+    id: 'cepav-flor-do-cerrado',
+    nome: 'CEPAV Flor do Cerrado',
+    regionId: 'srssu',
+    endereco: 'Hospital Regional de Santa Maria (HRSM) — Quadra AC 102, Conjuntos A, B, C e D',
+    telefone: '(61) 3449-7356 / 4042-7770 ramal 5525',
+    email: 'cepavflordocerrado@gmail.com',
+    publicoAlvo: 'Pessoas em situação de violência em qualquer ciclo de vida, e suas famílias',
+  },
+  {
+    id: 'cepav-gardenia',
+    nome: 'CEPAV Gardênia',
+    regionId: 'srssu',
+    endereco: 'Hospital Regional do Gama (HRG) — Área Especial nº 1, Setor Central',
+    telefone: '(61) 3449-7357/7354/7355 / (61) 99201-7372',
+    email: 'nupav.srssu@saude.df.gov.br',
+    publicoAlvo: 'Pessoas em todo ciclo de vida em situação de violência interpessoal, familiar e doméstica',
+  },
+  {
+    id: 'cepav-girassol',
+    nome: 'CEPAV Girassol',
+    regionId: 'srsle',
+    endereco: 'Hospital da Região Leste (HRL) — Área Especial, Quadra 2, Conjunto K, Lote 1, Paranoá',
+    telefone: '(61) 2017-1550 ramal 1711 / (61) 99264-2694',
+    email: 'cepav.girassol@saude.df.gov.br',
+    publicoAlvo: 'Crianças (a partir de 4 anos), adolescentes, jovens, adultos e idosos',
+  },
+  {
+    id: 'cepav-tulipa',
+    nome: 'CEPAV Tulipa',
+    regionId: 'srsle',
+    endereco: 'Centro de Múltiplas Atividades 10 — UBS nº 1, São Sebastião',
+    telefone: '(61) 99175-2409',
+    email: 'cepav.tulipa@saude.df.gov.br',
+    publicoAlvo: 'Crianças (a partir de 4 anos), adolescentes, jovens, adultos e idosos',
+  },
+  {
+    id: 'cepav-flor-de-lis',
+    nome: 'CEPAV Flor de Lis',
+    regionId: 'srsno',
+    endereco: 'Hospital Regional de Planaltina — Via W/L 4, Área Especial',
+    telefone: '(61) 3449-5749 / 99262-0729',
+    email: 'cepav.flordelis@saude.df.gov.br',
+    publicoAlvo: 'Crianças (a partir de 7 anos), adolescentes, mulheres, adultos, idosos',
+  },
+  {
+    id: 'cepav-sempre-viva',
+    nome: 'CEPAV Sempre Viva',
+    regionId: 'srsno',
+    endereco: 'Hospital Regional de Sobradinho — Quadra Central, Área Administrativa, Bloco B (antiga CEB), Sobradinho I',
+    telefone: '(61) 3449-5541 / WhatsApp (61) 99253-2414',
+    email: 'cepav.sempreviva@saude.df.gov.br',
+    publicoAlvo: 'Crianças, adolescentes, mulheres, adultos e idosos',
+  },
+  {
+    id: 'cepav-orquidea',
+    nome: 'CEPAV Orquídea',
+    regionId: 'srsso',
+    endereco: 'Hospital Regional de Samambaia (HRSam) — QS 614, Conjunto C, Lotes 01 e 02',
+    telefone: '(61) 3449-7009 / 99155-2702',
+    email: 'cepav.orquidea@saude.df.gov.br',
+    publicoAlvo: 'Crianças, adolescentes, adultos (mulheres, homens e idosos)',
+  },
+  {
+    id: 'cepav-azaleia',
+    nome: 'CEPAV Azaleia',
+    regionId: 'srsso',
+    endereco: 'Hospital Regional de Taguatinga (HRT) — QNC, Área Especial nº 24 (ambulatório ao lado da matrícula)',
+    telefone: '(61) 3449-6678 / 99357-5529',
+    email: 'cepav.azaleia@saude.df.gov.br',
+    publicoAlvo: 'Crianças, adolescentes e adultos em situação de violência sexual, familiar e doméstica',
+  },
+  {
+    id: 'cepav-amarilis',
+    nome: 'CEPAV Amarilis',
+    regionId: 'srsso',
+    endereco: 'UBS 03 Recanto das Emas — Quadra 104/105, Área Especial, Lote 25, Área Hospitalar',
+    telefone: '(61) 99171-4300',
+    email: 'cepav.amarilis@saude.df.gov.br',
+    publicoAlvo: 'Crianças, adolescentes e adultos em situação de violência sexual, familiar e doméstica',
+  },
+  {
+    id: 'cepav-violeta',
+    nome: 'CEPAV Violeta',
+    regionId: 'srsce',
+    ra: 'Asa Sul (atendimento a todo o DF)',
+    endereco: 'Hospital Materno Infantil de Brasília (HMIB) — SGAS Quadra 608/609, Módulo A, Asa Sul',
+    telefone: '(61) 3449-7759 (WhatsApp e ligação)',
+    email: 'pavvioleta.hmib@saude.df.gov.br',
+    publicoAlvo: 'Crianças até 11 anos com todos os tipos de violência, pacientes internados no CO/pediatria e seus familiares; mulheres a partir de 18 anos',
+  },
+  {
+    id: 'pigl-hmib',
+    nome: 'PIGL — Programa de Interrupção Gestacional Prevista em Lei',
+    regionId: 'srsce',
+    ra: 'Asa Sul (atendimento a todo o DF)',
+    endereco: 'Hospital Materno Infantil de Brasília (HMIB) — SGAS Quadra 608/609, Módulo A, Asa Sul',
+    telefone: '(61) 3449-7667',
+    email: 'pigl.hmib@gmail.com',
+    publicoAlvo: 'Vítimas de violência sexual com gestação decorrente de estupro (avaliação e interrupção gestacional prevista em lei)',
+  },
+];
+
+// ============================================================================
+// UBS — Unidades Básicas de Saúde
+// Fonte oficial: Relatórios Anuais de Gestão Regional (SES-DF, 2022/2023) e
+// ANEXO VI — Relação de Unidades de Saúde do Distrito Federal (SEPE-DF).
+// Cobertura: lista completa/quase completa para as Regiões Oeste e Sul;
+// amostragem representativa (unidades confirmadas com endereço oficial) para
+// as demais Regiões — a rede da SES-DF conta com mais de 170 UBS no total,
+// e novas unidades vêm sendo abertas continuamente.
+// ============================================================================
+export const healthUnits = [
+  // ---- Região Central (SRSCE) ----
+  { id: 'ubs-central-01', name: 'UBS 1 Asa Sul', regionId: 'srsce', ra: 'Asa Sul', endereco: 'SGAS Quadra 612/613, Lotes 38/39' },
+  { id: 'ubs-central-02', name: 'UBS 1 Asa Norte', regionId: 'srsce', ra: 'Asa Norte', endereco: 'SGAN Quadra 905, Módulo D' },
+  { id: 'ubs-central-03', name: 'UBS 2 Asa Norte', regionId: 'srsce', ra: 'Asa Norte', endereco: 'EQN 114/115, Área Especial' },
+  { id: 'ubs-central-04', name: 'UBS 3 Asa Norte (Vila Planalto)', regionId: 'srsce', ra: 'Vila Planalto', endereco: 'Rua Piauí, Área Especial, S/N' },
+  { id: 'ubs-central-05', name: 'UBS 5 Asa Norte (Granja do Torto)', regionId: 'srsce', ra: 'Asa Norte', endereco: 'Quadra 1, Granja do Torto' },
+  { id: 'ubs-central-06', name: 'UBS 3 Lago Sul', regionId: 'srsce', ra: 'Lago Sul', endereco: 'SHIS QI 21, Área Especial' },
+  { id: 'ubs-central-07', name: 'UBS 1 Lago Norte', regionId: 'srsce', ra: 'Lago Norte', endereco: 'SHIN QI 03, Área Especial' },
+  { id: 'ubs-central-08', name: 'UBS 1 Cruzeiro', regionId: 'srsce', ra: 'Cruzeiro', endereco: 'SHCES Quadra 601, Lote 01, Cruzeiro Novo' },
+  { id: 'ubs-central-09', name: 'UBS 2 Cruzeiro', regionId: 'srsce', ra: 'Cruzeiro', endereco: 'Setor Escolar, Lote 04, Cruzeiro Velho' },
+  { id: 'ubs-central-10', name: 'UBS 1 Varjão', regionId: 'srsce', ra: 'Varjão', endereco: 'Quadra 05, Conjunto A, Lote 17, Vila Varjão' },
+
+  // ---- Região Centro-Sul (SRSCS) ----
+  { id: 'ubs-centrosul-01', name: 'UBS 1 Guará', regionId: 'srscs', ra: 'Guará', endereco: 'SRIA QI 06, Lote C, Guará I' },
+  { id: 'ubs-centrosul-02', name: 'UBS 2 Guará', regionId: 'srscs', ra: 'Guará', endereco: 'QE 23, Área Especial, Lote C, Guará II' },
+  { id: 'ubs-centrosul-03', name: 'UBS 3 Guará', regionId: 'srscs', ra: 'Guará', endereco: 'QE 38, Guará II, Área Especial' },
+  { id: 'ubs-centrosul-04', name: 'UBS 4 Guará', regionId: 'srscs', ra: 'Guará', endereco: 'QELC EQ 2/3, Conjunto Lúcio Costa' },
+  { id: 'ubs-centrosul-05', name: 'UBS 5 Guará', regionId: 'srscs', ra: 'Guará', endereco: 'QE 38, Conjunto O, Área Especial' },
+  { id: 'ubs-centrosul-06', name: 'UBS 1 Núcleo Bandeirante', regionId: 'srscs', ra: 'Núcleo Bandeirante', endereco: '3ª Avenida, Área Especial nº 03' },
+  { id: 'ubs-centrosul-07', name: 'UBS 2 Núcleo Bandeirante', regionId: 'srscs', ra: 'Núcleo Bandeirante', endereco: 'Rua 1, Setor dos Engenheiros, Área Especial nº 02' },
+  { id: 'ubs-centrosul-08', name: 'UBS 1 Park Way', regionId: 'srscs', ra: 'Park Way', endereco: 'Área Especial nº 01, Vargem Bonita' },
+  { id: 'ubs-centrosul-09', name: 'UBS 1 Candangolândia', regionId: 'srscs', ra: 'Candangolândia', endereco: 'EQR 05/07, Área Especial nº 01' },
+  { id: 'ubs-centrosul-10', name: 'UBS 1 Riacho Fundo I', regionId: 'srscs', ra: 'Riacho Fundo I', endereco: 'QN 09, Área Especial nº 11' },
+  { id: 'ubs-centrosul-11', name: 'UBS 2 Riacho Fundo I', regionId: 'srscs', ra: 'Riacho Fundo I', endereco: 'QN 01, Conjunto 32, Área Especial' },
+  { id: 'ubs-centrosul-12', name: 'UBS 1 Riacho Fundo II', regionId: 'srscs', ra: 'Riacho Fundo II', endereco: 'QC 06, Conjunto 16, Lote 01' },
+  { id: 'ubs-centrosul-13', name: 'UBS 1 Estrutural', regionId: 'srscs', ra: 'Estrutural', endereco: 'Área Especial 01, Setor Central' },
+
+  // ---- Região Norte (SRSNO) ----
+  { id: 'ubs-norte-01', name: 'UBS 1 Planaltina', regionId: 'srsno', ra: 'Planaltina', endereco: 'Quadra 18, Conjunto H, Área Especial 01, Buritis IV' },
+  { id: 'ubs-norte-02', name: 'UBS 5 Planaltina', regionId: 'srsno', ra: 'Planaltina', endereco: 'Quadra 12, Conjunto I, Arapoanga' },
+  { id: 'ubs-norte-03', name: 'UBS 9 Planaltina', regionId: 'srsno', ra: 'Planaltina', endereco: 'DF 130, Km 25, Núcleo Rural Santos Dumont' },
+  { id: 'ubs-norte-04', name: 'UBS 1 Sobradinho', regionId: 'srsno', ra: 'Sobradinho', endereco: 'QD 14, Área Especial nº 22/23' },
+  { id: 'ubs-norte-05', name: 'UBS 1 Sobradinho II', regionId: 'srsno', ra: 'Sobradinho II', endereco: 'AR 13, Conjunto 07, Lote 01', cep: '73.062-712' },
+  { id: 'ubs-norte-06', name: 'UBS 1 Fercal', regionId: 'srsno', ra: 'Fercal', endereco: 'DF 150, Km 12, Quadra 10, Lote 14' },
+
+  // ---- Região Sul (SRSSU) — Gama e Santa Maria ----
+  { id: 'ubs-sul-gama-01', name: 'UBS 1 Gama', regionId: 'srssu', ra: 'Gama', endereco: 'Entrequadra 06/12, Setor Sul' },
+  { id: 'ubs-sul-gama-02', name: 'UBS 2 Gama', regionId: 'srssu', ra: 'Gama', endereco: 'Quadra 11, Área Especial, Lotes A, B, C, D' },
+  { id: 'ubs-sul-gama-03', name: 'UBS 3 Gama', regionId: 'srssu', ra: 'Gama', endereco: 'EQ 3/5, Área Especial, Setor Leste' },
+  { id: 'ubs-sul-gama-04', name: 'UBS 4 Gama', regionId: 'srssu', ra: 'Gama', endereco: 'Praça 3, Área Especial, Setor Leste' },
+  { id: 'ubs-sul-gama-05', name: 'UBS 5 Gama', regionId: 'srssu', ra: 'Gama', endereco: 'Área Especial, Lote 38, Setor Central' },
+  { id: 'ubs-sul-gama-06', name: 'UBS 6 Gama', regionId: 'srssu', ra: 'Gama', endereco: 'Entrequadra 12/16, Área Especial, Setor Oeste' },
+  { id: 'ubs-sul-gama-07', name: 'UBS 7 Gama', regionId: 'srssu', ra: 'Gama', endereco: 'Área Especial nº 1, Estádio Bezerrão, Setor Central' },
+  { id: 'ubs-sul-gama-08', name: 'UBS 8 Gama (DVO)', regionId: 'srssu', ra: 'Gama', endereco: 'Travessa Eucaliptos nº 4, Área Especial DVO' },
+  { id: 'ubs-sul-gama-09', name: 'UBS 9 Gama', regionId: 'srssu', ra: 'Gama', endereco: 'Engenho das Lages, Rua Libânio, Casa nº 13' },
+  { id: 'ubs-sul-gama-11', name: 'UBS 11 Gama', regionId: 'srssu', ra: 'Gama', endereco: 'DF 475, Km 05, Núcleo Rural Ponte Alta Norte' },
+  { id: 'ubs-sul-gama-12', name: 'UBS 12 Gama', regionId: 'srssu', ra: 'Gama', endereco: 'Ponte Alta, DF 290 (antigo Posto Fiscal)' },
+  { id: 'ubs-sul-gama-13', name: 'UBS 13 Gama', regionId: 'srssu', ra: 'Gama', endereco: 'Quadra 26, Casa 39, Setor Leste' },
+  { id: 'ubs-sul-sm-01', name: 'UBS 1 Santa Maria', regionId: 'srssu', ra: 'Santa Maria', endereco: 'Quadra 207/307, Conjunto T, Área Especial' },
+  { id: 'ubs-sul-sm-02', name: 'UBS 2 Santa Maria', regionId: 'srssu', ra: 'Santa Maria', endereco: 'EQ 217/317, Lote E' },
+  { id: 'ubs-sul-sm-03', name: 'UBS 3 Santa Maria', regionId: 'srssu', ra: 'Santa Maria', endereco: 'Quadra 100, Conjunto I, Lote 01, Área Especial' },
+  { id: 'ubs-sul-sm-05', name: 'UBS 5 Santa Maria', regionId: 'srssu', ra: 'Santa Maria', endereco: 'Entre Quadra 212/213, Área Especial' },
+  { id: 'ubs-sul-sm-06', name: 'UBS 6 Santa Maria', regionId: 'srssu', ra: 'Santa Maria', endereco: 'Entre Quadra 202/203, Área Especial' },
+  { id: 'ubs-sul-sm-07', name: 'UBS 7 Santa Maria', regionId: 'srssu', ra: 'Santa Maria', endereco: 'Av. Brigadeiro Pinto de Moura, S/N, Área Especial' },
+  { id: 'ubs-sul-sm-08', name: 'UBS 8 Santa Maria', regionId: 'srssu', ra: 'Santa Maria', endereco: 'EQ 418/518' },
+  { id: 'ubs-sul-sm-10', name: 'UBS 10 Santa Maria (DVO)', regionId: 'srssu', ra: 'Santa Maria', endereco: 'Área Especial do DVO, Rua do Eucalipto nº 04' },
+
+  // ---- Região Leste (SRSLE) ----
+  { id: 'ubs-leste-01', name: 'UBS 1 Itapoã', regionId: 'srsle', ra: 'Itapoã', endereco: 'QD 378, Conjunto L, Área Especial, Del Lago' },
+  { id: 'ubs-leste-02', name: 'UBS 19 São Sebastião', regionId: 'srsle', ra: 'São Sebastião', endereco: 'Rua 07, Casa 400, Bairro Vila do Boa' },
+
+  // ---- Região Oeste (SRSOE) — Ceilândia e Brazlândia (lista quase completa) ----
+  { id: 'ubs-oeste-cei-01', name: 'UBS 1 Ceilândia', regionId: 'srsoe', ra: 'Ceilândia', endereco: 'EQNP 7/11, Área Especial' },
+  { id: 'ubs-oeste-cei-02', name: 'UBS 2 Ceilândia', regionId: 'srsoe', ra: 'Ceilândia', endereco: 'QNN 15, Lote F, Área Especial' },
+  { id: 'ubs-oeste-cei-03', name: 'UBS 3 Ceilândia', regionId: 'srsoe', ra: 'Ceilândia', endereco: 'QNM 15, Lote D, Área Especial' },
+  { id: 'ubs-oeste-cei-05', name: 'UBS 5 Ceilândia', regionId: 'srsoe', ra: 'Ceilândia', endereco: 'QNM 16, Módulo F, Área Especial' },
+  { id: 'ubs-oeste-cei-06', name: 'UBS 6 Ceilândia', regionId: 'srsoe', ra: 'Ceilândia', endereco: 'EQNP 10/14, Módulos E, F, G, H, Área Especial' },
+  { id: 'ubs-oeste-cei-07', name: 'UBS 7 Ceilândia', regionId: 'srsoe', ra: 'Ceilândia', endereco: 'QNO 10, Área Especial D/E' },
+  { id: 'ubs-oeste-cei-08', name: 'UBS 8 Ceilândia', regionId: 'srsoe', ra: 'Ceilândia', endereco: 'EQNP 13/17, Módulos A, B, C, D, Área Especial' },
+  { id: 'ubs-oeste-cei-09', name: 'UBS 9 Ceilândia', regionId: 'srsoe', ra: 'Ceilândia', endereco: 'EQNP 28/32, Setor P Sul' },
+  { id: 'ubs-oeste-cei-10', name: 'UBS 10 Ceilândia', regionId: 'srsoe', ra: 'Ceilândia', endereco: 'QNN 12, Área Especial 01' },
+  { id: 'ubs-oeste-cei-11', name: 'UBS 11 Ceilândia', regionId: 'srsoe', ra: 'Ceilândia', endereco: 'QNO 10, Módulos D, E, Área Especial' },
+  { id: 'ubs-oeste-cei-12', name: 'UBS 12 Ceilândia', regionId: 'srsoe', ra: 'Ceilândia', endereco: 'QNQ 03/04, Área Especial' },
+  { id: 'ubs-oeste-cei-13', name: 'UBS 13 Ceilândia', regionId: 'srsoe', ra: 'Ceilândia', endereco: 'Núcleo Rural Boa Esperança' },
+  { id: 'ubs-oeste-cei-14', name: 'UBS 14 Ceilândia', regionId: 'srsoe', ra: 'Ceilândia', endereco: 'Condomínio Privê Lucena Roriz, Rua 01, Área Especial 03, Módulo 12, Lote 01' },
+  { id: 'ubs-oeste-cei-15', name: 'UBS 15 Ceilândia', regionId: 'srsoe', ra: 'Ceilândia', endereco: 'QNP 21, Área Especial' },
+  { id: 'ubs-oeste-cei-16', name: 'UBS 16 Ceilândia (Sol Nascente)', regionId: 'srsoe', ra: 'Sol Nascente/Pôr do Sol', endereco: 'Quadra 501, Área Especial 02, Trecho 01, Setor Habitacional Sol Nascente, Conjunto B' },
+  { id: 'ubs-oeste-cei-17', name: 'UBS 17 Ceilândia', regionId: 'srsoe', ra: 'Ceilândia', endereco: 'EQNP 16/20' },
+  { id: 'ubs-oeste-braz-01', name: 'UBS 1 Brazlândia', regionId: 'srsoe', ra: 'Brazlândia', endereco: 'EQ 6/8, Setor Norte, Área Especial 3' },
+  { id: 'ubs-oeste-braz-02', name: 'UBS 2 Brazlândia', regionId: 'srsoe', ra: 'Brazlândia', endereco: 'QD 45, Área Especial 01, Vila São José' },
+  { id: 'ubs-oeste-braz-03', name: 'UBS 3 Brazlândia', regionId: 'srsoe', ra: 'Brazlândia', endereco: 'Quadra 3, Lote 6, Área Especial nº 2, Setor Veredas' },
+  { id: 'ubs-oeste-braz-04', name: 'UBS 4 Brazlândia', regionId: 'srsoe', ra: 'Brazlândia', endereco: 'Quadra 01, Área Especial 1, Setor Veredas II' },
+  { id: 'ubs-oeste-braz-05', name: 'UBS 5 Brazlândia', regionId: 'srsoe', ra: 'Brazlândia', endereco: 'Reserva A, DF 240/DF 008, Km 445, Vicinal, Área Especial 1' },
+  { id: 'ubs-oeste-braz-06', name: 'UBS 6 Brazlândia', regionId: 'srsoe', ra: 'Brazlândia', endereco: 'Fazenda Almécegas, BR 180/205, Km 05' },
+  { id: 'ubs-oeste-braz-07', name: 'UBS 7 Brazlândia', regionId: 'srsoe', ra: 'Brazlândia', endereco: 'Quadra 15, Lote 02, Loja 01, Área Especial 02, Incra 08' },
+
+  // ---- Região Sudoeste (SRSSO) ----
+  { id: 'ubs-sudoeste-01', name: 'UBS 1 Águas Claras', regionId: 'srsso', ra: 'Águas Claras', endereco: 'QS 05, Avenida Areal, Lote 24' },
+  { id: 'ubs-sudoeste-02', name: 'UBS 1 Vicente Pires', regionId: 'srsso', ra: 'Vicente Pires', endereco: 'Rua 4C, Chácara 12, Colônia Agrícola Samambaia' },
+  { id: 'ubs-sudoeste-03', name: 'UBS 1 Recanto das Emas', regionId: 'srsso', ra: 'Recanto das Emas', endereco: 'Quadra 307, Área Especial 01' },
+  { id: 'ubs-sudoeste-04', name: 'UBS 1 Taguatinga', regionId: 'srsso', ra: 'Taguatinga', endereco: 'QNG, Área Especial 19' },
+];
+
+// ============================================================================
+// CAPS — Centros de Atenção Psicossocial (lista não exaustiva)
+// Fonte oficial: saude.df.gov.br/carta-de-servicos-caps — a rede completa de
+// CAPS do DF é maior; endereços detalhados de todas as unidades devem ser
+// confirmados na carta de serviços oficial antes de qualquer atendimento.
+// ============================================================================
+export const mentalHealthUnits = [
+  { id: 'caps-asa-norte', nome: 'CAPS Asa Norte (CAPSi / CAPS II Brasília / CAPS III)', regionId: 'srsce', ra: 'Asa Norte', endereco: 'SGAN 905, Módulo D' },
+  { id: 'caps-brazlandia', nome: 'CAPS I Brazlândia', regionId: 'srsoe', ra: 'Brazlândia', endereco: 'Quadra 01, Área Especial 2, Setor Veredas' },
+  { id: 'caps-ad-ceilandia', nome: 'CAPS AD Ceilândia', regionId: 'srsoe', ra: 'Ceilândia', endereco: 'QNM 17, Área Especial (antigo Posto de Saúde, ao lado do HRC)' },
+  { id: 'caps-riacho-fundo', nome: 'CAPS II Riacho Fundo', regionId: 'srscs', ra: 'Riacho Fundo', endereco: 'EPNB, Km 04, Área Especial, Av. Sucupira, Granja do Riacho Fundo' },
+  { id: 'caps-ad-guara', nome: 'CAPS AD Guará', regionId: 'srscs', ra: 'Guará' },
+  { id: 'caps-gama', nome: 'CAPS AD Gama', regionId: 'srssu', ra: 'Gama' },
+  { id: 'caps-santa-maria', nome: 'CAPS AD Santa Maria', regionId: 'srssu', ra: 'Santa Maria' },
+  { id: 'caps-itapoa', nome: 'CAPS AD II Itapoã', regionId: 'srsle', ra: 'Itapoã' },
+  { id: 'caps-paranoa', nome: 'CAPS II Paranoá', regionId: 'srsle', ra: 'Paranoá' },
+  { id: 'caps-planaltina', nome: 'CAPS II Planaltina', regionId: 'srsno', ra: 'Planaltina' },
+  { id: 'caps-sobradinho-i', nome: 'CAPSi Sobradinho', regionId: 'srsno', ra: 'Sobradinho' },
+  { id: 'caps-sobradinho-ad', nome: 'CAPS AD Sobradinho II', regionId: 'srsno', ra: 'Sobradinho II' },
+  { id: 'caps-samambaia-iii', nome: 'CAPS III Samambaia', regionId: 'srsso', ra: 'Samambaia' },
+  { id: 'caps-samambaia-ad', nome: 'CAPS AD III Samambaia', regionId: 'srsso', ra: 'Samambaia' },
+  { id: 'caps-recanto-emas', nome: 'CAPSi Recanto das Emas', regionId: 'srsso', ra: 'Recanto das Emas' },
+  { id: 'caps-taguatinga-i', nome: 'CAPSi Taguatinga', regionId: 'srsso', ra: 'Taguatinga' },
+  { id: 'caps-taguatinga-ii', nome: 'CAPS II Taguatinga', regionId: 'srsso', ra: 'Taguatinga' },
+];
+
+// ============================================================================
+// Outros serviços da rede SES-DF citados na busca oficial ("Busca Saúde")
+// que não correspondem a um tipo de unidade com endereço próprio, mas a um
+// programa/serviço distribuído pela rede já listada acima.
+// ============================================================================
+export const otherHealthServices = [
+  {
+    id: 'cta',
+    titulo: 'CTA — Centro de Testagem e Aconselhamento',
+    descricao:
+      'Oferece testagem e aconselhamento para HIV, hepatites virais e outras IST, com sigilo garantido. O serviço também está disponível em UBS de referência da rede SES-DF.',
+    fonte: 'https://www.saude.df.gov.br/hiv-aids',
+  },
+  {
+    id: 'rede-materno-infantil',
+    titulo: 'Rede Materno Infantil (Rede Alyne)',
+    descricao:
+      'Não é uma unidade própria: é a política de cuidado integral à gestante, puérpera e criança, implementada por meio do pré-natal nas UBS e do parto/maternidade nos Hospitais Regionais (HRG, HRSM, HRT, HRL, HMIB), conforme o Planejamento Regional Integrado 2024-2027.',
+    fonte: 'https://saude.df.gov.br/rede-materna-infantil',
+  },
+  {
+    id: 'pis',
+    titulo: 'Práticas Integrativas em Saúde (PIS)',
+    descricao:
+      'Acupuntura, auriculoterapia, fitoterapia, meditação e outras práticas ofertadas como serviço adicional em UBS de referência de todas as Regiões de Saúde — não constituem unidade própria.',
+    fonte: 'https://www.saude.df.gov.br/unidades-basicas',
   },
 ];
 

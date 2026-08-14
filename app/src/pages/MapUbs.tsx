@@ -1,20 +1,26 @@
 import { useState } from 'react';
-import { healthUnits, regionalHospitals, healthRegions } from '../data/project';
+import {
+  healthUnits,
+  regionalHospitals,
+  healthRegions,
+  emergencyUnits,
+  cepavUnits,
+} from '../data/project';
 import { useAppStore } from '../store/useAppStore';
 import TopBar from '../components/TopBar';
 
 export default function MapUbs() {
   const consent = useAppStore((s) => s.consent);
   const [search, setSearch] = useState('');
-  const [tab, setTab] = useState<'ubs' | 'hospitais'>('ubs');
+  const [tab, setTab] = useState<'ubs' | 'hospitais' | 'upas' | 'cepav'>('ubs');
+
+  const regionById = Object.fromEntries(healthRegions.map((r) => [r.id, r]));
 
   const filteredUbs = healthUnits.filter(
     (u) =>
       u.name.toLowerCase().includes(search.toLowerCase()) ||
       u.ra.toLowerCase().includes(search.toLowerCase())
   );
-
-  const regionById = Object.fromEntries(healthRegions.map((r) => [r.id, r]));
 
   const filteredHospitals = regionalHospitals.filter(
     (h) =>
@@ -23,34 +29,48 @@ export default function MapUbs() {
       (regionById[h.regionId]?.ras.join(' ').toLowerCase().includes(search.toLowerCase()) ?? false)
   );
 
+  const filteredUpas = emergencyUnits.filter(
+    (u) =>
+      u.nome.toLowerCase().includes(search.toLowerCase()) ||
+      u.ra.toLowerCase().includes(search.toLowerCase())
+  );
+
+  const filteredCepav = cepavUnits.filter(
+    (c) =>
+      c.nome.toLowerCase().includes(search.toLowerCase()) ||
+      c.endereco.toLowerCase().includes(search.toLowerCase())
+  );
+
+  const tabs: { id: typeof tab; label: string }[] = [
+    { id: 'ubs', label: 'UBS' },
+    { id: 'upas', label: 'UPAs' },
+    { id: 'hospitais', label: 'Hospitais' },
+    { id: 'cepav', label: 'CEPAV' },
+  ];
+
   return (
     <div>
-      <TopBar title="Rede SUS — UBS e Hospitais" />
+      <TopBar title="Rede SUS — Unidades de Saúde" />
       <div className="px-5 pt-3 pb-8">
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          placeholder="Buscar por RA, nome da UBS ou hospital..."
+          placeholder="Buscar por RA, nome da unidade ou região..."
           className="w-full rounded-lg border border-earth-200 p-3 text-sm mb-4"
         />
 
-        <div className="flex gap-2 mb-4">
-          <button
-            onClick={() => setTab('ubs')}
-            className={`flex-1 rounded-lg py-2 text-sm font-medium border ${
-              tab === 'ubs' ? 'bg-brand-600 text-white border-brand-600' : 'border-earth-200 text-earth-600'
-            }`}
-          >
-            UBS piloto
-          </button>
-          <button
-            onClick={() => setTab('hospitais')}
-            className={`flex-1 rounded-lg py-2 text-sm font-medium border ${
-              tab === 'hospitais' ? 'bg-brand-600 text-white border-brand-600' : 'border-earth-200 text-earth-600'
-            }`}
-          >
-            Hospitais Regionais
-          </button>
+        <div className="flex gap-2 mb-4 overflow-x-auto">
+          {tabs.map((t) => (
+            <button
+              key={t.id}
+              onClick={() => setTab(t.id)}
+              className={`flex-1 whitespace-nowrap rounded-lg py-2 px-3 text-sm font-medium border ${
+                tab === t.id ? 'bg-brand-600 text-white border-brand-600' : 'border-earth-200 text-earth-600'
+              }`}
+            >
+              {t.label}
+            </button>
+          ))}
         </div>
 
         {!consent.level4_geolocation && (
@@ -59,41 +79,68 @@ export default function MapUbs() {
           </div>
         )}
 
+        <p className="text-[11px] text-earth-400 mb-3">
+          Fonte: SES-DF —{' '}
+          <a
+            href="https://info.saude.df.gov.br/busca-saude-ubs/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline"
+          >
+            Busca Saúde
+          </a>{' '}
+          — dados agrupados por Região de Saúde. Cobertura de UBS completa para Oeste e Sul; representativa
+          para as demais regiões.
+        </p>
+
         {tab === 'ubs' && (
           <div className="space-y-3">
-            {filteredUbs.map((u) => (
-              <div key={u.id} className="rounded-xl border border-earth-200 bg-white p-4">
-                <h3 className="font-semibold text-earth-900 text-sm mb-1">{u.name}</h3>
-                <p className="text-xs text-earth-500 mb-2">Região Administrativa: {u.ra}</p>
-                <a
-                  href={`https://www.google.com/maps/search/?api=1&query=${u.lat},${u.lng}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs font-medium text-brand-600"
-                >
-                  Ver rota no mapa →
-                </a>
-              </div>
-            ))}
+            {filteredUbs.map((u) => {
+              const region = regionById[u.regionId];
+              return (
+                <div key={u.id} className="rounded-xl border border-earth-200 bg-white p-4">
+                  <h3 className="font-semibold text-earth-900 text-sm mb-1">{u.name}</h3>
+                  <p className="text-xs text-earth-500 mb-1">
+                    {u.ra} — {u.endereco}
+                    {u.cep ? ` (CEP ${u.cep})` : ''}
+                  </p>
+                  {region && (
+                    <p className="text-xs text-earth-400">Região de Saúde: {region.nome} ({region.sigla})</p>
+                  )}
+                </div>
+              );
+            })}
             {filteredUbs.length === 0 && (
               <p className="text-sm text-earth-400 text-center py-8">Nenhuma UBS encontrada.</p>
             )}
           </div>
         )}
 
+        {tab === 'upas' && (
+          <div className="space-y-3">
+            {filteredUpas.map((u) => {
+              const region = regionById[u.regionId];
+              return (
+                <div key={u.id} className="rounded-xl border border-earth-200 bg-white p-4">
+                  <h3 className="font-semibold text-earth-900 text-sm mb-1">{u.nome}</h3>
+                  <p className="text-xs text-earth-500 mb-1">
+                    {u.endereco}
+                    {u.cep ? ` — CEP ${u.cep}` : ''}
+                  </p>
+                  {region && (
+                    <p className="text-xs text-earth-400">Região de Saúde: {region.nome} ({region.sigla})</p>
+                  )}
+                </div>
+              );
+            })}
+            {filteredUpas.length === 0 && (
+              <p className="text-sm text-earth-400 text-center py-8">Nenhuma UPA encontrada.</p>
+            )}
+          </div>
+        )}
+
         {tab === 'hospitais' && (
           <div className="space-y-3">
-            <p className="text-[11px] text-earth-400 mb-1">
-              Fonte: SES-DF —{' '}
-              <a
-                href="https://www.saude.df.gov.br/regioes-de-saude"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline"
-              >
-                Regiões de Saúde
-              </a>
-            </p>
             {filteredHospitals.map((h) => {
               const region = regionById[h.regionId];
               return (
@@ -132,6 +179,27 @@ export default function MapUbs() {
             })}
             {filteredHospitals.length === 0 && (
               <p className="text-sm text-earth-400 text-center py-8">Nenhum hospital encontrado.</p>
+            )}
+          </div>
+        )}
+
+        {tab === 'cepav' && (
+          <div className="space-y-3">
+            {filteredCepav.map((c) => {
+              const region = regionById[c.regionId];
+              return (
+                <div key={c.id} className="rounded-xl border border-earth-200 bg-white p-4">
+                  <h3 className="font-semibold text-earth-900 text-sm mb-1">{c.nome}</h3>
+                  <p className="text-xs text-earth-500 mb-1">{c.endereco}</p>
+                  {c.telefone && <p className="text-xs text-earth-500 mb-1">Tel: {c.telefone}</p>}
+                  {region && (
+                    <p className="text-xs text-earth-400">Região de Saúde: {region.nome} ({region.sigla})</p>
+                  )}
+                </div>
+              );
+            })}
+            {filteredCepav.length === 0 && (
+              <p className="text-sm text-earth-400 text-center py-8">Nenhum CEPAV encontrado.</p>
             )}
           </div>
         )}

@@ -1,4 +1,12 @@
-import { healthUnits, healthRegions, regionalHospitals } from '../data/project';
+import {
+  healthUnits,
+  healthRegions,
+  regionalHospitals,
+  emergencyUnits,
+  cepavUnits,
+  mentalHealthUnits,
+  otherHealthServices,
+} from '../data/project';
 import { APP_URL } from '../config';
 
 export default function SusNetwork() {
@@ -6,82 +14,145 @@ export default function SusNetwork() {
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-16">
       <h1 className="text-3xl font-bold text-earth-900 mb-4">Rede SUS — Onde encontrar especialistas</h1>
       <p className="text-earth-600 mb-8 max-w-2xl">
-        Módulo "Find a Doctor" recuperado: geolocalização de UBS piloto no DF, com plano de expansão para rede
-        privada e busca por atendimento humanizado/culturalmente competente. A navegação completa, com mapa
-        interativo e georreferenciamento em tempo real, está disponível no{' '}
+        Módulo "Find a Doctor" recuperado: geolocalização de unidades de saúde do DF, com plano de expansão
+        para rede privada e busca por atendimento humanizado/culturalmente competente. A navegação completa,
+        com mapa interativo e georreferenciamento em tempo real, está disponível no{' '}
         <a href={APP_URL} target="_blank" rel="noopener noreferrer" className="text-brand-600 hover:underline font-medium">
           App Sentinela
         </a>.
       </p>
 
-      <h2 className="text-xl font-bold text-earth-900 mb-2">Hospitais Regionais por Região de Saúde</h2>
-      <p className="text-sm text-earth-500 mb-6 max-w-2xl">
-        O Distrito Federal organiza a rede pública de saúde em 7 Regiões de Saúde (Superintendências), cada
-        uma com um Hospital Regional como referência. Dados oficiais da{' '}
-        <a
-          href="https://www.saude.df.gov.br/regioes-de-saude"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-brand-600 hover:underline"
-        >
+      <p className="text-xs text-earth-500 mb-10 max-w-2xl bg-earth-50 border border-earth-200 rounded-lg p-3">
+        Dados oficiais da{' '}
+        <a href="https://www.saude.df.gov.br/regioes-de-saude" target="_blank" rel="noopener noreferrer" className="text-brand-600 hover:underline">
           Secretaria de Saúde do DF (SES-DF)
+        </a>, organizados pelas 7 Regiões de Saúde. A cobertura de UBS é completa para as Regiões Oeste e Sul e
+        representativa para as demais — a rede SES-DF soma mais de 170 UBS, com novas unidades sendo abertas
+        continuamente. Em caso de divergência, consulte sempre{' '}
+        <a href="https://info.saude.df.gov.br/busca-saude-ubs/" target="_blank" rel="noopener noreferrer" className="text-brand-600 hover:underline">
+          Busca Saúde (SES-DF)
         </a>.
       </p>
 
-      <div className="space-y-6 mb-12">
-        {healthRegions.map((region) => {
-          const hospitals = regionalHospitals.filter((h) => h.regionId === region.id);
-          return (
-            <div key={region.id} className="rounded-xl border border-earth-200 p-5 bg-white">
-              <div className="flex flex-wrap items-baseline gap-2 mb-1">
-                <h3 className="font-bold text-earth-900">{region.nome}</h3>
-                <span className="text-xs font-mono text-earth-400">{region.sigla}</span>
-              </div>
-              <p className="text-xs text-earth-500 mb-3">
-                Abrange: {region.ras.join(', ')}
-              </p>
-              <p className="text-xs text-earth-500 mb-4">
-                Superintendente: {region.superintendente} · Tel: {region.telefone}
-              </p>
+      {healthRegions.map((region) => {
+        const hospitals = regionalHospitals.filter((h) => h.regionId === region.id);
+        const upas = emergencyUnits.filter((u) => u.regionId === region.id);
+        const cepavs = cepavUnits.filter((c) => c.regionId === region.id);
+        const caps = mentalHealthUnits.filter((c) => c.regionId === region.id);
+        const ubs = healthUnits.filter((u) => u.regionId === region.id);
 
-              <div className="grid sm:grid-cols-2 gap-3">
-                {hospitals.map((h) => (
-                  <div key={h.id} className="rounded-lg border border-earth-100 bg-earth-50 p-4">
-                    <div className="flex items-baseline gap-2 mb-1">
-                      <h4 className="font-semibold text-earth-900 text-sm">{h.nome}</h4>
-                      <span className="text-xs font-mono text-earth-400">{h.sigla}</span>
-                    </div>
-                    <p className="text-xs text-earth-600 mb-1">{h.endereco} — CEP {h.cep}</p>
-                    <p className="text-xs text-earth-600 mb-2">Tel: {h.telefone}</p>
-                    <div className="flex flex-wrap gap-1 mb-2">
-                      {h.servicos.slice(0, 4).map((s) => (
-                        <span key={s} className="text-[10px] px-2 py-0.5 rounded-full bg-brand-50 text-brand-700 border border-brand-100">
-                          {s}
-                        </span>
-                      ))}
-                    </div>
-                    <a
-                      href={`https://www.google.com/maps/search/?api=1&query=${h.lat},${h.lng}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs font-medium text-brand-600 hover:underline"
-                    >
-                      Ver rota no mapa →
-                    </a>
-                  </div>
-                ))}
-              </div>
+        return (
+          <div key={region.id} className="rounded-xl border border-earth-200 p-5 bg-white mb-8">
+            <div className="flex flex-wrap items-baseline gap-2 mb-1">
+              <h2 className="text-lg font-bold text-earth-900">{region.nome}</h2>
+              <span className="text-xs font-mono text-earth-400">{region.sigla}</span>
             </div>
-          );
-        })}
-      </div>
+            <p className="text-xs text-earth-500 mb-4">
+              Abrange: {region.ras.join(', ')} · Superintendente: {region.superintendente} · Tel: {region.telefone}
+            </p>
 
-      <h2 className="text-xl font-bold text-earth-900 mb-4">UBS piloto no Distrito Federal</h2>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
-        {healthUnits.map((u) => (
-          <div key={u.id} className="rounded-xl border border-earth-200 p-4 bg-white">
-            <h3 className="font-semibold text-earth-900 text-sm mb-1">{u.name}</h3>
-            <p className="text-xs text-earth-500">RA: {u.ra}</p>
+            {hospitals.length > 0 && (
+              <div className="mb-4">
+                <h3 className="text-sm font-semibold text-earth-700 mb-2">Hospitais Regionais</h3>
+                <div className="grid sm:grid-cols-2 gap-3">
+                  {hospitals.map((h) => (
+                    <div key={h.id} className="rounded-lg border border-earth-100 bg-earth-50 p-4">
+                      <div className="flex items-baseline gap-2 mb-1">
+                        <h4 className="font-semibold text-earth-900 text-sm">{h.nome}</h4>
+                        <span className="text-xs font-mono text-earth-400">{h.sigla}</span>
+                      </div>
+                      <p className="text-xs text-earth-600 mb-1">{h.endereco} — CEP {h.cep}</p>
+                      <p className="text-xs text-earth-600 mb-2">Tel: {h.telefone}</p>
+                      <a
+                        href={`https://www.google.com/maps/search/?api=1&query=${h.lat},${h.lng}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs font-medium text-brand-600 hover:underline"
+                      >
+                        Ver rota no mapa →
+                      </a>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {upas.length > 0 && (
+              <div className="mb-4">
+                <h3 className="text-sm font-semibold text-earth-700 mb-2">UPAs — Unidades de Pronto Atendimento 24h</h3>
+                <div className="grid sm:grid-cols-2 gap-3">
+                  {upas.map((u) => (
+                    <div key={u.id} className="rounded-lg border border-earth-100 bg-white p-4">
+                      <h4 className="font-semibold text-earth-900 text-sm mb-1">{u.nome}</h4>
+                      <p className="text-xs text-earth-600">
+                        {u.endereco}
+                        {u.cep ? ` — CEP ${u.cep}` : ''}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {ubs.length > 0 && (
+              <div className="mb-4">
+                <h3 className="text-sm font-semibold text-earth-700 mb-2">UBS — Unidades Básicas de Saúde</h3>
+                <div className="grid sm:grid-cols-2 gap-2">
+                  {ubs.map((u) => (
+                    <div key={u.id} className="rounded-lg border border-earth-100 bg-white p-3">
+                      <h4 className="font-semibold text-earth-900 text-xs mb-0.5">{u.name}</h4>
+                      <p className="text-[11px] text-earth-500">
+                        {u.ra} — {u.endereco}
+                        {u.cep ? ` (CEP ${u.cep})` : ''}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {caps.length > 0 && (
+              <div className="mb-4">
+                <h3 className="text-sm font-semibold text-earth-700 mb-2">CAPS — Centros de Atenção Psicossocial</h3>
+                <div className="flex flex-wrap gap-2">
+                  {caps.map((c) => (
+                    <span key={c.id} className="text-[11px] px-2 py-1 rounded-full bg-earth-50 text-earth-700 border border-earth-200">
+                      {c.nome}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {cepavs.length > 0 && (
+              <div>
+                <h3 className="text-sm font-semibold text-earth-700 mb-2">
+                  CEPAV — Atenção a Pessoas em Situação de Violência ("Flores em Rede")
+                </h3>
+                <div className="grid sm:grid-cols-2 gap-3">
+                  {cepavs.map((c) => (
+                    <div key={c.id} className="rounded-lg border border-earth-100 bg-white p-4">
+                      <h4 className="font-semibold text-earth-900 text-sm mb-1">{c.nome}</h4>
+                      <p className="text-xs text-earth-600 mb-1">{c.endereco}</p>
+                      {c.telefone && <p className="text-xs text-earth-500">Tel: {c.telefone}</p>}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        );
+      })}
+
+      <h2 className="text-xl font-bold text-earth-900 mb-4">Outros serviços da rede SES-DF</h2>
+      <div className="grid sm:grid-cols-3 gap-4 mb-12">
+        {otherHealthServices.map((s) => (
+          <div key={s.id} className="rounded-xl border border-earth-200 p-4 bg-white">
+            <h3 className="font-semibold text-earth-900 text-sm mb-1">{s.titulo}</h3>
+            <p className="text-xs text-earth-600 mb-2">{s.descricao}</p>
+            <a href={s.fonte} target="_blank" rel="noopener noreferrer" className="text-xs font-medium text-brand-600 hover:underline">
+              Fonte oficial →
+            </a>
           </div>
         ))}
       </div>
