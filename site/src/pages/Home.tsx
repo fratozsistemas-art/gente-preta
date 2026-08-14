@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { priorityThemes, emergentThemes, totalConditionsCount } from '../data/diseases';
 import { partners, hardServices, phytotherapy } from '../data/project';
 import QRLink from '../components/QRLink';
+import { LeafMark, PalhaLine, ContasRing } from '../components/Ornaments';
 
 const tickerStats = [
   '2,3x mais risco de hipertensão',
@@ -30,6 +31,7 @@ export default function Home() {
       {/* Hero — base visual V2 (cultural-ancestral): tipografia editorial serifada,
           ornamento abstrato "folha" (Ossaim) discreto no fundo. */}
       <section className="relative overflow-hidden bg-gradient-to-b from-folha-50 via-brand-50 to-white ornament-folha">
+        <ContasRing size={160} className="hidden sm:block absolute top-8 right-8 opacity-[0.15] pointer-events-none" />
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24 grid lg:grid-cols-2 gap-10 items-center relative">
           <div>
             <span className="eyebrow inline-block text-folha-700 mb-4">
@@ -121,8 +123,11 @@ export default function Home() {
         />
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
           <div className="mb-10 max-w-2xl">
-            <span className="eyebrow text-ouro-300">Folhas com ciência</span>
-            <h2 className="font-editorial italic text-2xl sm:text-3xl mt-2 mb-3">Fitoterapia com ciência.</h2>
+            <div className="flex items-center gap-2 mb-2">
+              <LeafMark size={22} color="#c9a04b" />
+              <span className="eyebrow text-ouro-300">Folhas com ciência</span>
+            </div>
+            <h2 className="font-editorial italic text-2xl sm:text-3xl mb-3">Fitoterapia com ciência.</h2>
             <p className="text-sm text-folha-100/90">
               O que a farmacologia moderna vem redescobrindo no que nossas avós já sabiam. Sem misticismo — com
               estudo, achado e contraindicação.
@@ -182,8 +187,11 @@ export default function Home() {
       <section className="bg-folha-900 text-white ornament-palha">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 flex flex-wrap items-center justify-between gap-6">
           <div>
-            <span className="eyebrow text-ouro-300">Agenda da comunidade</span>
-            <h2 className="font-editorial italic text-xl sm:text-2xl mt-1 mb-2">Rodas de conversa acontecem toda semana</h2>
+            <div className="flex items-center gap-3 mb-1">
+              <span className="eyebrow text-ouro-300">Agenda da comunidade</span>
+              <PalhaLine width={56} />
+            </div>
+            <h2 className="font-editorial italic text-xl sm:text-2xl mb-2">Rodas de conversa acontecem toda semana</h2>
             <p className="text-sm text-folha-100 max-w-xl">
               Encontros presenciais e virtuais para discutir saúde, racismo institucional e autocuidado — com
               mediação de profissionais e lideranças comunitárias.

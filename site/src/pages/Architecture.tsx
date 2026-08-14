@@ -1,10 +1,13 @@
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import architectureMd from '../content/arquitetura.md?raw';
+import DesignSystem from '../components/DesignSystem';
 
 export default function Architecture() {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-16">
+      <DesignSystem />
+      <hr className="border-earth-200 my-16" />
       <article className="prose-project [&_h1]:text-3xl [&_h1]:font-bold [&_h1]:text-earth-900 [&_h1]:mb-2
         [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-earth-900 [&_h2]:mt-10 [&_h2]:mb-4
         [&_h3]:font-bold [&_h3]:text-earth-900 [&_h3]:mt-6 [&_h3]:mb-2
