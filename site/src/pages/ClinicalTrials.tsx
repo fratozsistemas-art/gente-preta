@@ -4,7 +4,7 @@ export default function ClinicalTrials() {
       <h1 className="text-3xl font-bold text-earth-900 mb-4">Hub de Ensaios Clínicos e Direito à Pesquisa</h1>
       <p className="text-earth-600 mb-8 max-w-2xl">
         Um espaço informativo para conhecer, entender e encontrar ensaios clínicos no Brasil e no mundo — parte
-        do compromisso do Hub Gente Preta com o intercâmbio de conhecimento em saúde e com o direito da
+        do compromisso de Gente Preta com o intercâmbio de conhecimento em saúde e com o direito da
         população negra de participar ativamente da pesquisa científica.
       </p>
 
@@ -30,7 +30,7 @@ export default function ClinicalTrials() {
           </li>
         </ul>
         <p className="text-xs text-earth-500 mt-4">
-          O Hub Gente Preta não opera nem recruta para ensaios clínicos diretamente — atua apenas como ponte
+          Gente Preta não opera nem recruta para ensaios clínicos diretamente — atua apenas como ponte
           informativa e educativa, coerente com o objetivo da AECID de "intercâmbio de conhecimentos a nível
           nacional e internacional".
         </p>

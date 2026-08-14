@@ -1,4 +1,4 @@
-// Base Científica — Hub Gente Preta
+// Base Científica — Gente Preta
 // 9 categorias temáticas · 45+ condições mapeadas · formato Estudo + Achado
 
 export interface Disease {

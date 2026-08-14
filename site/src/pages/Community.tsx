@@ -6,7 +6,7 @@ export default function Community() {
       <h1 className="text-3xl font-bold text-earth-900 mb-4">Comunidade Preta de Saúde</h1>
       <p className="text-earth-600 mb-10 max-w-2xl">
         A dimensão comunitária — rodas de conversa, coletivos e ONGs parceiras — é a base de sustentação
-        social do Hub Gente Preta, uma mídia de saúde com presença comunitária constante.
+        social de Gente Preta, uma mídia de saúde com presença comunitária constante.
       </p>
 
       <div className="grid sm:grid-cols-2 gap-6 mb-12">

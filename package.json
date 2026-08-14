@@ -2,7 +2,7 @@
   "name": "gente-preta-monorepo",
   "private": true,
   "version": "1.0.0",
-  "description": "Hub Gente Preta — Site Institucional + App Sentinela. Deploy Opção A: um único domínio Cloudflare, App publicado em /app/.",
+  "description": "Gente Preta — Site Institucional + App Sentinela. Deploy Opção A: um único domínio Cloudflare, App publicado em /app/.",
   "scripts": {
     "install:site": "cd site && npm install",
     "install:app": "cd app && npm install",

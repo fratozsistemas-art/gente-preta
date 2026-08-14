@@ -113,7 +113,7 @@ export default function Profile() {
         </div>
 
         <p className="text-[11px] text-earth-400 text-center pt-4">
-          App Sentinela — Hub Gente Preta
+          App Sentinela — Gente Preta
         </p>
       </div>
     </div>

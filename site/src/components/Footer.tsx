@@ -7,7 +7,7 @@ export default function Footer() {
         <div>
           <div className="flex items-center gap-2 font-bold text-white text-base mb-3">
             <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-brand-500 text-white text-sm">GP</span>
-            Hub Gente Preta
+            <span className="font-editorial italic">Gente Preta</span>
           </div>
           <p className="text-earth-300">
             Plataforma de inteligência comunitária para equidade em saúde da população negra.
@@ -43,7 +43,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="border-t border-earth-800 py-4 text-center text-xs text-earth-400">
-        © {new Date().getFullYear()} Hub Gente Preta — AECID · SEJUS/DF · APRECIA · FEPECS · CUFA/DF · ABRADFAL · CASIO V2 Studio
+        © {new Date().getFullYear()} Gente Preta — AECID · SEJUS/DF · APRECIA · FEPECS · CUFA/DF · ABRADFAL · CASIO V2 Studio
       </div>
     </footer>
   );

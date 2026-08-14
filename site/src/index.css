@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,600;1,400;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -12,9 +14,55 @@ html {
 
 body {
   margin: 0;
-  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
 }
 
 .prose-project p, .prose-project li {
   line-height: 1.6;
+}
+
+/* ===================================================================
+   Linguagem visual "Cultural-ancestral" (V2) + serviço-duro (V3)
+   Adição não-disruptiva — camada nova de utilitários, não substitui
+   nenhuma classe/estilo existente.
+   =================================================================== */
+
+.font-editorial {
+  font-family: 'Newsreader', Georgia, serif;
+}
+
+/* Ornamento "folha" (Ossaim) — motivo abstrato/geométrico de folha,
+   usado como textura discreta de fundo, nunca figurativo. */
+.ornament-folha {
+  background-image: radial-gradient(ellipse at top left, rgba(63, 107, 74, 0.08), transparent 55%),
+    radial-gradient(ellipse at bottom right, rgba(184, 146, 63, 0.08), transparent 55%);
+}
+
+/* Ornamento "palha" (Obaluaê) — textura de linhas retas finas, abstrata. */
+.ornament-palha {
+  background-image: repeating-linear-gradient(
+    115deg,
+    rgba(194, 168, 119, 0.12) 0px,
+    rgba(194, 168, 119, 0.12) 2px,
+    transparent 2px,
+    transparent 14px
+  );
+}
+
+/* Ticker de dados (serviço-duro V3) — faixa deslizante de indicadores. */
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll 32s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track {
+    animation: none;
+  }
 }

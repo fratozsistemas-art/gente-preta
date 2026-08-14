@@ -1,4 +1,4 @@
-# Hub Gente Preta — Arquitetura Reconciliada V4
+# Gente Preta — Arquitetura Reconciliada V4
 ## Revisão integral do acervo + benchmark BlackDoctor.com + reconciliação de contradições
 
 **Data**: 09/08/2026 (v4.1 — adenda de condições da realidade brasileira contemporânea)

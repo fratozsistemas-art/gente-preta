@@ -1,11 +1,41 @@
-// Dados institucionais — Hub Gente Preta
+// Dados institucionais — Gente Preta
 
 export const projectInfo = {
-  name: 'Hub Gente Preta',
+  name: 'Gente Preta',
   subtitle: 'Sentinela de Saúde da População Negra',
   tagline: 'Conhecimento que transforma políticas. Sua saúde, sua voz, sua comunidade.',
   scope: 'Distrito Federal (piloto) — expansão nacional planejada',
 };
+
+// "Serviço-duro" — diferenciais brasileiros concretos (não apenas conteúdo editorial),
+// embutidos na Home sobre a base visual cultural-ancestral. Cada item aponta para uma
+// rota/funcionalidade REAL já existente no site/app — nenhuma página nova fictícia.
+export const hardServices = [
+  {
+    id: 'ouvidoria',
+    titulo: 'Ouvidoria antirracista',
+    descricao: 'Relate discriminação institucional em atendimento de saúde. Encaminhamento com consentimento.',
+    to: '/rede-sus',
+    ctaLabel: 'Relatar agora →',
+    tone: 'barro',
+  },
+  {
+    id: 'medica-preta',
+    titulo: 'Encontre uma médica preta',
+    descricao: 'Busca por atendimento humanizado e culturalmente competente na rede SUS e privada do DF.',
+    to: '/rede-sus',
+    ctaLabel: 'Buscar na Rede SUS →',
+    tone: 'folha',
+  },
+  {
+    id: 'guia-sus-preto',
+    titulo: 'Guia do SUS Preto',
+    descricao: 'Navegação passo a passo pela rede SUS-DF: UBS, UPAs, Hospitais Regionais e CEPAV por região.',
+    to: '/rede-sus',
+    ctaLabel: 'Ver guia completo →',
+    tone: 'ouro',
+  },
+];
 
 export const partners = {
   financiamento: [

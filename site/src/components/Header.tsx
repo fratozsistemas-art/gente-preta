@@ -18,7 +18,7 @@ export default function Header() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 font-bold text-earth-900 text-lg">
           <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-brand-600 text-white text-sm">GP</span>
-          <span className="hidden sm:inline">Hub Gente Preta</span>
+          <span className="hidden sm:inline font-editorial italic">Gente Preta</span>
         </Link>
         <nav className="hidden lg:flex items-center gap-1 text-sm">
           {navItems.map((item) => (

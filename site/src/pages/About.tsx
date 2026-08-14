@@ -4,7 +4,7 @@ export default function About() {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-16 prose-project">
       <h1 className="text-3xl font-bold text-earth-900 mb-2">Sobre o Projeto</h1>
-      <p className="text-earth-500 mb-10">Hub Gente Preta — Sentinela de Saúde da População Negra</p>
+      <p className="text-earth-500 mb-10">Gente Preta — Sentinela de Saúde da População Negra</p>
 
       <h2 className="text-xl font-bold text-earth-900 mt-10 mb-3">Visão estratégica</h2>
       <p className="text-earth-700 mb-4">
@@ -14,15 +14,15 @@ export default function About() {
         recorte racial.
       </p>
       <p className="text-earth-700 mb-4">
-        O Hub Gente Preta é uma <strong>plataforma de inteligência comunitária</strong> construída sobre uma
+        Gente Preta é uma <strong>plataforma de inteligência comunitária</strong> construída sobre uma
         arquitetura dupla: um <strong>Site Institucional</strong> (este site — conteúdo, transparência e
         comunidade) e um <strong>App Sentinela</strong> (ferramenta funcional de escuta longitudinal e navegação
         em saúde), unidos por uma terceira camada de <strong>governança e confiança</strong>.
       </p>
 
-      <h2 className="text-xl font-bold text-earth-900 mt-10 mb-3">Como o Hub é organizado</h2>
+      <h2 className="text-xl font-bold text-earth-900 mt-10 mb-3">Como o projeto é organizado</h2>
       <p className="text-earth-700 mb-4">
-        O Hub Gente Preta é construído sobre uma arquitetura de governança e confiança, informada por
+        Gente Preta é construído sobre uma arquitetura de governança e confiança, informada por
         referências internacionais de mídias e plataformas de saúde comunitária consolidadas. Para quem quer
         entender os bastidores técnicos e institucionais do projeto, publicamos um relatório de arquitetura
         completo e público.
