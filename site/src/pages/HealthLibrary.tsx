@@ -25,28 +25,26 @@ export default function HealthLibrary() {
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {cat.diseases.map((d) => (
-                <Link
-                  key={d.id}
-                  to={`/saude/${cat.id}/${d.id}`}
-                  className={`rounded-xl border p-4 hover:shadow-md transition-shadow ${
-                    d.isNew ? 'border-brand-200 bg-brand-50' : 'border-earth-200 bg-white'
-                  }`}
-                >
-                  <div className="flex items-start justify-between gap-2">
-                    <h3 className="font-semibold text-earth-900 text-sm">{d.name}</h3>
-                    {d.isPriorityTheme && (
-                      <span className="shrink-0 text-[10px] uppercase font-bold text-white bg-brand-600 px-1.5 py-0.5 rounded">
-                        Prioritário
-                      </span>
-                    )}
-                  </div>
-                  {d.isNew && (
-                    <span className="inline-block mt-2 text-[10px] uppercase font-bold text-brand-700 bg-brand-100 px-2 py-0.5 rounded-full">
-                      Tema emergente
-                    </span>
-                  )}
-                  {d.study && <p className="text-xs text-earth-500 mt-2 line-clamp-2">{d.study}</p>}
-                </Link>
+                    <Link
+                      key={d.id}
+                      to={`/saude/${cat.id}/${d.id}`}
+                      className="rounded-xl border border-earth-200 bg-white p-4 hover:shadow-md transition-shadow"
+                    >
+                      <div className="flex items-start justify-between gap-2">
+                        <h3 className="font-semibold text-earth-900 text-sm">{d.name}</h3>
+                        {d.isPriorityTheme && (
+                          <span className="shrink-0 text-[10px] uppercase font-bold text-white bg-brand-600 px-1.5 py-0.5 rounded">
+                            Prioritário
+                          </span>
+                        )}
+                        {d.isNew && (
+                          <span className="shrink-0 text-[10px] uppercase font-bold text-ouro-700 bg-palha-100 px-1.5 py-0.5 rounded">
+                            Atual
+                          </span>
+                        )}
+                      </div>
+                      {d.study && <p className="text-xs text-earth-500 mt-2 line-clamp-2">{d.study}</p>}
+                    </Link>
               ))}
             </div>
           </section>

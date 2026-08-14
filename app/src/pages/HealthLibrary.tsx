@@ -46,6 +46,11 @@ export default function HealthLibrary() {
                               Prioritário
                             </span>
                           )}
+                          {d.isNew && (
+                            <span className="text-[9px] uppercase font-bold text-ouro-700 bg-palha-100 px-1.5 py-0.5 rounded">
+                              Atual
+                            </span>
+                          )}
                         </div>
                       </Link>
                     ))}

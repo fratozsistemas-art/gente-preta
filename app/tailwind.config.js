@@ -28,6 +28,19 @@ export default {
           800: '#452718',
           900: '#2b170e',
         },
+        // Paleta ancestral-cultural (adição não-disruptiva, espelhando site/) —
+        // usada para o tratamento sóbrio dos temas emergentes ("Atual").
+        ouro: {
+          300: '#d9bd7a',
+          500: '#b8923f',
+          700: '#8f701f',
+        },
+        palha: {
+          50: '#faf6ec',
+          100: '#f0e6d0',
+          300: '#d9c49a',
+          500: '#c2a877',
+        },
       },
       fontFamily: {
         sans: ['system-ui', 'Segoe UI', 'Roboto', 'sans-serif'],

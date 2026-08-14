@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { priorityThemes, totalConditionsCount } from '../data/diseases';
+import { priorityThemes, emergentThemes, totalConditionsCount } from '../data/diseases';
 import { partners, hardServices } from '../data/project';
 import QRLink from '../components/QRLink';
 
@@ -157,19 +157,40 @@ export default function Home() {
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {priorityThemes.map((theme) => (
-            <div key={theme.id} className={`rounded-xl border p-5 ${theme.isNew ? 'border-brand-200 bg-brand-50' : 'border-earth-200 bg-white'}`}>
+            <div key={theme.id} className="rounded-xl border border-earth-200 bg-white p-5">
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-2xl">{theme.icon}</span>
-                {theme.isNew && (
-                  <span className="text-[10px] uppercase font-bold text-brand-700 bg-brand-100 px-2 py-0.5 rounded-full">
-                    Tema emergente
-                  </span>
-                )}
               </div>
               <h3 className="font-semibold text-earth-900 mb-1">{theme.name}</h3>
               <p className="text-xs text-earth-500">{theme.category}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Temas emergentes — realidade brasileira contemporânea. Seção própria,
+          separada dos 7 temas prioritários, com o mesmo tratamento visual das
+          demais seções (sem badge/cor que os destaque como "diferentes"). */}
+      <section className="bg-earth-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
+          <div className="flex items-end justify-between mb-8 flex-wrap gap-2">
+            <div>
+              <h2 className="text-2xl font-bold text-earth-900">Temas emergentes</h2>
+              <p className="text-sm text-earth-500 mt-1">Realidade brasileira contemporânea — determinantes sociais em evidência.</p>
+            </div>
+            <Link to="/saude#socioeconomica-contemporanea" className="text-brand-600 font-medium hover:underline">Ver biblioteca completa →</Link>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {emergentThemes.map((theme) => (
+              <div key={theme.id} className="rounded-xl border border-earth-200 bg-white p-5">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-2xl">{theme.icon}</span>
+                </div>
+                <h3 className="font-semibold text-earth-900 mb-1">{theme.name}</h3>
+                <p className="text-xs text-earth-500">{theme.category}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

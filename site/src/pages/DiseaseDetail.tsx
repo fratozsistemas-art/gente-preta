@@ -34,8 +34,8 @@ export default function DiseaseDetail() {
           <span className="text-xs uppercase font-bold text-white bg-brand-600 px-2 py-1 rounded">Tema prioritário do App</span>
         )}
         {disease.isNew && (
-          <span className="text-xs uppercase font-bold text-brand-700 bg-brand-100 px-2 py-1 rounded-full">
-            Tema emergente — realidade brasileira contemporânea
+          <span className="text-xs uppercase font-bold text-ouro-700 bg-palha-100 px-2 py-1 rounded">
+            Realidade brasileira contemporânea
           </span>
         )}
       </div>

@@ -26,11 +26,11 @@ export default function DiseaseDetail() {
               Tema prioritário
             </span>
           )}
-          {disease.isNew && (
-            <span className="text-[10px] uppercase font-bold text-brand-700 bg-brand-100 px-2 py-1 rounded-full">
-              Tema emergente
-            </span>
-          )}
+        {disease.isNew && (
+          <span className="text-[10px] uppercase font-bold text-ouro-700 bg-palha-100 px-2 py-1 rounded">
+            Atual
+          </span>
+        )}
         </div>
 
         {disease.study ? (

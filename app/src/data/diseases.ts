@@ -235,7 +235,6 @@ export const diseaseCategories: DiseaseCategory[] = [
       {
         id: 'ansiedade-redes-sociais',
         name: 'Ansiedade crônica por uso irresponsável de redes sociais',
-        isPriorityTheme: true,
         isNew: true,
         study:
           'UNICEF Brasil · CNN Brasil · Jornal da USP · The Conversation Brasil (2024–2025)',
@@ -245,7 +244,6 @@ export const diseaseCategories: DiseaseCategory[] = [
       {
         id: 'vicio-apostas',
         name: 'Vício em jogos de apostas online (bets)',
-        isPriorityTheme: true,
         isNew: true,
         study: 'Datafolha/Folha de S.Paulo (2024) · Alma Preta · Revista Raça · O Joio e O Trigo',
         finding:
@@ -254,7 +252,6 @@ export const diseaseCategories: DiseaseCategory[] = [
       {
         id: 'abuso-substancias-disparidade',
         name: 'Abuso de substâncias — disparidade de qualidade/pureza por classe e raça',
-        isPriorityTheme: true,
         isNew: true,
         study:
           'SENAD ("Grau de Pureza de Cocaína em Quatro Estados") · Fiocruz (levantamento nacional sobre uso de crack) · gov.br/MJ-OBID · Jornal da USP · Brasil de Fato',
@@ -264,7 +261,6 @@ export const diseaseCategories: DiseaseCategory[] = [
       {
         id: 'violencia-reativa',
         name: 'Violência como resposta reativa (déficit de educação/inteligência emocional)',
-        isPriorityTheme: true,
         isNew: true,
         study: 'Atlas da Violência 2026 (IPEA / Fórum Brasileiro de Segurança Pública)',
         finding:
@@ -273,7 +269,6 @@ export const diseaseCategories: DiseaseCategory[] = [
       {
         id: 'falta-educacao-financeira',
         name: 'Falta de educação financeira',
-        isPriorityTheme: true,
         isNew: true,
         study: 'Banco Central do Brasil — Relatório de Cidadania Financeira 2025',
         finding:
@@ -283,7 +278,15 @@ export const diseaseCategories: DiseaseCategory[] = [
   },
 ];
 
+// Os 7 temas prioritários do App — condições clássicas com parceria/evidência consolidada.
+// Mantido separado dos temas emergentes (isNew) para não inflar essa contagem curada.
 export const priorityThemes = diseaseCategories
   .flatMap((c) => c.diseases.filter((d) => d.isPriorityTheme).map((d) => ({ ...d, category: c.title, icon: c.icon })));
+
+// Temas emergentes — condições/determinantes sociais de inclusão recente (realidade
+// brasileira contemporânea). Categoria própria na Biblioteca de Saúde; não compõem os
+// 7 temas prioritários do App.
+export const emergentThemes = diseaseCategories
+  .flatMap((c) => c.diseases.filter((d) => d.isNew).map((d) => ({ ...d, category: c.title, icon: c.icon })));
 
 export const totalConditionsCount = diseaseCategories.reduce((acc, c) => acc + c.diseases.length, 0);
