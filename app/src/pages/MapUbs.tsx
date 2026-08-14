@@ -205,8 +205,8 @@ export default function MapUbs() {
         )}
 
         <div className="mt-6 rounded-xl border border-earth-200 p-4 text-xs text-earth-500">
-          Rede privada e busca por "atendimento humanizado" em construção — módulo recuperado na Arquitetura
-          Reconciliada V4 (Find a Doctor).
+          Busca por rede privada e "atendimento humanizado" em construção — em breve disponível junto com a
+          rede pública.
         </div>
       </div>
     </div>

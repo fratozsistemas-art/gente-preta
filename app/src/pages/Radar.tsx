@@ -2,8 +2,7 @@ import { useAppStore } from '../store/useAppStore';
 import TopBar from '../components/TopBar';
 
 // Sinais ilustrativos — em produção, calculados via z-score (Statistical Process Control)
-// sobre os check-ins agregados por Região Administrativa, conforme algoritmo documentado
-// em TECHNICAL_ARCHITECTURE.md e reconciliado em ARQUITETURA_RECONCILIADA_V4.md (C7).
+// sobre os check-ins agregados por Região Administrativa.
 const signals = [
   {
     id: 'sig-1',

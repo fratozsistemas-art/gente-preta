@@ -1,15 +1,11 @@
 export default function ClinicalTrials() {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-16">
-      <span className="inline-block text-xs uppercase font-bold text-brand-700 bg-brand-100 px-2 py-1 rounded-full mb-3">
-        Módulo recuperado — Arquitetura Reconciliada V4
-      </span>
       <h1 className="text-3xl font-bold text-earth-900 mb-4">Hub de Ensaios Clínicos e Direito à Pesquisa</h1>
       <p className="text-earth-600 mb-8 max-w-2xl">
-        Este módulo estava presente na ideação original do projeto (aba "Ensaios Clínicos"), foi abandonado na
-        consolidação técnica e é reativado aqui como página informativa — inspirado no{' '}
-        <strong>Clinical Trial Resource Center</strong> do BlackDoctor, um dos ativos mais valorizados do
-        benchmark internacional.
+        Um espaço informativo para conhecer, entender e encontrar ensaios clínicos no Brasil e no mundo — parte
+        do compromisso do Hub Gente Preta com o intercâmbio de conhecimento em saúde e com o direito da
+        população negra de participar ativamente da pesquisa científica.
       </p>
 
       <div className="grid sm:grid-cols-2 gap-6 mb-12">

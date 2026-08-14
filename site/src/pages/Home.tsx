@@ -82,7 +82,7 @@ export default function Home() {
                 <span className="text-2xl">{theme.icon}</span>
                 {theme.isNew && (
                   <span className="text-[10px] uppercase font-bold text-brand-700 bg-brand-100 px-2 py-0.5 rounded-full">
-                    Adenda v4.1
+                    Tema emergente
                   </span>
                 )}
               </div>

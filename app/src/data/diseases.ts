@@ -1,5 +1,4 @@
 // Base Científica — Hub Gente Preta
-// Estrutura alinhada à Arquitetura Reconciliada V4.1 (docs/ARQUITETURA_RECONCILIADA_V4.md)
 // 9 categorias temáticas · 45+ condições mapeadas · formato Estudo + Achado
 
 export interface Disease {
@@ -8,7 +7,7 @@ export interface Disease {
   isPriorityTheme?: boolean; // faz parte dos 7 temas prioritários do App
   study?: string;
   finding?: string;
-  isNew?: boolean; // condição incluída na adenda v4.1 (realidade brasileira contemporânea)
+  isNew?: boolean; // condição de inclusão recente (realidade brasileira contemporânea)
 }
 
 export interface DiseaseCategory {
@@ -162,7 +161,7 @@ export const diseaseCategories: DiseaseCategory[] = [
         isPriorityTheme: true,
         study: 'Parceria técnica ABRADFAL (Associação Brasiliense das Pessoas com Doença Falciforme)',
         finding:
-          'Doença genética com alta prevalência na população negra brasileira; incluída como tema prioritário do App (C4 da Arquitetura Reconciliada) por estar presente no questionário de campo e por conta da parceria formal com a ABRADFAL — antes ausente dos "5 temas" originais do MVP.',
+          'Doença genética com alta prevalência na população negra brasileira; tema prioritário do App em parceria formal com a ABRADFAL.',
       },
       {
         id: 'lupus',
@@ -230,7 +229,7 @@ export const diseaseCategories: DiseaseCategory[] = [
   {
     id: 'socioeconomica-contemporanea',
     title: 'Saúde Mental e Socioeconômica Contemporânea',
-    subtitle: 'Risco ↑ + Determinantes Sociais — Adenda v4.1',
+    subtitle: 'Risco ↑ + Determinantes Sociais',
     icon: '📱',
     diseases: [
       {

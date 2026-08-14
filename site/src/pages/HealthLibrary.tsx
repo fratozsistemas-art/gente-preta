@@ -42,7 +42,7 @@ export default function HealthLibrary() {
                   </div>
                   {d.isNew && (
                     <span className="inline-block mt-2 text-[10px] uppercase font-bold text-brand-700 bg-brand-100 px-2 py-0.5 rounded-full">
-                      Adenda v4.1
+                      Tema emergente
                     </span>
                   )}
                   {d.study && <p className="text-xs text-earth-500 mt-2 line-clamp-2">{d.study}</p>}

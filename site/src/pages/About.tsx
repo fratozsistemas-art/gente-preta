@@ -20,19 +20,15 @@ export default function About() {
         em saúde), unidos por uma terceira camada de <strong>governança e confiança</strong>.
       </p>
 
-      <h2 className="text-xl font-bold text-earth-900 mt-10 mb-3">Arquitetura reconciliada (V4.1)</h2>
+      <h2 className="text-xl font-bold text-earth-900 mt-10 mb-3">Como o Hub é organizado</h2>
       <p className="text-earth-700 mb-4">
-        O desenho atual do projeto resulta de uma revisão integral de todo o acervo histórico — chats de origem,
-        formulário oficial da AECID, ideação original de 9 abas, instrumentos de campo, base científica e
-        consolidação técnica — cruzado com o benchmark internacional{' '}
-        <a href="https://blackdoctor.com" target="_blank" rel="noopener noreferrer" className="text-brand-600 hover:underline">
-          BlackDoctor.com/.org
-        </a>{' '}
-        (20 anos de atuação, 6M de visitas/mês). Esse processo identificou 8 contradições entre documentos e 4
-        módulos que haviam sido abandonados silenciosamente — todos reincorporados na arquitetura atual.
+        O Hub Gente Preta é construído sobre uma arquitetura de governança e confiança, informada por
+        referências internacionais de mídias e plataformas de saúde comunitária consolidadas. Para quem quer
+        entender os bastidores técnicos e institucionais do projeto, publicamos um relatório de arquitetura
+        completo e público.
       </p>
       <a href="/arquitetura" className="inline-block text-brand-600 font-medium hover:underline mb-8">
-        Ler a Arquitetura Reconciliada V4.1 completa →
+        Ler o relatório de arquitetura completo →
       </a>
 
       <h2 className="text-xl font-bold text-earth-900 mt-10 mb-4">Roadmap</h2>

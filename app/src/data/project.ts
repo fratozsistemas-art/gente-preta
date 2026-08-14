@@ -1,5 +1,4 @@
 // Dados institucionais — Hub Gente Preta
-// Fonte: README, MASTER_NARRATIVE, DUAL_PLATFORM_STRATEGY, ARQUITETURA_RECONCILIADA_V4.md
 
 export const projectInfo = {
   name: 'Hub Gente Preta',
@@ -17,6 +16,7 @@ export const partners = {
   ],
   execucao: [
     { name: 'APRECIA', full: 'Associação Pró Educação, Cultura, Inclusão e Autonomia', role: 'Execução do projeto' },
+    { name: 'CASIO V2 Studio', full: 'CASIO V2 Studio', role: 'Coordenação técnica e desenvolvimento' },
   ],
   academico: [
     { name: 'FEPECS', full: 'Fundação de Ensino e Pesquisa em Ciências da Saúde', role: 'Capacitação de 100 estudantes (AVA)' },
@@ -49,7 +49,7 @@ export const governance = {
   ],
   conselhoConsultivo: {
     note:
-      'Substitui a assinatura fictícia de IA ("CASIO v10.0") identificada na Arquitetura Reconciliada V4 (contradição C3). Inspirado no Medical Advisory Board público do BlackDoctor — credibilidade vem de pessoas nomeadas e auditáveis.',
+      'Formado por profissionais nomeados das instituições parceiras e pelo DPO do projeto — credibilidade vem de pessoas identificáveis e auditáveis publicamente, seguindo referências internacionais de conselhos consultivos de saúde comunitária.',
     members: [
       { name: 'A definir', institution: 'FEPECS', area: 'Ensino em Saúde' },
       { name: 'A definir', institution: 'UnB', area: 'Pesquisa Acadêmica' },
@@ -58,6 +58,11 @@ export const governance = {
     ],
   },
 };
+
+// Nota de referência internacional — usada como footnote sempre que o corpo do texto
+// mencionar "referências internacionais" em vez de citar diretamente um benchmark específico.
+export const internationalReferencesNote =
+  'Referência internacional: BlackDoctor.com/.org (EUA) — mídia de saúde com 20 anos de atuação e 6M de visitas/mês, referência em confiança comunitária e storytelling em saúde.';
 
 export const lgpdConsentLevels = [
   { level: 1, name: 'Uso do app', required: true, desc: 'Obrigatório para utilizar as funcionalidades básicas.' },

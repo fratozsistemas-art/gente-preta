@@ -1,14 +1,15 @@
-import { governance, lgpdConsentLevels, dataDomains } from '../data/project';
+import { governance, lgpdConsentLevels, dataDomains, internationalReferencesNote } from '../data/project';
 
 export default function Transparency() {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-16">
       <h1 className="text-3xl font-bold text-earth-900 mb-4">Transparência e Governança</h1>
-      <p className="text-earth-600 mb-12 max-w-2xl">
-        Seguindo a lição central do benchmark BlackDoctor — <strong>confiança acima de sofisticação técnica</strong> —
-        esta página documenta de forma pública quem decide, como os dados são tratados e quais consentimentos
-        regem o uso do App Sentinela.
+      <p className="text-earth-600 mb-2 max-w-2xl">
+        Seguindo referências internacionais de mídias de saúde comunitária<sup className="text-brand-600">[1]</sup> —{' '}
+        <strong>confiança acima de sofisticação técnica</strong> — esta página documenta de forma pública quem
+        decide, como os dados são tratados e quais consentimentos regem o uso do App Sentinela.
       </p>
+      <p className="text-xs text-earth-400 mb-12 max-w-2xl">[1] {internationalReferencesNote}</p>
 
       <h2 className="text-xl font-bold text-earth-900 mb-4">Conselho Consultivo</h2>
       <p className="text-sm text-earth-600 mb-4">{governance.conselhoConsultivo.note}</p>
@@ -52,8 +53,8 @@ export default function Transparency() {
 
       <h2 className="text-xl font-bold text-earth-900 mb-4">Três domínios de dados separados</h2>
       <p className="text-sm text-earth-600 mb-4">
-        Reconciliação da contradição C6: pesquisa anônima, conteúdo público e triagem clínica identificável não
-        são mais tratados sob um único modelo de dados.
+        Pesquisa anônima, conteúdo público e triagem clínica identificável são tratados como domínios de dados
+        distintos, cada um com sua própria base de consentimento e regras de retenção.
       </p>
       <div className="grid sm:grid-cols-3 gap-4 mb-12">
         {dataDomains.map((d) => (
@@ -76,9 +77,9 @@ export default function Transparency() {
       <div className="rounded-xl border border-brand-200 bg-brand-50 p-6">
         <h2 className="font-bold text-earth-900 mb-2">Política de métricas</h2>
         <p className="text-sm text-earth-700">
-          Reconciliação da contradição C2 da Arquitetura V4: números de tração (usuários, ativação, retenção)
-          são tratados como <strong>metas de projeção</strong>, nunca como resultado já obtido, até que existam
-          dados reais de piloto de campo validados pelo Comitê de Ética.
+          Números de tração (usuários, ativação, retenção) são tratados como <strong>metas de projeção</strong>,
+          nunca como resultado já obtido, até que existam dados reais de piloto de campo validados pelo Comitê
+          de Ética.
         </p>
       </div>
     </div>

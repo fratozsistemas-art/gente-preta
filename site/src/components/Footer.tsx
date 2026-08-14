@@ -28,7 +28,7 @@ export default function Footer() {
           <ul className="space-y-2 text-earth-300">
             <li><Link to="/sobre" className="hover:text-white">Sobre o Projeto</Link></li>
             <li><Link to="/transparencia" className="hover:text-white">Transparência e Governança</Link></li>
-            <li><Link to="/arquitetura" className="hover:text-white">Arquitetura Reconciliada V4</Link></li>
+            <li><Link to="/arquitetura" className="hover:text-white">Relatório de Arquitetura</Link></li>
           </ul>
         </div>
         <div>
@@ -43,7 +43,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="border-t border-earth-800 py-4 text-center text-xs text-earth-400">
-        © {new Date().getFullYear()} Hub Gente Preta — AECID · SEJUS/DF · APRECIA · FEPECS · CUFA/DF · ABRADFAL
+        © {new Date().getFullYear()} Hub Gente Preta — AECID · SEJUS/DF · APRECIA · FEPECS · CUFA/DF · ABRADFAL · CASIO V2 Studio
       </div>
     </footer>
   );

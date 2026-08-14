@@ -35,7 +35,7 @@ export default function DiseaseDetail() {
         )}
         {disease.isNew && (
           <span className="text-xs uppercase font-bold text-brand-700 bg-brand-100 px-2 py-1 rounded-full">
-            Adenda v4.1 — realidade brasileira contemporânea
+            Tema emergente — realidade brasileira contemporânea
           </span>
         )}
       </div>

@@ -26,7 +26,7 @@ export default function ReportDiscrimination() {
           <h2 className="font-bold text-earth-900 text-lg mb-2">Relato registrado</h2>
           <p className="text-sm text-earth-600 mb-8">
             {wantsFollowUp
-              ? 'Seu relato foi encaminhado com consentimento para acompanhamento institucional (canal de encaminhamento real, reconciliação C4 da Arquitetura V4).'
+              ? 'Seu relato foi encaminhado com consentimento para acompanhamento institucional.'
               : 'Seu relato foi registrado de forma anônima e contribui para os dados agregados de discriminação institucional por UBS.'}
           </p>
           <button onClick={() => navigate('/')} className="w-full rounded-xl bg-brand-600 text-white font-semibold py-3">

@@ -19,15 +19,10 @@ const stories = [
 export default function Memory() {
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-16">
-      <span className="inline-block text-xs uppercase font-bold text-brand-700 bg-brand-100 px-2 py-1 rounded-full mb-3">
-        Módulo recuperado — inspirado no "Generational Health" (BlackDoctor, 2025)
-      </span>
       <h1 className="text-3xl font-bold text-earth-900 mb-4">Memória e Herança de Saúde</h1>
       <p className="text-earth-600 mb-10 max-w-2xl">
-        Este módulo recupera três abas abandonadas na ideação original — <strong>"Homenagens e Histórias"</strong>,{' '}
-        <strong>"Saúde Geracional"</strong> e <strong>"Hall da Fama"</strong> — reunidas em um único espaço de
-        storytelling que liga ciência a herança cultural e histórias de família, seguindo diretamente a lição
-        de maior retorno identificada no benchmark BlackDoctor.
+        Um espaço de storytelling que liga ciência a herança cultural e histórias de família — homenagens,
+        saúde geracional e trajetórias de superação da comunidade negra em saúde.
       </p>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
