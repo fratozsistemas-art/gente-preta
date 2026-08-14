@@ -30,35 +30,50 @@ export default {
         },
         // Paleta ancestral-cultural (adição não-disruptiva — não substitui brand/earth,
         // usada em elementos editoriais/ancestrais e no serviço-duro embutido na home).
+        // Recalibrada a partir da referência de design "Ìlera" (V2/V3, cores em oklch()
+        // com equivalência hex documentada) para maior precisão cromática, mantendo a
+        // estrutura numérica de shades já usada no código (sem quebrar classes existentes).
         folha: {
           50: '#eef4ec',
           100: '#d7e6d1',
-          300: '#8fae87',
-          500: '#3f6b4a',
-          700: '#25452e',
-          900: '#1f3d2b', // folha profundo
+          300: '#a4c3af', // folha-soft (ref. Ìlera)
+          500: '#3d6e51', // folha (ref. Ìlera)
+          700: '#2c4f3c',
+          900: '#213d34', // folha-deep (ref. Ìlera)
+          deep: '#213d34',
+          soft: '#a4c3af',
         },
         ouro: {
-          300: '#d9bd7a',
-          500: '#b8923f', // ouro sóbrio
-          700: '#8f701f',
+          300: '#e0c589',
+          500: '#c9a04b', // ouro (ref. Ìlera)
+          700: '#957237', // ouro-deep (ref. Ìlera)
+          deep: '#957237',
         },
         palha: {
-          50: '#faf6ec',
-          100: '#f0e6d0',
-          300: '#d9c49a', // palha
+          50: '#f7f4ec',
+          100: '#f4f0e6', // palha (ref. Ìlera) — background editorial padrão
+          300: '#e5dcc9', // palha-deep (ref. Ìlera)
           500: '#c2a877',
+          deep: '#e5dcc9',
         },
         barro: {
           100: '#f1ded3',
           300: '#c98a63',
-          500: '#a3532f', // barro — usado na Ouvidoria/serviço de denúncia
+          500: '#94533a', // barro (ref. Ìlera) — USO RESTRITO: ouvidoria/denúncia/alerta
           700: '#6b3620',
         },
+        // Novos tokens da referência Ìlera (adição pura, sem uso prévio no código —
+        // disponíveis para tratamento editorial: texto primário/secundário e divisores).
+        tinta: {
+          DEFAULT: '#2a2d2b',
+          dim: '#5c605c',
+        },
+        linha: '#dcd6c9',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'Segoe UI', 'Roboto', 'sans-serif'],
         serif: ['Newsreader', 'Georgia', 'serif'],
+        mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
       },
     },
   },

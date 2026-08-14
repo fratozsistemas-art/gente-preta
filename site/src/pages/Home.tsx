@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { priorityThemes, emergentThemes, totalConditionsCount } from '../data/diseases';
-import { partners, hardServices } from '../data/project';
+import { partners, hardServices, phytotherapy } from '../data/project';
 import QRLink from '../components/QRLink';
 
 const tickerStats = [
@@ -32,8 +32,8 @@ export default function Home() {
       <section className="relative overflow-hidden bg-gradient-to-b from-folha-50 via-brand-50 to-white ornament-folha">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24 grid lg:grid-cols-2 gap-10 items-center relative">
           <div>
-            <span className="inline-block rounded-full bg-brand-100 text-brand-700 text-xs font-semibold px-3 py-1 mb-4">
-              Sentinela de Saúde da População Negra
+            <span className="eyebrow inline-block text-folha-700 mb-4">
+              Sentinela de saúde da população negra
             </span>
             <h1 className="font-editorial italic text-4xl sm:text-5xl lg:text-[3.4rem] font-medium text-earth-900 leading-tight mb-6">
               Conhecimento que transforma <span className="text-brand-600 not-italic font-bold">políticas</span>.
@@ -86,7 +86,8 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
           <div className="flex items-end justify-between mb-8 flex-wrap gap-2">
             <div>
-              <h2 className="font-editorial italic text-2xl sm:text-3xl text-earth-900">Folhas de Gente Preta</h2>
+              <span className="eyebrow text-folha-700">Serviço, não só conteúdo</span>
+              <h2 className="font-editorial italic text-2xl sm:text-3xl text-earth-900 mt-1">Folhas de Gente Preta</h2>
               <p className="text-sm text-earth-500 mt-1">Serviços concretos, não apenas conteúdo — direito à saúde na prática.</p>
             </div>
           </div>
@@ -106,11 +107,57 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Folhas com Ciência — coluna de fitoterapia popular com evidência, inspirada
+          na seção "Folhas de Ossaim" da referência de design Ìlera (V2 cultural-ancestral):
+          fundo folha profundo, borda superior listrada em ouro, sem misticismo — apenas
+          estudo, achado e alerta de segurança por planta. */}
+      <section className="bg-folha-900 text-palha-100 relative">
+        <div
+          className="h-[3px] w-full"
+          style={{
+            backgroundImage:
+              'repeating-linear-gradient(90deg, #c9a04b 0 12px, transparent 12px 20px)',
+          }}
+        />
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
+          <div className="mb-10 max-w-2xl">
+            <span className="eyebrow text-ouro-300">Folhas com ciência</span>
+            <h2 className="font-editorial italic text-2xl sm:text-3xl mt-2 mb-3">Fitoterapia com ciência.</h2>
+            <p className="text-sm text-folha-100/90">
+              O que a farmacologia moderna vem redescobrindo no que nossas avós já sabiam. Sem misticismo — com
+              estudo, achado e contraindicação.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-3 gap-6">
+            {phytotherapy.map((p) => (
+              <div key={p.id} className="border-t border-ouro-500 pt-4">
+                <h3 className="font-editorial text-lg mb-0.5">{p.name}</h3>
+                <p className="text-xs italic text-ouro-300 mb-3">{p.scientificName}</p>
+                <p className="text-sm text-folha-100/95 mb-3">{p.finding}</p>
+                <p className="text-xs text-folha-100/70 mb-3">
+                  <span className="eyebrow text-ouro-300/90">Fonte</span>
+                  <br />
+                  {p.study}
+                </p>
+                <p className="text-xs text-palha-100 bg-barro-500/25 border border-barro-500/40 rounded px-2 py-1.5">
+                  <strong>Atenção:</strong> {p.caution}
+                </p>
+              </div>
+            ))}
+          </div>
+          <p className="text-[11px] text-folha-100/60 mt-8 max-w-2xl">
+            Conteúdo educativo, não substitui avaliação médica. Sempre informe seu médico ou farmacêutico sobre
+            o uso de plantas medicinais, especialmente se estiver em tratamento com outros medicamentos.
+          </p>
+        </div>
+      </section>
+
       {/* O Problema */}
       <section className="bg-earth-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 grid lg:grid-cols-2 gap-10">
           <div>
-            <h2 className="text-2xl font-bold text-earth-900 mb-4">O problema</h2>
+            <span className="eyebrow text-barro-500">Diagnóstico</span>
+            <h2 className="text-2xl font-bold text-earth-900 mt-1 mb-4">O problema</h2>
             <ul className="space-y-3 text-earth-700">
               <li>• <strong>2,3x maior risco</strong> de hipertensão em relação à população branca</li>
               <li>• <strong>60% de subdiagnóstico</strong> devido a racismo institucional</li>
@@ -119,7 +166,8 @@ export default function Home() {
             </ul>
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-earth-900 mb-4">A solução</h2>
+            <span className="eyebrow text-folha-700">Resposta</span>
+            <h2 className="text-2xl font-bold text-earth-900 mt-1 mb-4">A solução</h2>
             <ul className="space-y-3 text-earth-700">
               <li>• <strong>Escuta longitudinal</strong> — check-ins de 1-3 minutos</li>
               <li>• <strong>Navegação em saúde</strong> — UBS + rede privada + atendimento humanizado</li>
@@ -134,7 +182,8 @@ export default function Home() {
       <section className="bg-folha-900 text-white ornament-palha">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 flex flex-wrap items-center justify-between gap-6">
           <div>
-            <h2 className="font-editorial italic text-xl sm:text-2xl mb-2">Rodas de conversa acontecem toda semana</h2>
+            <span className="eyebrow text-ouro-300">Agenda da comunidade</span>
+            <h2 className="font-editorial italic text-xl sm:text-2xl mt-1 mb-2">Rodas de conversa acontecem toda semana</h2>
             <p className="text-sm text-folha-100 max-w-xl">
               Encontros presenciais e virtuais para discutir saúde, racismo institucional e autocuidado — com
               mediação de profissionais e lideranças comunitárias.
@@ -152,7 +201,10 @@ export default function Home() {
       {/* 7 temas prioritários */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
         <div className="flex items-end justify-between mb-8 flex-wrap gap-2">
-          <h2 className="text-2xl font-bold text-earth-900">7 temas prioritários</h2>
+          <div>
+            <span className="eyebrow text-brand-600">Base científica</span>
+            <h2 className="text-2xl font-bold text-earth-900 mt-1">7 temas prioritários</h2>
+          </div>
           <Link to="/saude" className="text-brand-600 font-medium hover:underline">Ver biblioteca completa →</Link>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -175,8 +227,9 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
           <div className="flex items-end justify-between mb-8 flex-wrap gap-2">
             <div>
-              <h2 className="text-2xl font-bold text-earth-900">Temas emergentes</h2>
-              <p className="text-sm text-earth-500 mt-1">Realidade brasileira contemporânea — determinantes sociais em evidência.</p>
+              <span className="eyebrow text-ouro-700">Realidade brasileira contemporânea</span>
+              <h2 className="text-2xl font-bold text-earth-900 mt-1">Temas emergentes</h2>
+              <p className="text-sm text-earth-500 mt-1">Determinantes sociais em evidência.</p>
             </div>
             <Link to="/saude#socioeconomica-contemporanea" className="text-brand-600 font-medium hover:underline">Ver biblioteca completa →</Link>
           </div>

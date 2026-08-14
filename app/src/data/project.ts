@@ -37,6 +37,41 @@ export const hardServices = [
   },
 ];
 
+// "Folhas com Ciência" — coluna de fitoterapia popular com evidência científica
+// (espelha site/src/data/project.ts — ver comentário lá para contexto completo).
+export const phytotherapy = [
+  {
+    id: 'picao-preto',
+    name: 'Picão-preto',
+    scientificName: 'Bidens pilosa',
+    study: 'Estudo em modelo com formulação de Bidens pilosa (PMC4381681); Monografia técnica gov.br/Anvisa (uso tradicional)',
+    finding:
+      'Uso tradicional para diabetes, hipertensão e doenças hepáticas. Formulações à base da planta melhoraram marcadores glicêmicos (glicemia de jejum e HbA1c) em estudos com animais/modelos in vitro.',
+    caution:
+      'Evidência em humanos ainda é preliminar (majoritariamente pré-clínica). Pode potencializar hipoglicemiantes — atenção redobrada para quem já usa insulina ou outros medicamentos para diabetes.',
+  },
+  {
+    id: 'boldo-brasileiro',
+    name: 'Boldo brasileiro',
+    scientificName: 'Plectranthus barbatus',
+    study: 'Monografia técnica de plantas medicinais (SES-DF); Revista Brasileira de Farmacognosia (SciELO) — relato de interação com warfarina',
+    finding:
+      'Uso tradicional hepatoprotetor e digestivo, com efeito cardiovascular (inotrópico) documentado. Amplamente citado na medicina popular para distúrbios hepáticos e gástricos.',
+    caution:
+      'Interage com anticoagulantes: caso publicado mostrou redução do efeito da warfarina durante o uso concomitante, normalizado após suspensão da planta. Não usar sem orientação profissional se estiver em anticoagulação.',
+  },
+  {
+    id: 'folha-santa',
+    name: 'Folha-santa',
+    scientificName: 'Kalanchoe pinnata',
+    study: 'PubMed PMID 30856538 (atividade anti-inflamatória tópica); relatos de uso oral em leishmaniose cutânea',
+    finding:
+      'Formulações tópicas com a planta demonstraram atividade anti-inflamatória local em estudo publicado. Uso popular é predominantemente externo (cataplasma, sumo tópico).',
+    caution:
+      'Uso oral só com orientação profissional: flavonoides da planta têm ação sobre a tireoide e o uso interno não deve substituir avaliação médica, especialmente em quadros de hipotireoidismo.',
+  },
+];
+
 export const partners = {
   financiamento: [
     { name: 'AECID', full: 'Agência Espanhola de Cooperação Internacional para o Desenvolvimento', value: '€ 235.152,41', role: 'Financiador principal (24 meses)' },

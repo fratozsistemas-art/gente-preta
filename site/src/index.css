@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,600;1,400;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,600;1,400;1,500;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -29,6 +29,14 @@ body {
 
 .font-editorial {
   font-family: 'Newsreader', Georgia, serif;
+}
+
+/* Eyebrow / metadata editorial — mono, caps, tracked (ref. Ìlera V2/V3). */
+.eyebrow {
+  font-family: '"JetBrains Mono"', ui-monospace, 'SF Mono', Menlo, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.6875rem;
 }
 
 /* Ornamento "folha" (Ossaim) — motivo abstrato/geométrico de folha,
