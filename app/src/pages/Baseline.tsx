@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppStore } from '../store/useAppStore';
 import { priorityThemes } from '../data/diseases';
-import { healthUnits } from '../data/project';
+import { dfAdministrativeRegions, rideEntornoMunicipalities } from '../data/project';
+import { fetchAddressByCep, formatCep, isValidCepFormat } from '../lib/viacep';
 import TopBar from '../components/TopBar';
 
 const STEPS = ['perfil', 'saude', 'acesso', 'discriminacao'] as const;
@@ -18,6 +19,13 @@ export default function Baseline() {
   const [education, setEducation] = useState('');
   const [income, setIncome] = useState('');
   const [ra, setRa] = useState('');
+  const [cep, setCep] = useState('');
+  const [logradouro, setLogradouro] = useState('');
+  const [bairro, setBairro] = useState('');
+  const [cidade, setCidade] = useState('');
+  const [uf, setUf] = useState('');
+  const [cepStatus, setCepStatus] = useState<'idle' | 'loading' | 'ok' | 'error'>('idle');
+  const [cepError, setCepError] = useState('');
   const [conditions, setConditions] = useState<string[]>([]);
   const [usesUbs, setUsesUbs] = useState('');
   const [accessBarriers, setAccessBarriers] = useState('');
@@ -25,6 +33,33 @@ export default function Baseline() {
 
   function toggleCondition(id: string) {
     setConditions((c) => (c.includes(id) ? c.filter((x) => x !== id) : [...c, id]));
+  }
+
+  async function handleCepChange(value: string) {
+    const formatted = formatCep(value);
+    setCep(formatted);
+    setCepStatus('idle');
+    setCepError('');
+
+    if (!isValidCepFormat(formatted)) return;
+
+    setCepStatus('loading');
+    const result = await fetchAddressByCep(formatted);
+    if (result.ok && result.address) {
+      setLogradouro(result.address.logradouro);
+      setBairro(result.address.bairro);
+      setCidade(result.address.localidade);
+      setUf(result.address.uf);
+      // Se a cidade retornada pelos Correios for uma RA/município já mapeado, pré-seleciona no campo RA.
+      const matchedRa = [...dfAdministrativeRegions, ...rideEntornoMunicipalities.map((m) => m.nome)].find(
+        (opt) => opt.toLowerCase().includes(result.address!.localidade.toLowerCase())
+      );
+      if (matchedRa && !ra) setRa(matchedRa);
+      setCepStatus('ok');
+    } else {
+      setCepStatus('error');
+      setCepError(result.errorMessage || 'CEP não encontrado.');
+    }
   }
 
   function next() {
@@ -37,6 +72,11 @@ export default function Baseline() {
         education,
         income,
         ra,
+        cep: cep || undefined,
+        logradouro: logradouro || undefined,
+        bairro: bairro || undefined,
+        cidade: cidade || undefined,
+        uf: uf || undefined,
         conditions,
         usesUbs,
         accessBarriers,
@@ -72,8 +112,62 @@ export default function Baseline() {
             <Field label="Renda familiar (salários mínimos)">
               <Select value={income} onChange={setIncome} options={['Até 1', '1-2', '2-4', '4-10', 'Acima de 10']} />
             </Field>
-            <Field label="Região Administrativa (DF)">
-              <Select value={ra} onChange={setRa} options={Array.from(new Set(healthUnits.map((u) => u.ra)))} />
+            <Field label="CEP (opcional — preenche o endereço automaticamente)">
+              <input
+                value={cep}
+                onChange={(e) => handleCepChange(e.target.value)}
+                placeholder="00000-000"
+                inputMode="numeric"
+                maxLength={9}
+                className="w-full rounded-lg border border-earth-200 p-3 text-sm bg-white"
+              />
+              {cepStatus === 'loading' && (
+                <p className="text-xs text-earth-400 mt-1">Consultando endereço nos Correios (ViaCEP)...</p>
+              )}
+              {cepStatus === 'ok' && (
+                <p className="text-xs text-brand-600 mt-1">
+                  Endereço encontrado: {logradouro}{bairro ? `, ${bairro}` : ''} — {cidade}/{uf}
+                </p>
+              )}
+              {cepStatus === 'error' && <p className="text-xs text-red-600 mt-1">{cepError}</p>}
+            </Field>
+
+            {(logradouro || bairro || cidade) && (
+              <Field label="Endereço encontrado (edite se necessário)">
+                <div className="space-y-2">
+                  <input
+                    value={logradouro}
+                    onChange={(e) => setLogradouro(e.target.value)}
+                    placeholder="Logradouro"
+                    className="w-full rounded-lg border border-earth-200 p-3 text-sm bg-white"
+                  />
+                  <div className="grid grid-cols-2 gap-2">
+                    <input
+                      value={bairro}
+                      onChange={(e) => setBairro(e.target.value)}
+                      placeholder="Bairro"
+                      className="w-full rounded-lg border border-earth-200 p-3 text-sm bg-white"
+                    />
+                    <input
+                      value={cidade}
+                      onChange={(e) => setCidade(e.target.value)}
+                      placeholder="Cidade"
+                      className="w-full rounded-lg border border-earth-200 p-3 text-sm bg-white"
+                    />
+                  </div>
+                </div>
+              </Field>
+            )}
+
+            <Field label="Região Administrativa (DF) ou município do Entorno/RIDE">
+              <GroupedSelect
+                value={ra}
+                onChange={setRa}
+                groups={[
+                  { label: 'Distrito Federal (Regiões Administrativas)', options: dfAdministrativeRegions },
+                  { label: 'Entorno / RIDE-DF', options: rideEntornoMunicipalities.map((m) => `${m.nome} (${m.uf})`) },
+                ]}
+              />
             </Field>
           </Section>
         )}
@@ -193,6 +287,33 @@ function Select({ value, onChange, options }: { value: string; onChange: (v: str
       <option value="">Selecione...</option>
       {options.map((o) => (
         <option key={o} value={o}>{o}</option>
+      ))}
+    </select>
+  );
+}
+
+function GroupedSelect({
+  value,
+  onChange,
+  groups,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  groups: { label: string; options: string[] }[];
+}) {
+  return (
+    <select
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      className="w-full rounded-lg border border-earth-200 p-3 text-sm bg-white"
+    >
+      <option value="">Selecione...</option>
+      {groups.map((g) => (
+        <optgroup key={g.label} label={g.label}>
+          {g.options.map((o) => (
+            <option key={o} value={o}>{o}</option>
+          ))}
+        </optgroup>
       ))}
     </select>
   );

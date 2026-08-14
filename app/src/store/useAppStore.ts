@@ -14,7 +14,12 @@ export interface BaselineData {
   age?: string;
   education?: string;
   income?: string;
-  ra?: string; // Região Administrativa (DF)
+  ra?: string; // Região Administrativa (DF) ou município da RIDE/Entorno
+  cep?: string;
+  logradouro?: string;
+  bairro?: string;
+  cidade?: string;
+  uf?: string;
   conditions: string[]; // ids das condições autodeclaradas
   usesUbs?: string;
   accessBarriers?: string;

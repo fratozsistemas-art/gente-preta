@@ -158,6 +158,66 @@ export const healthRegions = [
   },
 ];
 
+// As 35 Regiões Administrativas (RAs) oficiais do Distrito Federal — Fonte: Lei 4.545/1964 e leis de
+// criação posteriores (últimas: Lei 7.190/2022 — Arapoanga; Lei 7.191/2022 — Água Quente).
+// Uso: dropdowns de localização no App Sentinela (Questionário de linha de base, Relato de discriminação).
+export const dfAdministrativeRegions = [
+  'Plano Piloto', 'Gama', 'Taguatinga', 'Brazlândia', 'Sobradinho', 'Planaltina', 'Paranoá',
+  'Núcleo Bandeirante', 'Ceilândia', 'Guará', 'Cruzeiro', 'Samambaia', 'Santa Maria', 'São Sebastião',
+  'Recanto das Emas', 'Lago Sul', 'Riacho Fundo', 'Lago Norte', 'Candangolândia', 'Águas Claras',
+  'Riacho Fundo II', 'Sudoeste/Octogonal', 'Varjão', 'Park Way', 'SCIA/Estrutural', 'Sobradinho II',
+  'Jardim Botânico', 'Itapoã', 'SIA', 'Vicente Pires', 'Fercal', 'Sol Nascente/Pôr do Sol', 'Arniqueira',
+  'Arapoanga', 'Água Quente',
+];
+
+// Municípios da RIDE-DF (Região Integrada de Desenvolvimento do Distrito Federal e Entorno) — 33 municípios
+// além do DF, conforme Lei Complementar 94/1998 e Lei Complementar 163/2018. Fonte: Palácio do Planalto /
+// pt.wikipedia.org/wiki/Região_Integrada_de_Desenvolvimento_do_Distrito_Federal_e_Entorno (consultado 2026).
+export const rideEntornoMunicipalities = [
+  { nome: 'Abadiânia', uf: 'GO' },
+  { nome: 'Água Fria de Goiás', uf: 'GO' },
+  { nome: 'Águas Lindas de Goiás', uf: 'GO' },
+  { nome: 'Alexânia', uf: 'GO' },
+  { nome: 'Alto Paraíso de Goiás', uf: 'GO' },
+  { nome: 'Alvorada do Norte', uf: 'GO' },
+  { nome: 'Barro Alto', uf: 'GO' },
+  { nome: 'Cabeceiras', uf: 'GO' },
+  { nome: 'Cavalcante', uf: 'GO' },
+  { nome: 'Cidade Ocidental', uf: 'GO' },
+  { nome: 'Cocalzinho de Goiás', uf: 'GO' },
+  { nome: 'Corumbá de Goiás', uf: 'GO' },
+  { nome: 'Cristalina', uf: 'GO' },
+  { nome: 'Flores de Goiás', uf: 'GO' },
+  { nome: 'Formosa', uf: 'GO' },
+  { nome: 'Goianésia', uf: 'GO' },
+  { nome: 'Luziânia', uf: 'GO' },
+  { nome: 'Mimoso de Goiás', uf: 'GO' },
+  { nome: 'Niquelândia', uf: 'GO' },
+  { nome: 'Novo Gama', uf: 'GO' },
+  { nome: 'Padre Bernardo', uf: 'GO' },
+  { nome: 'Pirenópolis', uf: 'GO' },
+  { nome: 'Planaltina (GO)', uf: 'GO' },
+  { nome: 'Santo Antônio do Descoberto', uf: 'GO' },
+  { nome: 'São João d’Aliança', uf: 'GO' },
+  { nome: 'Simolândia', uf: 'GO' },
+  { nome: 'Valparaíso de Goiás', uf: 'GO' },
+  { nome: 'Vila Boa', uf: 'GO' },
+  { nome: 'Vila Propício', uf: 'GO' },
+  { nome: 'Arinos', uf: 'MG' },
+  { nome: 'Buritis', uf: 'MG' },
+  { nome: 'Cabeceira Grande', uf: 'MG' },
+  { nome: 'Unaí', uf: 'MG' },
+];
+
+// Lista combinada e ordenada para uso direto em dropdowns: 35 RAs do DF + 33 municípios da RIDE/Entorno.
+export const dfAndRideLocationOptions = [
+  ...dfAdministrativeRegions.map((ra) => ({ label: ra, group: 'Distrito Federal (Regiões Administrativas)' })),
+  ...rideEntornoMunicipalities.map((m) => ({
+    label: `${m.nome} (${m.uf})`,
+    group: 'Entorno / RIDE-DF',
+  })),
+];
+
 // Hospitais Regionais do DF — Fonte oficial: saude.df.gov.br (páginas individuais de cada unidade)
 export const regionalHospitals = [
   {
