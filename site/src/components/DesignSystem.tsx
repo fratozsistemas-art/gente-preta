@@ -114,9 +114,10 @@ export default function DesignSystem() {
               expressivo em manchetes.
             </p>
             <div className="space-y-2 text-earth-800">
-              <div className="font-editorial text-sm">14px — Corpo de matéria.</div>
-              <div className="font-editorial italic text-lg">22px — Lede editorial e citações.</div>
-              <div className="font-editorial text-2xl">30px — Título de bloco.</div>
+              <div className="font-editorial text-sm">14 px — Corpo de matéria — parágrafo padrão.</div>
+              <div className="font-editorial italic text-lg">22 px — Lede editorial e citações destacadas.</div>
+              <div className="font-editorial text-2xl">30 px — Título de bloco — canais, seções.</div>
+              <div className="font-editorial text-4xl leading-tight">56 px — Manchete de reportagem.</div>
             </div>
           </div>
           <div>
@@ -127,9 +128,10 @@ export default function DesignSystem() {
               compete com a serifa — dá suporte.
             </p>
             <div className="space-y-2 text-earth-800">
-              <div className="eyebrow">11px — Tag · categoria · metadata</div>
-              <div className="text-sm font-medium">15px — Nav principal e labels de UI.</div>
-              <div className="text-lg font-semibold">18px — Botões primários e textos ativos.</div>
+              <div className="eyebrow">11 px — Tag · categoria · metadata</div>
+              <div className="text-[13px]">13 px — Metadata, autoria, botões secundários.</div>
+              <div className="text-sm font-medium">15 px — Nav principal e labels de UI.</div>
+              <div className="text-lg font-semibold">18 px — Botões primários e textos ativos.</div>
             </div>
           </div>
         </div>
