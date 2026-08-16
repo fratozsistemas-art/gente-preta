@@ -1,10 +1,21 @@
 import { roadmap } from '../data/project';
+import VideoEmbed from '../components/VideoEmbed';
 
 export default function About() {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-16 prose-project">
       <h1 className="text-3xl font-bold text-earth-900 mb-2">Sobre o Projeto</h1>
       <p className="text-earth-500 mb-10">Gente Preta — Sentinela de Saúde da População Negra</p>
+
+      <div className="not-prose mb-10">
+        <VideoEmbed
+          youtubeId="MC2SYTxNQ6o"
+          title="Gente Preta — histórias e o que está em jogo na saúde da população negra"
+        />
+        <p className="text-xs text-earth-500 mt-2">
+          Histórias reais, ditas por quem vive — o retrato que motiva a existência do Gente Preta.
+        </p>
+      </div>
 
       <h2 className="text-xl font-bold text-earth-900 mt-10 mb-3">Visão estratégica</h2>
       <p className="text-earth-700 mb-4">

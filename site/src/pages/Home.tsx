@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import { priorityThemes, emergentThemes, totalConditionsCount } from '../data/diseases';
 import { partners, hardServices, phytotherapy } from '../data/project';
-import QRLink from '../components/QRLink';
 import { LeafMark, PalhaLine, ContasRing } from '../components/Ornaments';
 import ThemeIcon from '../components/ThemeIcons';
+import VideoEmbed from '../components/VideoEmbed';
 
 const tickerStats = [
   '2,3x mais risco de hipertensão',
@@ -56,8 +56,14 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <div className="flex justify-center">
-            <QRLink size={200} />
+          <div>
+            <VideoEmbed
+              youtubeId="MC2SYTxNQ6o"
+              title="Gente Preta — histórias e o que está em jogo na saúde da população negra"
+            />
+            <p className="text-xs text-earth-500 mt-2 text-center">
+              Histórias reais, ditas por quem vive — o retrato que motiva o Gente Preta.
+            </p>
           </div>
         </div>
       </section>
