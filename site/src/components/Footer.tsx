@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import Logo from './Logo';
 
 export default function Footer() {
   return (
@@ -6,7 +7,7 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4 text-sm">
         <div>
           <div className="flex items-center gap-2 font-bold text-white text-base mb-3">
-            <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-brand-500 text-white text-sm">GP</span>
+            <Logo size={32} monochrome />
             <span className="font-editorial italic">Gente Preta</span>
           </div>
           <p className="text-earth-300">

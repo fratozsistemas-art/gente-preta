@@ -2,6 +2,8 @@
 // Publicado na página de Arquitetura para transparência de decisões de design,
 // no mesmo espírito de "confiança > sofisticação técnica" da Parte 4 do relatório.
 import { LeafMark, PalhaLine, ContasRing } from './Ornaments';
+import Logo from './Logo';
+import ThemeIcon from './ThemeIcons';
 
 const paleta = [
   {
@@ -198,6 +200,50 @@ export default function DesignSystem() {
           Estatística verificada na Base Científica (ver Biblioteca de Saúde → Saúde da Mulher Negra →
           Mortalidade Materna).
         </p>
+      </div>
+
+      {/* 6. Marca */}
+      <div>
+        <h3 className="font-bold text-earth-900 mb-1">Marca</h3>
+        <p className="text-sm text-earth-600 mb-4 max-w-2xl">
+          Composição de dois grafismos apenas (regra Ìlera: nunca os 3 juntos) — folha central
+          (Ossaim, cura) sobre anel de contas (Obaluaê, proteção comunitária). Abstrata, sem
+          figuração de orixá e sem texto religioso explícito.
+        </p>
+        <div className="rounded-xl border border-earth-200 bg-white p-6 flex flex-wrap items-center gap-8">
+          <div className="flex flex-col items-center gap-2">
+            <Logo size={64} />
+            <span className="text-[11px] text-earth-500">Sobre fundo claro</span>
+          </div>
+          <div className="flex flex-col items-center gap-2 bg-earth-900 rounded-xl px-6 py-4">
+            <Logo size={64} monochrome />
+            <span className="text-[11px] text-earth-300">Sobre fundo escuro (rodapé)</span>
+          </div>
+        </div>
+      </div>
+
+      {/* 7. Ícones de temas emergentes */}
+      <div>
+        <h3 className="font-bold text-earth-900 mb-1">Ícones — temas emergentes</h3>
+        <p className="text-sm text-earth-600 mb-4 max-w-2xl">
+          Substituem os emojis herdados da categoria-mãe: grafismos autorais, geométricos,
+          construídos com a mesma paleta dos ornamentos — cada um representa o determinante
+          social do tema sem ilustrá-lo de forma literal.
+        </p>
+        <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
+          {[
+            ['ansiedade-redes-sociais', 'Redes sociais'],
+            ['vicio-apostas', 'Apostas'],
+            ['abuso-substancias-disparidade', 'Disparidade'],
+            ['violencia-reativa', 'Violência reativa'],
+            ['falta-educacao-financeira', 'Educação financeira'],
+          ].map(([id, label]) => (
+            <div key={id} className="rounded-xl border border-earth-200 bg-white p-4 flex flex-col items-center text-center gap-2">
+              <ThemeIcon id={id} size={32} />
+              <span className="text-[11px] text-earth-500 leading-tight">{label}</span>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Nota de cautela */}

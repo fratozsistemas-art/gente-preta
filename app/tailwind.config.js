@@ -4,17 +4,20 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Recalibrado para espelhar site/tailwind.config.js — era um roxo/lilás do MVP
+        // original, inconsistente com a paleta Ìlera. Nova rampa derivada do matiz de
+        // folha-500, mesmas 10 chaves numéricas.
         brand: {
-          50: '#fdf4ff',
-          100: '#f9e6ff',
-          200: '#f0c2ff',
-          300: '#e08aff',
-          400: '#c94dff',
-          500: '#aa3bff',
-          600: '#8f1fe0',
-          700: '#7317b3',
-          800: '#5c1490',
-          900: '#3d0c66',
+          50: '#f1f6f3',
+          100: '#dfece4',
+          200: '#bddbc9',
+          300: '#96c5a9',
+          400: '#62a87e',
+          500: '#3d6e51',
+          600: '#325a43',
+          700: '#254332',
+          800: '#192c21',
+          900: '#0e1912',
         },
         earth: {
           50: '#fbf7f2',

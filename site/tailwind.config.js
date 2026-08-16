@@ -4,17 +4,22 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Recalibrado (era um roxo/lilás herdado do MVP original, sem relação com a
+        // paleta Ìlera — sinalizado como inconsistente). Nova rampa derivada do matiz
+        // de folha-500 (#3d6e51), mantendo as mesmas 10 chaves numéricas para não
+        // quebrar nenhuma classe já usada no código (brand-50..brand-900 continuam
+        // válidas em todo o site/app, agora coerentes com o sistema ancestral-cultural).
         brand: {
-          50: '#fdf4ff',
-          100: '#f9e6ff',
-          200: '#f0c2ff',
-          300: '#e08aff',
-          400: '#c94dff',
-          500: '#aa3bff',
-          600: '#8f1fe0',
-          700: '#7317b3',
-          800: '#5c1490',
-          900: '#3d0c66',
+          50: '#f1f6f3',
+          100: '#dfece4',
+          200: '#bddbc9',
+          300: '#96c5a9',
+          400: '#62a87e',
+          500: '#3d6e51',
+          600: '#325a43',
+          700: '#254332',
+          800: '#192c21',
+          900: '#0e1912',
         },
         earth: {
           50: '#fbf7f2',

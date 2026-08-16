@@ -3,6 +3,7 @@ import { priorityThemes, emergentThemes, totalConditionsCount } from '../data/di
 import { partners, hardServices, phytotherapy } from '../data/project';
 import QRLink from '../components/QRLink';
 import { LeafMark, PalhaLine, ContasRing } from '../components/Ornaments';
+import ThemeIcon from '../components/ThemeIcons';
 
 const tickerStats = [
   '2,3x mais risco de hipertensão',
@@ -245,7 +246,7 @@ export default function Home() {
             {emergentThemes.map((theme) => (
               <div key={theme.id} className="rounded-xl border border-earth-200 bg-white p-5">
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="text-2xl">{theme.icon}</span>
+                  <ThemeIcon id={theme.id} size={28} />
                 </div>
                 <h3 className="font-semibold text-earth-900 mb-1">{theme.name}</h3>
                 <p className="text-xs text-earth-500">{theme.category}</p>

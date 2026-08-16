@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
+import Logo from '../components/Logo';
 
 export default function Welcome() {
   return (
     <div className="min-h-screen flex flex-col justify-between px-6 py-10 text-center bg-gradient-to-b from-brand-50 to-earth-50">
       <div />
       <div>
-        <div className="mx-auto mb-6 h-16 w-16 rounded-full bg-brand-600 text-white flex items-center justify-center text-2xl font-bold">
-          GP
+        <div className="mx-auto mb-6">
+          <Logo size={64} />
         </div>
         <h1 className="text-2xl font-bold text-earth-900 mb-3">App Sentinela</h1>
         <p className="text-earth-600 text-sm max-w-xs mx-auto mb-1">
