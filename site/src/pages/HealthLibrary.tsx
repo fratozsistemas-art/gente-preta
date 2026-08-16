@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { diseaseCategories, totalConditionsCount } from '../data/diseases';
+import CategoryIcon from '../components/CategoryIcons';
 
 export default function HealthLibrary() {
   return (
@@ -17,7 +18,7 @@ export default function HealthLibrary() {
         {diseaseCategories.map((cat) => (
           <section key={cat.id} id={cat.id}>
             <div className="flex items-center gap-3 mb-4">
-              <span className="text-3xl">{cat.icon}</span>
+              <CategoryIcon id={cat.id} size={36} />
               <div>
                 <h2 className="text-xl font-bold text-earth-900">{cat.title}</h2>
                 <p className="text-xs text-earth-500">{cat.subtitle}</p>

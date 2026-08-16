@@ -81,12 +81,14 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Stats */}
+      {/* Stats — semântica de cor por tipo (crítico/barro · avanço/folha · meta/ouro ·
+          info/folha-soft), inspirada no StatCard do design system em Storybook
+          recebido para revisão — reimplementada em Tailwind puro, sem Ant Design. */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-12 grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
-        <Stat value="2,3x" label="mais risco de hipertensão" />
-        <Stat value={`${totalConditionsCount}+`} label="condições de saúde mapeadas" />
-        <Stat value="7" label="temas prioritários no App" />
-        <Stat value="10" label="UBSs piloto no DF" />
+        <Stat value="2,3x" label="mais risco de hipertensão" type="critical" />
+        <Stat value={`${totalConditionsCount}+`} label="condições de saúde mapeadas" type="progress" />
+        <Stat value="7" label="temas prioritários no App" type="goal" />
+        <Stat value="10" label="UBSs piloto no DF" type="info" />
       </section>
 
       {/* Folhas de Gente Preta — serviço-duro concreto (diferenciais brasileiros),
@@ -224,13 +226,17 @@ export default function Home() {
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {priorityThemes.map((theme) => (
-            <div key={theme.id} className="rounded-xl border border-earth-200 bg-white p-5">
+            <Link
+              key={theme.id}
+              to={`/saude/${theme.categoryId}/${theme.id}`}
+              className="rounded-xl border border-earth-200 bg-white p-5 hover:shadow-md hover:border-brand-300 transition-all"
+            >
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-2xl">{theme.icon}</span>
               </div>
               <h3 className="font-semibold text-earth-900 mb-1">{theme.name}</h3>
               <p className="text-xs text-earth-500">{theme.category}</p>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
@@ -250,13 +256,17 @@ export default function Home() {
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {emergentThemes.map((theme) => (
-              <div key={theme.id} className="rounded-xl border border-earth-200 bg-white p-5">
+              <Link
+                key={theme.id}
+                to={`/saude/${theme.categoryId}/${theme.id}`}
+                className="rounded-xl border border-earth-200 bg-white p-5 hover:shadow-md hover:border-ouro-300 transition-all"
+              >
                 <div className="flex items-center gap-2 mb-2">
                   <ThemeIcon id={theme.id} size={28} />
                 </div>
                 <h3 className="font-semibold text-earth-900 mb-1">{theme.name}</h3>
                 <p className="text-xs text-earth-500">{theme.category}</p>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -286,10 +296,28 @@ export default function Home() {
   );
 }
 
-function Stat({ value, label }: { value: string; label: string }) {
+// Semântica de cor por tipo de estatística: critical (barro — risco/alerta),
+// progress (folha — indicador de avanço/mapeamento), goal (ouro — meta/entrega
+// do App), info (folha-soft — dado de contexto/infraestrutura).
+const statTypeClasses: Record<string, string> = {
+  critical: 'text-barro-500',
+  progress: 'text-folha-700',
+  goal: 'text-ouro-700',
+  info: 'text-folha-300',
+};
+
+function Stat({
+  value,
+  label,
+  type = 'progress',
+}: {
+  value: string;
+  label: string;
+  type?: 'critical' | 'progress' | 'goal' | 'info';
+}) {
   return (
     <div>
-      <div className="text-3xl font-bold text-brand-600">{value}</div>
+      <div className={`text-3xl font-bold ${statTypeClasses[type]}`}>{value}</div>
       <div className="text-sm text-earth-500 mt-1">{label}</div>
     </div>
   );

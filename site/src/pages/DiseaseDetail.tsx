@@ -1,5 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import { diseaseCategories } from '../data/diseases';
+import CategoryIcon from '../components/CategoryIcons';
 
 export default function DiseaseDetail() {
   const { categoryId, diseaseId } = useParams();
@@ -22,7 +23,7 @@ export default function DiseaseDetail() {
       </Link>
 
       <div className="flex items-center gap-3 mb-4">
-        <span className="text-4xl">{category.icon}</span>
+        <CategoryIcon id={category.id} size={44} />
         <div>
           <p className="text-xs uppercase tracking-wide text-earth-500 font-semibold">{category.title} · {category.subtitle}</p>
           <h1 className="text-2xl sm:text-3xl font-bold text-earth-900">{disease.name}</h1>

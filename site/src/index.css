@@ -8,6 +8,13 @@
   color-scheme: light;
 }
 
+/* Acessibilidade — indicador de foco visível consistente em toda a navegação por
+   teclado (gap identificado em revisão de design system externo). */
+:focus-visible {
+  outline: 3px solid #3d6e51;
+  outline-offset: 2px;
+}
+
 html {
   scroll-behavior: smooth;
 }

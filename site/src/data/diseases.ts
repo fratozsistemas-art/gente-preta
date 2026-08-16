@@ -281,12 +281,12 @@ export const diseaseCategories: DiseaseCategory[] = [
 // Os 7 temas prioritários do App — condições clássicas com parceria/evidência consolidada.
 // Mantido separado dos temas emergentes (isNew) para não inflar essa contagem curada.
 export const priorityThemes = diseaseCategories
-  .flatMap((c) => c.diseases.filter((d) => d.isPriorityTheme).map((d) => ({ ...d, category: c.title, icon: c.icon })));
+  .flatMap((c) => c.diseases.filter((d) => d.isPriorityTheme).map((d) => ({ ...d, category: c.title, icon: c.icon, categoryId: c.id })));
 
 // Temas emergentes — condições/determinantes sociais de inclusão recente (realidade
 // brasileira contemporânea). Categoria própria na Biblioteca de Saúde; não compõem os
 // 7 temas prioritários do App.
 export const emergentThemes = diseaseCategories
-  .flatMap((c) => c.diseases.filter((d) => d.isNew).map((d) => ({ ...d, category: c.title, icon: c.icon })));
+  .flatMap((c) => c.diseases.filter((d) => d.isNew).map((d) => ({ ...d, category: c.title, icon: c.icon, categoryId: c.id })));
 
 export const totalConditionsCount = diseaseCategories.reduce((acc, c) => acc + c.diseases.length, 0);
