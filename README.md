@@ -75,7 +75,10 @@ curl http://localhost:3000/baixar
 ```
 
 ## Deploy
-- **Plataforma**: Cloudflare Pages/Workers (`wrangler.jsonc`, projeto `gente-preta`, assets em `dist/`).
-- **Stack**: React + TypeScript + Vite + Tailwind CSS + React Router + Hono-free Worker mínimo.
-- **Status**: código pronto para build/deploy; ver conversa com o time para execução do deploy em produção.
-- **Última atualização**: 16/08/2026 — integração do pacote CASIO v10.0 "Gente Preta v4.2".
+- **Plataforma**: Cloudflare Workers com Static Assets (`wrangler.jsonc`, projeto `gente-preta`, `main: worker/index.js`, assets em `dist/`).
+- **URL de produção**: https://gente-preta.fratozsistemas.workers.dev
+- **Conta Cloudflare**: fratozsistemas@gmail.com (BYOK — token do próprio usuário via Deploy panel).
+- **Stack**: React + TypeScript + Vite + Tailwind CSS + React Router + Worker mínimo (sem Hono; fallback de SPA por prefixo de rota).
+- **Comando de deploy**: `npm run build && npx wrangler deploy` (não usar `wrangler pages deploy` — este projeto usa o formato Worker+Assets, não Pages Functions).
+- **Status**: ✅ Deployado em produção — 11/11 rotas verificadas com HTTP 200 (incluindo os 3 novos endpoints e seus aliases, mais fallback SPA para rotas inexistentes).
+- **Última atualização**: 16/08/2026 — integração e deploy do pacote CASIO v10.0 "Gente Preta v4.2".
