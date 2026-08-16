@@ -75,10 +75,12 @@ curl http://localhost:3000/baixar
 ```
 
 ## Deploy
-- **Plataforma**: Cloudflare Workers com Static Assets (`wrangler.jsonc`, projeto `gente-preta`, `main: worker/index.js`, assets em `dist/`).
-- **URL de produção**: https://gente-preta.fratozsistemas.workers.dev
+- **Plataforma**: **Cloudflare Pages** (projeto `gente-preta`), modo avançado com `_worker.js` customizado para o fallback de SPA duplo (site + app).
+- **URL de produção**: https://gente-preta.pages.dev
+- **URL alternativa (Worker plano, mantida)**: https://gente-preta.fratozsistemas.workers.dev
 - **Conta Cloudflare**: fratozsistemas@gmail.com (BYOK — token do próprio usuário via Deploy panel).
-- **Stack**: React + TypeScript + Vite + Tailwind CSS + React Router + Worker mínimo (sem Hono; fallback de SPA por prefixo de rota).
-- **Comando de deploy**: `npm run build && npx wrangler deploy` (não usar `wrangler pages deploy` — este projeto usa o formato Worker+Assets, não Pages Functions).
-- **Status**: ✅ Deployado em produção — 11/11 rotas verificadas com HTTP 200 (incluindo os 3 novos endpoints e seus aliases, mais fallback SPA para rotas inexistentes).
-- **Última atualização**: 16/08/2026 — integração e deploy do pacote CASIO v10.0 "Gente Preta v4.2".
+- **Stack**: React + TypeScript + Vite + Tailwind CSS + React Router + `_worker.js` mínimo (fallback de SPA por prefixo de rota, sem Pages Functions).
+- **Comando de deploy**: `npm run build && npx wrangler pages deploy dist --project-name gente-preta --branch main` (a etapa `assemble` do build já copia `worker/index.js` para `dist/_worker.js`, ativando o modo avançado do Pages).
+- **Importante**: `wrangler.jsonc` está no formato Worker+Assets (`main` + `assets.binding`), por isso o Pages ignora esse arquivo e exige `--project-name`/`--branch` explícitos no comando; isso é esperado e não é um erro.
+- **Status**: ✅ Deployado em produção no Cloudflare Pages — 11/11 rotas verificadas com HTTP 200 (incluindo os 3 novos endpoints e seus aliases, mais fallback SPA para rotas inexistentes).
+- **Última atualização**: 16/08/2026 — deploy no Cloudflare Pages (projeto `gente-preta`) via BYOK.
