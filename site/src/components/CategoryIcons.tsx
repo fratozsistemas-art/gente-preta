@@ -123,6 +123,28 @@ function OutrasIcon({ size, className }: IconProps) {
   );
 }
 
+function RenalIcon({ size, className }: IconProps) {
+  // Renais e Genéticas — duas gotas/filtros aninhados, abstrato (sem rim/DNA literal).
+  return (
+    <svg width={size} height={size} viewBox="0 0 32 32" className={className} aria-hidden="true">
+      <circle cx="16" cy="16" r="15" fill={PALHA} opacity="0.5" />
+      <path d="M16 7 C 21 13, 23 17, 23 20.5 A 7 7 0 0 1 9 20.5 C 9 17, 11 13, 16 7 Z" stroke={FOLHA} strokeWidth="1.7" fill="none" opacity="0.85" />
+      <path d="M16 13 C 19 16.5, 20 18.5, 20 20.5 A 4 4 0 0 1 12 20.5 C 12 18.5, 13 16.5, 16 13 Z" fill={OURO} opacity="0.75" />
+    </svg>
+  );
+}
+
+function HivIcon({ size, className }: IconProps) {
+  // HIV e Prevenção — escudo abstrato com anel de proteção, sem símbolo médico literal.
+  return (
+    <svg width={size} height={size} viewBox="0 0 32 32" className={className} aria-hidden="true">
+      <circle cx="16" cy="16" r="15" fill={PALHA} opacity="0.5" />
+      <path d="M16 6 L24 9.5 V16 C24 21, 20.5 24.5, 16 26 C11.5 24.5, 8 21, 8 16 V9.5 Z" stroke={BARRO} strokeWidth="1.6" fill="none" opacity="0.85" />
+      <circle cx="16" cy="16" r="4" fill={FOLHA} opacity="0.8" />
+    </svg>
+  );
+}
+
 function SocioeconomicaContemporaneaIcon({ size, className }: IconProps) {
   // Saúde Mental e Socioeconômica Contemporânea — nós conectados (determinantes
   // sociais interligados), sem tela/celular literal.
@@ -149,6 +171,18 @@ const ICONS: Record<string, React.FC<IconProps>> = {
   oncologicas: OncologicasIcon,
   outras: OutrasIcon,
   'socioeconomica-contemporanea': SocioeconomicaContemporaneaIcon,
+  // Aliases das 10 categorias da Biblioteca de Saúde (/biblioteca-saude) — reaproveitam
+  // a mesma linguagem visual, mapeando id do novo schema -> ícone já existente.
+  cardio: CardiovascularesIcon,
+  mental: SaudeMentalIcon,
+  resp: RespiratoriasIcon,
+  meta: MetabolicasIcon,
+  mulher: MulherNegraIcon,
+  cancer: OncologicasIcon,
+  contemp: SocioeconomicaContemporaneaIcon,
+  autoimune: RarasAutoimunesIcon,
+  renal: RenalIcon,
+  hiv: HivIcon,
 };
 
 export default function CategoryIcon({ id, size = 32, className = '' }: CategoryIconProps) {

@@ -17,7 +17,7 @@ export default function Footer() {
         <div>
           <h4 className="text-white font-semibold mb-3">Navegue</h4>
           <ul className="space-y-2 text-earth-300">
-            <li><Link to="/saude" className="hover:text-white">Biblioteca de Saúde</Link></li>
+            <li><Link to="/biblioteca-saude" className="hover:text-white">Biblioteca de Saúde</Link></li>
             <li><Link to="/ensaios-clinicos" className="hover:text-white">Ensaios Clínicos</Link></li>
             <li><Link to="/memoria" className="hover:text-white">Memória e Herança</Link></li>
             <li><Link to="/comunidade" className="hover:text-white">Comunidade</Link></li>
@@ -36,7 +36,7 @@ export default function Footer() {
           <h4 className="text-white font-semibold mb-3">App Sentinela</h4>
           <p className="text-earth-300 mb-3">Escaneie o QR Code ou acesse pelo navegador do celular.</p>
           <Link
-            to="/acessar-app"
+            to="/baixar"
             className="inline-block rounded-md bg-brand-600 text-white px-4 py-2 font-medium hover:bg-brand-700"
           >
             Baixar / Acessar App

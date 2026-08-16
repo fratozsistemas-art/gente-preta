@@ -48,10 +48,10 @@ export default function Home() {
               reduzir as inequidades que a população negra enfrenta no SUS — começando pelo Distrito Federal.
             </p>
             <div className="flex flex-wrap gap-3">
-              <Link to="/acessar-app" className="rounded-md bg-brand-600 text-white px-5 py-3 font-semibold hover:bg-brand-700">
+              <Link to="/baixar" className="rounded-md bg-brand-600 text-white px-5 py-3 font-semibold hover:bg-brand-700">
                 Baixar o App Sentinela
               </Link>
-              <Link to="/saude" className="rounded-md border border-earth-300 px-5 py-3 font-semibold text-earth-800 hover:bg-earth-50">
+              <Link to="/biblioteca-saude" className="rounded-md border border-earth-300 px-5 py-3 font-semibold text-earth-800 hover:bg-earth-50">
                 Explorar Biblioteca de Saúde
               </Link>
             </div>
@@ -222,7 +222,7 @@ export default function Home() {
             <span className="eyebrow text-brand-600">Base científica</span>
             <h2 className="text-2xl font-bold text-earth-900 mt-1">7 temas prioritários</h2>
           </div>
-          <Link to="/saude" className="text-brand-600 font-medium hover:underline">Ver biblioteca completa →</Link>
+          <Link to="/biblioteca-saude" className="text-brand-600 font-medium hover:underline">Ver biblioteca completa →</Link>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {priorityThemes.map((theme) => (
@@ -252,7 +252,7 @@ export default function Home() {
               <h2 className="text-2xl font-bold text-earth-900 mt-1">Temas emergentes</h2>
               <p className="text-sm text-earth-500 mt-1">Determinantes sociais em evidência.</p>
             </div>
-            <Link to="/saude#socioeconomica-contemporanea" className="text-brand-600 font-medium hover:underline">Ver biblioteca completa →</Link>
+            <Link to="/biblioteca-saude#contemp" className="text-brand-600 font-medium hover:underline">Ver biblioteca completa →</Link>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {emergentThemes.map((theme) => (

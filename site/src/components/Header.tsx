@@ -4,13 +4,13 @@ import Logo from './Logo';
 const navItems = [
   { to: '/', label: 'Início' },
   { to: '/sobre', label: 'Sobre' },
-  { to: '/saude', label: 'Biblioteca de Saúde' },
+  { to: '/biblioteca-saude', label: 'Biblioteca de Saúde' },
   { to: '/ensaios-clinicos', label: 'Ensaios Clínicos' },
   { to: '/memoria', label: 'Memória e Herança' },
   { to: '/comunidade', label: 'Comunidade' },
   { to: '/rede-sus', label: 'Rede SUS' },
   { to: '/transparencia', label: 'Transparência' },
-  { to: '/acessar-app', label: 'Baixe o App' },
+  { to: '/baixar', label: 'Baixe o App' },
 ];
 
 export default function Header() {
@@ -30,7 +30,7 @@ export default function Header() {
                 `px-3 py-2 rounded-md font-medium transition-colors ${
                   isActive
                     ? 'bg-brand-50 text-brand-700'
-                    : item.to === '/acessar-app'
+                    : item.to === '/baixar'
                     ? 'bg-brand-600 text-white hover:bg-brand-700'
                     : 'text-earth-700 hover:bg-earth-50'
                 }`
