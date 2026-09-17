@@ -30,13 +30,18 @@ export default function DiseaseDetail() {
         </div>
       </div>
 
-      <div className="flex gap-2 mb-8">
+      <div className="flex gap-2 mb-8 flex-wrap">
         {disease.isPriorityTheme && (
           <span className="text-xs uppercase font-bold text-white bg-brand-600 px-2 py-1 rounded">Tema prioritário do App</span>
         )}
         {disease.isNew && (
           <span className="text-xs uppercase font-bold text-ouro-700 bg-palha-100 px-2 py-1 rounded">
             Realidade brasileira contemporânea
+          </span>
+        )}
+        {disease.localStudy && (
+          <span className="text-xs uppercase font-bold text-folha-700 bg-folha-50 border border-folha-300 px-2 py-1 rounded">
+            Dado local · DF 2015–2024
           </span>
         )}
       </div>
@@ -57,6 +62,21 @@ export default function DiseaseDetail() {
           <p className="text-earth-600 text-sm">
             Condição incluída na base científica geral (Guia da Saúde da População Negra). Evidência detalhada
             "Estudo + Achado" em processo de padronização para esta condição.
+          </p>
+        </div>
+      )}
+
+      {disease.localStudy && (
+        <div className="mt-6 rounded-xl border-2 border-ouro-300 bg-folha-900 text-palha-100 p-5">
+          <div className="flex items-center justify-between gap-2 mb-2 flex-wrap">
+            <h2 className="text-sm font-bold text-ouro-300 uppercase tracking-wide">Dado local — Distrito Federal</h2>
+            <span className="text-2xl font-bold text-ouro-300">{disease.localStudy.value}</span>
+          </div>
+          <p className="text-sm leading-relaxed text-palha-100/95 mb-3">{disease.localStudy.finding}</p>
+          <p className="text-[11px] text-folha-100/70">
+            Fonte: {disease.localStudy.source}. Estudo Técnico-Científico "Condições de Vida e Saúde da
+            População Negra do DF (2015–2024)" — AECID/APRECIA, com FIOCRUZ/UnB/FEPECS. Ver{' '}
+            <Link to="/saude#estudo-df" className="underline hover:text-ouro-300">estudo completo na Biblioteca de Saúde</Link>.
           </p>
         </div>
       )}

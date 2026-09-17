@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { diseaseCategories, totalConditionsCount } from '../data/diseases';
 import CategoryIcon from '../components/CategoryIcons';
+import LocalStudyFeature from '../components/LocalStudyFeature';
 
 export default function HealthLibrary() {
   return (
@@ -13,6 +14,8 @@ export default function HealthLibrary() {
           não diagnósticos individuais.
         </p>
       </div>
+
+      <LocalStudyFeature />
 
       <div className="space-y-12">
         {diseaseCategories.map((cat) => (
@@ -31,18 +34,25 @@ export default function HealthLibrary() {
                       to={`/saude/${cat.id}/${d.id}`}
                       className="rounded-xl border border-earth-200 bg-white p-4 hover:shadow-md transition-shadow"
                     >
-                      <div className="flex items-start justify-between gap-2">
+                      <div className="flex items-start justify-between gap-2 flex-wrap">
                         <h3 className="font-semibold text-earth-900 text-sm">{d.name}</h3>
-                        {d.isPriorityTheme && (
-                          <span className="shrink-0 text-[10px] uppercase font-bold text-white bg-brand-600 px-1.5 py-0.5 rounded">
-                            Prioritário
-                          </span>
-                        )}
-                        {d.isNew && (
-                          <span className="shrink-0 text-[10px] uppercase font-bold text-ouro-700 bg-palha-100 px-1.5 py-0.5 rounded">
-                            Atual
-                          </span>
-                        )}
+                        <div className="flex gap-1 shrink-0">
+                          {d.isPriorityTheme && (
+                            <span className="text-[10px] uppercase font-bold text-white bg-brand-600 px-1.5 py-0.5 rounded">
+                              Prioritário
+                            </span>
+                          )}
+                          {d.isNew && (
+                            <span className="text-[10px] uppercase font-bold text-ouro-700 bg-palha-100 px-1.5 py-0.5 rounded">
+                              Atual
+                            </span>
+                          )}
+                          {d.localStudy && (
+                            <span className="text-[10px] uppercase font-bold text-folha-700 bg-folha-50 border border-folha-300 px-1.5 py-0.5 rounded">
+                              Dado DF
+                            </span>
+                          )}
+                        </div>
                       </div>
                       {d.study && <p className="text-xs text-earth-500 mt-2 line-clamp-2">{d.study}</p>}
                     </Link>
