@@ -41,7 +41,7 @@ export default function DiseaseDetail() {
         )}
         {disease.localStudy && (
           <span className="text-xs uppercase font-bold text-folha-700 bg-folha-50 border border-folha-300 px-2 py-1 rounded">
-            Dado local · DF 2015–2024
+            Estudo local · DF 2015–2024
           </span>
         )}
       </div>
@@ -69,7 +69,7 @@ export default function DiseaseDetail() {
       {disease.localStudy && (
         <div className="mt-6 rounded-xl border-2 border-ouro-300 bg-folha-900 text-palha-100 p-5">
           <div className="flex items-center justify-between gap-2 mb-2 flex-wrap">
-            <h2 className="text-sm font-bold text-ouro-300 uppercase tracking-wide">Dado local — Distrito Federal</h2>
+            <h2 className="text-sm font-bold text-ouro-300 uppercase tracking-wide">Estudo local — Distrito Federal</h2>
             <span className="text-2xl font-bold text-ouro-300">{disease.localStudy.value}</span>
           </div>
           <p className="text-sm leading-relaxed text-palha-100/95 mb-3">{disease.localStudy.finding}</p>

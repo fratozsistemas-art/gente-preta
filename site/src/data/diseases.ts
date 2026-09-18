@@ -104,6 +104,38 @@ export const diseaseCategories: DiseaseCategory[] = [
     ],
   },
   {
+    // Unificado a partir da antiga página /biblioteca-saude (schema "biblioteca.ts",
+    // retirada de circulação): narrativa do gene APOL1, mais frequente em
+    // afrodescendentes, e seu impacto na progressão da doença renal.
+    id: 'renais-geneticas',
+    title: 'Renais e Genéticas',
+    subtitle: 'Fator Genético',
+    icon: '🧬',
+    diseases: [
+      {
+        id: 'doenca-renal-cronica',
+        name: 'Doença Renal Crônica',
+        study: 'Science / Genovese et al. 2010',
+        finding:
+          'Identificação do gene APOL1 (variantes G1/G2), mais frequente em afrodescendentes, como fator de risco para doença renal crônica.',
+      },
+      {
+        id: 'progressao-doenca-renal',
+        name: 'Progressão da Doença Renal',
+        study: 'JCI / Friedman & Pollak 2011',
+        finding:
+          'Variantes do gene APOL1 associadas a maior risco de progressão para diálise — encaminhamento precoce a nefrologista muda o desfecho.',
+      },
+      {
+        id: 'insuficiencia-renal',
+        name: 'Insuficiência Renal',
+        study: 'NEJM / Parsa et al. 2013',
+        finding:
+          'Confirmação da associação entre APOL1 e doença renal terminal. Combinado a hipertensão mal controlada e menor acesso a nefrologia, resulta em maior taxa de diálise precoce na população negra. A fila para transplante renal também carrega viés racial documentado.',
+      },
+    ],
+  },
+  {
     id: 'saude-mental',
     title: 'Saúde Mental',
     subtitle: 'Acesso Desigual',
@@ -281,6 +313,13 @@ export const diseaseCategories: DiseaseCategory[] = [
             'No DF (2024), 70,3% das notificações de HIV/AIDS foram de pessoas pretas ou pardas — sobre-representação em relação aos 57,8% da população, associada a menor acesso a testagem, PrEP e TARV, além de estigma (racismo + homofobia + serofobia).',
           source: 'Estudo Pop. Negra DF 2015–2024 · Indicador 16 (SINAN+SIM, Boletim HIV/AIDS 2024)',
         },
+      },
+      {
+        id: 'prevencao-hiv-prep',
+        name: 'Prevenção do HIV (PrEP)',
+        study: 'Lancet HIV 2022',
+        finding:
+          'Redução de desigualdades na incidência de HIV quando o acesso à Profilaxia Pré-Exposição (PrEP) é ampliado. PrEP é direito garantido pelo SUS — disponível gratuitamente na rede pública.',
       },
       { id: 'doencas-pele', name: 'Doenças de Pele (acesso desigual a diagnóstico)' },
       { id: 'osteoporose', name: 'Osteoporose' },

@@ -5,7 +5,6 @@ import Home from './pages/Home';
 import About from './pages/About';
 import HealthLibrary from './pages/HealthLibrary';
 import DiseaseDetail from './pages/DiseaseDetail';
-import BibliotecaSaude from './pages/BibliotecaSaude';
 import ClinicalTrials from './pages/ClinicalTrials';
 import TraditionalMedicine from './pages/TraditionalMedicine';
 import Memory from './pages/Memory';
@@ -24,11 +23,13 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/sobre" element={<About />} />
+          {/* Biblioteca de Saúde — página única e canônica, unificando o antigo par
+              /saude (HealthLibrary) + /biblioteca-saude (BibliotecaSaude, aposentada).
+              Mantém a estética de /saude (preferida) + busca/filtro por categoria. */}
           <Route path="/saude" element={<HealthLibrary />} />
           <Route path="/saude/:categoryId/:diseaseId" element={<DiseaseDetail />} />
-          {/* Biblioteca de Saúde — pacote CASIO v10.0 (v4.2), 10 categorias + busca/filtros */}
-          <Route path="/biblioteca-saude" element={<BibliotecaSaude />} />
-          <Route path="/biblioteca" element={<Navigate to="/biblioteca-saude" replace />} />
+          <Route path="/biblioteca-saude" element={<Navigate to="/saude" replace />} />
+          <Route path="/biblioteca" element={<Navigate to="/saude" replace />} />
           <Route path="/ensaios-clinicos" element={<ClinicalTrials />} />
           <Route path="/ensaios" element={<Navigate to="/ensaios-clinicos" replace />} />
           {/* Medicina Tradicional Brasileira — pacote v4.3 (17/08/2026), recuperado nesta sessão */}

@@ -17,7 +17,7 @@ export default function Footer() {
         <div>
           <h4 className="text-white font-semibold mb-3">Navegue</h4>
           <ul className="space-y-2 text-earth-300">
-            <li><Link to="/biblioteca-saude" className="hover:text-white">Biblioteca de Saúde</Link></li>
+            <li><Link to="/saude" className="hover:text-white">Biblioteca de Saúde</Link></li>
             <li><Link to="/ensaios-clinicos" className="hover:text-white">Ensaios Clínicos</Link></li>
             <li><Link to="/memoria" className="hover:text-white">Memória e Herança</Link></li>
             <li><Link to="/comunidade" className="hover:text-white">Comunidade</Link></li>

@@ -6,7 +6,7 @@ import Logo from './Logo';
 // dropdown (Saberes / Instituição), recuperado nesta sessão.
 const primaryNavItems = [
   { to: '/', label: 'Início' },
-  { to: '/biblioteca-saude', label: 'Biblioteca de Saúde' },
+  { to: '/saude', label: 'Biblioteca de Saúde' },
   { to: '/rede-sus', label: 'Rede SUS' },
 ];
 

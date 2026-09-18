@@ -203,7 +203,7 @@ export default function TraditionalMedicine() {
             uso de plantas medicinais, especialmente se estiver em tratamento com outros medicamentos.
           </p>
           <Link
-            to="/biblioteca-saude"
+            to="/saude"
             className="inline-block rounded-md border border-earth-300 px-5 py-3 font-semibold text-earth-800 hover:bg-white transition-colors"
           >
             Explorar Biblioteca de Saúde completa →
