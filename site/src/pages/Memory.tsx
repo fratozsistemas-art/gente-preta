@@ -5,6 +5,7 @@ interface Story {
   role: string;
   excerpt: string;
   video?: { youtubeId: string; orientation?: 'landscape' | 'portrait' };
+  hidden?: boolean; // oculto a pedido — dado mantido para eventual reativação futura
 }
 
 const stories: Story[] = [
@@ -14,6 +15,7 @@ const stories: Story[] = [
     excerpt:
       'Um depoimento que expõe uma barreira que se repete: burocracia, longas esperas e falta de acolhimento no acesso à saúde de quem migra. É a mesma lógica de exclusão que o Gente Preta enfrenta no SUS — e o motivo pelo qual pensamos o piloto do DF como o primeiro passo de um plano de voo maior, não como destino final.',
     video: { youtubeId: 'NefFu175V0A', orientation: 'portrait' },
+    hidden: true,
   },
   {
     name: 'A definir — primeira história da comunidade',
@@ -56,7 +58,7 @@ export default function Memory() {
       </div>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-        {stories.map((s) => (
+        {stories.filter((s) => !s.hidden).map((s) => (
           <div key={s.name} className="rounded-xl border border-earth-200 p-5 bg-white">
             {s.video ? (
               <VideoEmbed

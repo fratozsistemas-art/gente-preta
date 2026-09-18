@@ -81,3 +81,19 @@ body {
     animation: none;
   }
 }
+
+/* Apresentação de slides da hero (HeroSlideshow) — transição suave de conteúdo. */
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-slide-enter {
+  animation: heroFadeIn 0.5s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-slide-enter {
+    animation: none;
+  }
+}

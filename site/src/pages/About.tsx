@@ -9,7 +9,7 @@ export default function About() {
 
       <div className="not-prose mb-10">
         <VideoEmbed
-          youtubeId="MC2SYTxNQ6o"
+          youtubeId="o_na8-J8XU8"
           title="Gente Preta — histórias e o que está em jogo na saúde da população negra"
         />
         <p className="text-xs text-earth-500 mt-2">

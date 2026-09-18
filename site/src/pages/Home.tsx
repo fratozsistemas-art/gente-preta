@@ -3,7 +3,7 @@ import { priorityThemes, emergentThemes, totalConditionsCount } from '../data/di
 import { partners, hardServices, phytotherapy } from '../data/project';
 import { LeafMark, PalhaLine, ContasRing } from '../components/Ornaments';
 import ThemeIcon from '../components/ThemeIcons';
-import VideoEmbed from '../components/VideoEmbed';
+import HeroSlideshow from '../components/HeroSlideshow';
 
 const tickerStats = [
   '2,3x mais risco de hipertensão',
@@ -57,12 +57,9 @@ export default function Home() {
             </div>
           </div>
           <div>
-            <VideoEmbed
-              youtubeId="MC2SYTxNQ6o"
-              title="Gente Preta — histórias e o que está em jogo na saúde da população negra"
-            />
+            <HeroSlideshow />
             <p className="text-xs text-earth-500 mt-2 text-center">
-              Histórias reais, ditas por quem vive — o retrato que motiva o Gente Preta.
+              O que é o Gente Preta, o que ele oferece e por que isso importa para a sociedade.
             </p>
           </div>
         </div>

@@ -6,6 +6,31 @@
 
 ---
 
+## STATUS DE IMPLEMENTAÇÃO (atualizado em 18/09/2026)
+
+Este relatório é um **documento histórico de diagnóstico e planejamento** — o texto original das Partes 1 a 6 abaixo foi mantido integralmente para preservar o rastro de decisão. Esta seção resume, de forma objetiva, o que das recomendações da Parte 6 já foi implementado no site institucional em produção e o que ainda está em aberto.
+
+| Recomendação (Parte 6) | Status | Nota |
+|---|---|---|
+| 2. Reintroduzir Hub de Ensaios Clínicos | ✅ Implementado | Página `/ensaios-clinicos` publicada, com conteúdo educativo, TCLE explicado em linguagem simples e canal para o Conselho Consultivo |
+| 2. Reintroduzir Memória e Herança de Saúde | ✅ Implementado | Página `/memoria`, com visão de expansão internacional e espaço estruturado para histórias da comunidade (em coleta de campo) |
+| 2. Reintroduzir Comunidade / rodas de conversa | ✅ Implementado | Página `/comunidade` e seção dedicada na Home ("Rodas de conversa acontecem toda semana") |
+| 2. Reintroduzir Find a Doctor (rede privada + atendimento humanizado) | 🟡 Parcial | `/rede-sus` já expõe a intenção e o filtro planejado; a base de profissionais da rede privada em si ainda está em construção |
+| 4. Adicionar Condições Genéticas/Raras como tema prioritário | ✅ Implementado | Anemia Falciforme e Lúpus são temas prioritários na Biblioteca de Saúde (categoria "Raras e Autoimunes"), coerente com a parceria ABRADFAL |
+| 4.1 Adicionar Saúde Mental e Socioeconômica Contemporânea | ✅ Implementado | 7ª categoria ativa na Biblioteca de Saúde, com as 5 condições descritas na Parte 4.5 |
+| — | ✅ Expandido além da proposta original | A Biblioteca de Saúde cresceu para **10 categorias e 48+ condições** — incluindo a incorporação da categoria "Renais e Genéticas" (gene APOL1) e enriquecimento de 8 condições com dados do primeiro estudo epidemiológico local do DF (AECID/APRECIA/FIOCRUZ/UnB/FEPECS, 2015–2024), com estratificação real por raça/cor |
+| 5. Substituir assinatura fictícia por Conselho Consultivo nomeado | ✅ Implementado | Página `/transparencia` publica os nomes e instituições do Conselho Consultivo, Comitê de Gestão, Coordenação e Comitê de Ética |
+| 3. Separar 3 domínios de dados (conteúdo/pesquisa/triagem) | ✅ Documentado | Publicado em `/transparencia`, com os 3 domínios e os níveis de consentimento LGPD descritos publicamente |
+| 6. Reposicionar Radar Epidemiológico como sinal transparente e opt-in | ✅ Documentado | Linguagem "opt-in e transparente, nunca vigilância silenciosa" adotada na Home, em `/baixar` e no roadmap público |
+| 8. Tratar métricas de tração como metas, não fatos | ✅ Implementado | `/transparencia` declara explicitamente essa política; nenhum número de uso é apresentado como resultado já obtido |
+| 7. Criar módulo de Formação/AVA | 🟡 Planejado | Consta no roadmap público (`/sobre`, Fase 2) como entrega de 3–6 meses; ainda não lançado |
+| 1. Formalizar R$80k como workstream dentro do guarda-chuva AECID | ⚪ Fora do escopo deste site | Decisão institucional/contratual, não implementável via produto digital |
+| — | ✅ Adicionado além da Parte 6 | Página dedicada **Medicina Tradicional Brasileira** (`/medicina-tradicional-brasileira`), com 3 perfis de plantas, glossário de métodos de preparo e livro de referência (Fiocruz/Farmanguinhos) para download — extensão natural da lição "Generational Health" da Parte 4 |
+
+**Legenda**: ✅ Implementado/Documentado no site em produção · 🟡 Parcial ou planejado com prazo público · ⚪ Fora do escopo de um produto digital (depende de decisão institucional/contratual).
+
+---
+
 ## PARTE 1 — O QUE O ACERVO REALMENTE CONTÉM (linha do tempo editorial)
 
 O hub não é um documento único — é o **rastro de decisões de um projeto vivo**, com pelo menos 4 camadas cronológicas sobrepostas:
@@ -16,7 +41,7 @@ O hub não é um documento único — é o **rastro de decisões de um projeto v
 | **1. Formulação institucional (a que paga a conta)** | `ANEXO 2 - AFRODESCENDENTES.doc` | Formulário oficial AECID, **assinado em 19/05/2025**, o único documento juridicamente vinculante | 24 meses, €235.152,41, escopo amplo (estudo + cartilha impressa + AVA + app + seminário) |
 | **2. Ideação de produto (a mais ambiciosa)** | `PROJ NEGROS - IDEIAS ABA SITE.pdf` | Brainstorm de arquitetura de site em 9 abas | Rica, mas nunca formalmente cortada — só "esquecida" |
 | **3. Instrumentos de campo** | `PESQUISA... QUESTIONARIO.pdf`, `NEGROS- MODELO PESQUISA DOENÇAS.pdf` | Dois instrumentos **distintos**: pesquisa populacional anônima vs. triagem clínica identificável (CPF/CNS) | Nunca formalmente unificados nem separados no desenho técnico |
-| **4. Base de conteúdo** | `BASE CIENTIFICA DE DOENÇAS.pdf`, `GUIA DA SAUDE.pdf` | 40+ condições com estudo/achado por condição | Ampla, depois artificialmente reduzida a "5 temas" no MVP |
+| **4. Base de conteúdo** | `BASE CIENTIFICA DE DOENÇAS.pdf`, `GUIA DA SAUDE.pdf` | 40+ condições com estudo/achado por condição | Ampla, depois artificialmente reduzida a "5 temas" no MVP (nota: já corrigido — ver "Status de implementação" no topo) |
 | **5. Consolidação técnica (Rev. V3)** | README, TECHNICAL_ARCHITECTURE, API_DOCUMENTATION, MASTER_NARRATIVE, DUAL_PLATFORM_STRATEGY, CHANGELOG_V3 | MVP "App Sentinela" + site institucional, com métricas de uso já declaradas | Coerente internamente, mas **desconectado das camadas 1 e 2** |
 | **6. Comercialização** | `PROPOSTA_CASIO_STUDIO_80K.docx` | Proposta de R$80k/90 dias para construir o que a camada 5 já diz estar construído | Contradiz a camada 5 e é uma fração pequena do orçamento da camada 1 |
 
