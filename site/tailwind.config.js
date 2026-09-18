@@ -67,6 +67,16 @@ export default {
           500: '#94533a', // barro (ref. Ìlera) — USO RESTRITO: ouvidoria/denúncia/alerta
           700: '#6b3620',
         },
+        // Terracota/brasa — tom terroso adicional (pacote v4.3), usado em separadores
+        // editoriais da página "Medicina Tradicional Brasileira" e no mapa de Regiões
+        // de Saúde (regionColors.ts). Não substitui barro (que é USO RESTRITO para
+        // ouvidoria/denúncia) — brasa é de uso livre decorativo/editorial.
+        brasa: {
+          50: '#fbece6',
+          300: '#e0876a',
+          500: '#b8482e',
+          700: '#7a2a1a',
+        },
         // Novos tokens da referência Ìlera (adição pura, sem uso prévio no código —
         // disponíveis para tratamento editorial: texto primário/secundário e divisores).
         tinta: {
