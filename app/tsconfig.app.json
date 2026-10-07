@@ -16,6 +16,11 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
+    /* Camada canônica compartilhada (ver /shared/README.md) */
+    "paths": {
+      "@shared/*": ["../shared/*"]
+    },
+
     /* Linting */
     "noUnusedLocals": true,
     "noUnusedParameters": true,

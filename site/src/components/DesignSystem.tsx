@@ -3,6 +3,7 @@
 // no mesmo espírito de "confiança > sofisticação técnica" da Parte 4 do relatório.
 import { LeafMark, PalhaLine, ContasRing } from './Ornaments';
 import Logo from './Logo';
+import { projectInfo } from '@shared/data/project-adapter';
 import ThemeIcon from './ThemeIcons';
 
 const paleta = [
@@ -73,7 +74,7 @@ export default function DesignSystem() {
         <span className="eyebrow text-brand-600">Documentação pública</span>
         <h2 className="text-xl font-bold text-earth-900 mt-1">Sistema de design</h2>
         <p className="text-earth-600 text-sm mt-2 max-w-2xl">
-          A linguagem visual "cultural-ancestral" (V2/V3) adotada por Gente Preta foi calibrada a partir da
+          A linguagem visual "cultural-ancestral" (V2/V3) adotada por {projectInfo.name} foi calibrada a partir da
           referência de design <strong>Ìlera</strong> — proposta de adaptação brasileira do BlackDoctor.org.
           Documentamos aqui a paleta, tipografia, ornamentos e tom de voz para manter consistência e
           transparência de decisão, sem adotar o nome ou referências religiosas explícitas da proposta
@@ -191,7 +192,7 @@ export default function DesignSystem() {
             </p>
           </div>
           <div className="rounded-xl border border-folha-300 p-5 bg-folha-50">
-            <span className="eyebrow text-folha-700">— Depois · Gente Preta</span>
+            <span className="eyebrow text-folha-700">— Depois · {projectInfo.name}</span>
             <p className="font-editorial text-lg mt-3 text-folha-900">
               "Mulheres negras têm de 2 a 3 vezes mais risco de morte materna do que mulheres brancas — mesmo
               com a mesma renda e escolaridade. É racismo institucional, não coincidência. E é reversível."

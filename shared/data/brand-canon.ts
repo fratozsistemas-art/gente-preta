@@ -225,7 +225,5 @@ export function getBrandMetadata(versionId?: BrandVersionId) {
   };
 }
 
-/**
- * TIPO EXPORT para uso em componentes
- */
-export type { BrandIdentity };
+// Nota: BrandIdentity já é exportada acima via `export interface BrandIdentity`
+// (export duplicado via `export type { BrandIdentity }` causava TS2484).

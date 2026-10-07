@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { priorityThemes, emergentThemes, totalConditionsCount } from '../data/diseases';
 import { partners, hardServices, phytotherapy } from '../data/project';
+import { projectInfo } from '@shared/data/project-adapter';
 import { LeafMark, PalhaLine, ContasRing } from '../components/Ornaments';
 import ThemeIcon from '../components/ThemeIcons';
 import HeroSlideshow from '../components/HeroSlideshow';
@@ -44,7 +45,7 @@ export default function Home() {
               Sua saúde, sua voz, sua comunidade.
             </h1>
             <p className="text-lg text-earth-600 mb-8">
-              Gente Preta reúne evidência científica, navegação em saúde e vigilância comunitária para
+              {projectInfo.name} reúne evidência científica, navegação em saúde e vigilância comunitária para
               reduzir as inequidades que a população negra enfrenta no SUS — começando pelo Distrito Federal.
             </p>
             <div className="flex flex-wrap gap-3">
@@ -59,7 +60,7 @@ export default function Home() {
           <div>
             <HeroSlideshow />
             <p className="text-xs text-earth-500 mt-2 text-center">
-              O que é o Gente Preta, o que ele oferece e por que isso importa para a sociedade.
+              O que é o {projectInfo.name}, o que ele oferece e por que isso importa para a sociedade.
             </p>
           </div>
         </div>
@@ -95,7 +96,7 @@ export default function Home() {
           <div className="flex items-end justify-between mb-8 flex-wrap gap-2">
             <div>
               <span className="eyebrow text-folha-700">Serviço, não só conteúdo</span>
-              <h2 className="font-editorial italic text-2xl sm:text-3xl text-earth-900 mt-1">Folhas de Gente Preta</h2>
+              <h2 className="font-editorial italic text-2xl sm:text-3xl text-earth-900 mt-1">Folhas de {projectInfo.name}</h2>
               <p className="text-sm text-earth-500 mt-1">Serviços concretos, não apenas conteúdo — direito à saúde na prática.</p>
             </div>
           </div>

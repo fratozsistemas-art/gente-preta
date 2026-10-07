@@ -26,6 +26,7 @@ import {
   getCurrentBrand,
   getBrandVersion,
   getBrandMetadata,
+  getBrandHistory,
   type BrandIdentity,
   type BrandVersionId,
 } from './brand-canon';
@@ -122,13 +123,12 @@ export interface BrandHistoryEntry {
 }
 
 export function getBrandHistoryForDisplay(): BrandHistoryEntry[] {
-  const { getBrandHistory } = require('./brand-canon');
   const history = getBrandHistory();
-  
-  return history.map((brand, index) => {
+
+  return history.map((brand: BrandIdentity, index: number) => {
     const nextBrand = history[index + 1];
     const endDate = nextBrand ? nextBrand.effectiveDate : 'presente';
-    
+
     return {
       name: brand.name,
       period: `${brand.effectiveDate} — ${endDate}`,

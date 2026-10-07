@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import path from 'node:path'
 
 // https://vite.dev/config/
 // O App Sentinela é publicado sob o subcaminho /app/ do mesmo domínio do
@@ -8,6 +9,12 @@ import react from '@vitejs/plugin-react'
 export default defineConfig(({ command }) => ({
   plugins: [react()],
   base: command === 'build' ? '/app/' : '/',
+  resolve: {
+    alias: {
+      // Camada canônica compartilhada entre site/ e app/ (ver /shared/README.md).
+      '@shared': path.resolve(import.meta.dirname, '../shared'),
+    },
+  },
   server: {
     host: true,
     allowedHosts: true,

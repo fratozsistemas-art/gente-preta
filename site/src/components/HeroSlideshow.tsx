@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { heroSlides } from '../data/heroSlides';
 import { LeafMark } from './Ornaments';
+import { projectInfo } from '@shared/data/project-adapter';
 
 // Apresentação de slides dinâmica para a hero da Home — substitui o vídeo
 // por um carrossel autoral, focado no lado informativo do site/App e em seus
@@ -60,7 +61,7 @@ export default function HeroSlideshow() {
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
       role="region"
-      aria-label="Apresentação: o que é o Gente Preta"
+      aria-label={`Apresentação: o que é o ${projectInfo.name}`}
     >
       <div className={`relative bg-gradient-to-br ${toneBg[slide.tone]} text-white transition-colors duration-700`}>
         {/* Textura discreta, mesma linguagem "ornament-palha" do resto do site */}

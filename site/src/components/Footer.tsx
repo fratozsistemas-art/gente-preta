@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import Logo from './Logo';
+import { projectInfo } from '@shared/data/project-adapter';
 
 export default function Footer() {
   return (
@@ -8,7 +9,7 @@ export default function Footer() {
         <div>
           <div className="flex items-center gap-2 font-bold text-white text-base mb-3">
             <Logo size={32} monochrome />
-            <span className="font-editorial italic">Gente Preta</span>
+            <span className="font-editorial italic">{projectInfo.name}</span>
           </div>
           <p className="text-earth-300">
             Plataforma de inteligência comunitária para equidade em saúde da população negra.
@@ -44,7 +45,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="border-t border-earth-800 py-4 text-center text-xs text-earth-400">
-        © {new Date().getFullYear()} Gente Preta — AECID · SEJUS/DF · APRECIA · FEPECS · CUFA/DF · ABRADFAL · CASIO V2 Studio
+        © {new Date().getFullYear()} {projectInfo.name} — AECID · SEJUS/DF · APRECIA · FEPECS · CUFA/DF · ABRADFAL · CASIO V2 Studio
       </div>
     </footer>
   );

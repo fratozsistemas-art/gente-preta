@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import Logo from './Logo';
+import { projectInfo } from '@shared/data/project-adapter';
 
 // Menu reorganizado (pacote v4.3, 17/08/2026): 3 links primários + 2 grupos em
 // dropdown (Saberes / Instituição), recuperado nesta sessão.
@@ -37,7 +38,7 @@ export default function Header() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
         <Link to="/" className="flex items-center gap-2 font-bold text-earth-900 text-lg shrink-0">
           <Logo size={36} />
-          <span className="hidden sm:inline font-editorial italic">Gente Preta</span>
+          <span className="hidden sm:inline font-editorial italic">{projectInfo.name}</span>
         </Link>
         <nav className="hidden lg:flex items-center gap-1 text-sm">
           {primaryNavItems.map((item) => (

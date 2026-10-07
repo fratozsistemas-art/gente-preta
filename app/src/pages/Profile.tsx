@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useAppStore } from '../store/useAppStore';
 import { lgpdConsentLevels } from '../data/project';
+import { projectInfo } from '@shared/data/project-adapter';
 import TopBar from '../components/TopBar';
 
 export default function Profile() {
@@ -113,7 +114,7 @@ export default function Profile() {
         </div>
 
         <p className="text-[11px] text-earth-400 text-center pt-4">
-          App Sentinela — Gente Preta
+          App Sentinela — {projectInfo.name}
         </p>
       </div>
     </div>

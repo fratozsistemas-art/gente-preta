@@ -5,6 +5,8 @@
 // contas (Obaluaê/comunidade). Nenhum texto, símbolo ou cor fora da paleta do
 // projeto faz referência religiosa explícita — ver nota de cautela em
 // DesignSystem.tsx / arquitetura.md.
+import { projectInfo } from '@shared/data/project-adapter';
+
 interface LogoProps {
   size?: number;
   className?: string;
@@ -29,7 +31,7 @@ export default function Logo({ size = 36, className = '', monochrome = false }: 
       viewBox="0 0 36 36"
       className={className}
       role="img"
-      aria-label="Gente Preta"
+      aria-label={projectInfo.name}
     >
       <circle cx="18" cy="18" r="17.5" fill={bg} />
       {dots.map((d) => (
