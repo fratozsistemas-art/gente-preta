@@ -1,11 +1,14 @@
 import { useParams, Link } from 'react-router-dom';
 import { diseaseCategories } from '../data/diseases';
 import TopBar from '../components/TopBar';
+import { getDeepContent } from '../data/deepContentRegistry';
+import AudienceContentTabs from '../components/AudienceContentTabs';
 
 export default function DiseaseDetail() {
   const { categoryId, diseaseId } = useParams();
   const category = diseaseCategories.find((c) => c.id === categoryId);
   const disease = category?.diseases.find((d) => d.id === diseaseId);
+  const deepContent = disease?.hasDeepContent ? getDeepContent(disease.id) : undefined;
 
   if (!category || !disease) {
     return (
@@ -20,6 +23,20 @@ export default function DiseaseDetail() {
     <div>
       <TopBar title={disease.name} showBack />
       <div className="px-5 pt-4 pb-8">
+        {deepContent && (
+          <div className="relative w-full overflow-hidden rounded-xl border border-earth-200 mb-4 aspect-[16/9]">
+            <img
+              src={deepContent.heroImage.url}
+              alt={deepContent.heroImage.alt}
+              className="absolute inset-0 w-full h-full object-cover"
+              loading="eager"
+            />
+            <span className="absolute bottom-1.5 right-1.5 rounded bg-black/55 text-white text-[9px] px-1.5 py-0.5">
+              Placeholder (CC) — {deepContent.heroImage.credit}
+            </span>
+          </div>
+        )}
+
         <div className="flex gap-2 mb-4">
           {disease.isPriorityTheme && (
             <span className="text-[10px] uppercase font-bold text-white bg-brand-600 px-2 py-1 rounded">
@@ -49,6 +66,8 @@ export default function DiseaseDetail() {
             Condição incluída na base científica geral. Evidência detalhada em padronização.
           </div>
         )}
+
+        {deepContent && <AudienceContentTabs content={deepContent} />}
 
         <div className="mt-6 rounded-xl border border-earth-200 p-4 text-xs text-earth-500">
           Em caso de sintomas, procure uma UBS.{' '}

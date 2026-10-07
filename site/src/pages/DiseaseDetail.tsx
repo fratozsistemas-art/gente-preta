@@ -1,11 +1,14 @@
 import { Link, useParams } from 'react-router-dom';
 import { diseaseCategories } from '../data/diseases';
+import { getDeepContent } from '../data/deepContentRegistry';
 import CategoryIcon from '../components/CategoryIcons';
+import AudienceContentTabs from '../components/AudienceContentTabs';
 
 export default function DiseaseDetail() {
   const { categoryId, diseaseId } = useParams();
   const category = diseaseCategories.find((c) => c.id === categoryId);
   const disease = category?.diseases.find((d) => d.id === diseaseId);
+  const deepContent = disease?.hasDeepContent ? getDeepContent(disease.id) : undefined;
 
   if (!category || !disease) {
     return (
@@ -21,6 +24,20 @@ export default function DiseaseDetail() {
       <Link to="/saude" className="text-brand-600 hover:underline text-sm mb-6 inline-block">
         ← Voltar para {category.title}
       </Link>
+
+      {deepContent && (
+        <div className="relative w-full overflow-hidden rounded-2xl border border-earth-200 mb-6 aspect-[16/7]">
+          <img
+            src={deepContent.heroImage.url}
+            alt={deepContent.heroImage.alt}
+            className="absolute inset-0 w-full h-full object-cover"
+            loading="eager"
+          />
+          <span className="absolute bottom-2 right-2 rounded bg-black/55 text-white text-[10px] px-2 py-1">
+            Imagem placeholder (CC) — {deepContent.heroImage.credit}
+          </span>
+        </div>
+      )}
 
       <div className="flex items-center gap-3 mb-4">
         <CategoryIcon id={category.id} size={44} />
@@ -80,6 +97,8 @@ export default function DiseaseDetail() {
           </p>
         </div>
       )}
+
+      {deepContent && <AudienceContentTabs content={deepContent} />}
 
       <div className="mt-10 rounded-xl border border-earth-200 p-5 bg-white text-sm text-earth-500">
         <strong>Nota:</strong> os dados descrevem tendências populacionais, não diagnósticos individuais. Em

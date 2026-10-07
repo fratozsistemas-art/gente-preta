@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import { priorityThemes, emergentThemes, totalConditionsCount } from '../data/diseases';
 import { partners, hardServices, phytotherapy } from '../data/project';
-import { projectInfo } from '@shared/data/project-adapter';
+import { newsItems } from '../data/news';
+import { useAppearance } from '@shared/context/AppearanceContext';
 import { LeafMark, PalhaLine, ContasRing } from '../components/Ornaments';
 import ThemeIcon from '../components/ThemeIcons';
 import HeroSlideshow from '../components/HeroSlideshow';
@@ -28,40 +29,68 @@ const toneText: Record<string, string> = {
 };
 
 export default function Home() {
+  const { variant, brand, t } = useAppearance();
+  const heroTreatment = variant.hero.treatment;
+  const ctaPrimary = t(variant.hero.ctaPrimaryKey);
+  const ctaSecondary = t(variant.hero.ctaSecondaryKey);
+
   return (
     <div>
-      {/* Hero — base visual V2 (cultural-ancestral): tipografia editorial serifada,
-          ornamento abstrato "folha" (Ossaim) discreto no fundo. */}
+      {/* Hero — tratamento depende da variante ativa (GP0 = slideshow original,
+          PP1 = foto de família, PP2 = retrato de mulher). Ver shared/data/variants.ts.
+          Texto institucional (nome/tagline) vem sempre do Brand Canon via `brand`. */}
       <section className="relative overflow-hidden bg-gradient-to-b from-folha-50 via-brand-50 to-white ornament-folha">
         <ContasRing size={160} className="hidden sm:block absolute top-8 right-8 opacity-[0.15] pointer-events-none" />
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24 grid lg:grid-cols-2 gap-10 items-center relative">
           <div>
             <span className="eyebrow inline-block text-folha-700 mb-4">
-              Sentinela de saúde da população negra
+              {t('home.hero.eyebrow')}
             </span>
             <h1 className="font-editorial italic text-4xl sm:text-5xl lg:text-[3.4rem] font-medium text-earth-900 leading-tight mb-6">
-              Conhecimento que transforma <span className="text-brand-600 not-italic font-bold">políticas</span>.
+              {t('home.hero.headline.part1')} <span className="text-brand-600 not-italic font-bold">{t('home.hero.headline.highlight')}</span>.
               <br />
-              Sua saúde, sua voz, sua comunidade.
+              {t('home.hero.headline.part2')}
             </h1>
             <p className="text-lg text-earth-600 mb-8">
-              {projectInfo.name} reúne evidência científica, navegação em saúde e vigilância comunitária para
+              {brand.name} reúne evidência científica, navegação em saúde e vigilância comunitária para
               reduzir as inequidades que a população negra enfrenta no SUS — começando pelo Distrito Federal.
             </p>
             <div className="flex flex-wrap gap-3">
               <Link to="/baixar" className="rounded-md bg-brand-600 text-white px-5 py-3 font-semibold hover:bg-brand-700">
-                Baixar o App Sentinela
+                {ctaPrimary}
               </Link>
               <Link to="/saude" className="rounded-md border border-earth-300 px-5 py-3 font-semibold text-earth-800 hover:bg-earth-50">
-                Explorar Biblioteca de Saúde
+                {ctaSecondary}
               </Link>
             </div>
           </div>
           <div>
-            <HeroSlideshow />
-            <p className="text-xs text-earth-500 mt-2 text-center">
-              O que é o {projectInfo.name}, o que ele oferece e por que isso importa para a sociedade.
-            </p>
+            {heroTreatment === 'slideshow' && (
+              <>
+                <HeroSlideshow />
+                <p className="text-xs text-earth-500 mt-2 text-center">
+                  {t('home.hero.caption', { brand: brand.name })}
+                </p>
+              </>
+            )}
+            {(heroTreatment === 'family-photo' || heroTreatment === 'woman-photo') && variant.hero.image && (
+              <>
+                <div className="relative w-full overflow-hidden rounded-2xl border border-earth-200 shadow-sm aspect-[4/3]">
+                  <img
+                    src={variant.hero.image.url}
+                    alt={variant.hero.image.alt}
+                    className="absolute inset-0 w-full h-full object-cover"
+                    loading="eager"
+                  />
+                  <span className="absolute bottom-2 right-2 rounded bg-black/55 text-white text-[10px] px-2 py-1">
+                    Imagem placeholder (CC) — foto própria em breve
+                  </span>
+                </div>
+                <p className="text-xs text-earth-500 mt-2 text-center">
+                  {t('home.hero.caption', { brand: brand.name })}
+                </p>
+              </>
+            )}
           </div>
         </div>
       </section>
@@ -96,7 +125,7 @@ export default function Home() {
           <div className="flex items-end justify-between mb-8 flex-wrap gap-2">
             <div>
               <span className="eyebrow text-folha-700">Serviço, não só conteúdo</span>
-              <h2 className="font-editorial italic text-2xl sm:text-3xl text-earth-900 mt-1">Folhas de {projectInfo.name}</h2>
+              <h2 className="font-editorial italic text-2xl sm:text-3xl text-earth-900 mt-1">Folhas de {brand.name}</h2>
               <p className="text-sm text-earth-500 mt-1">Serviços concretos, não apenas conteúdo — direito à saúde na prática.</p>
             </div>
           </div>
@@ -164,31 +193,88 @@ export default function Home() {
         </div>
       </section>
 
-      {/* O Problema */}
-      <section className="bg-earth-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 grid lg:grid-cols-2 gap-10">
-          <div>
-            <span className="eyebrow text-barro-500">Diagnóstico</span>
-            <h2 className="text-2xl font-bold text-earth-900 mt-1 mb-4">O problema</h2>
-            <ul className="space-y-3 text-earth-700">
-              <li>• <strong>2,3x maior risco</strong> de hipertensão em relação à população branca</li>
-              <li>• <strong>60% de subdiagnóstico</strong> devido a racismo institucional</li>
-              <li>• <strong>Menor acesso</strong> a serviços de qualidade no SUS</li>
-              <li>• <strong>Invisibilidade epidemiológica</strong>: 56% da população é negra, mas apenas 1,5% das pesquisas em saúde incluem recorte racial</li>
-            </ul>
+      {/* O Problema / A Solução — "faixa de missão". Tratamento visual depende da
+          variante ativa (ver shared/data/variants.ts → missionBandTheme):
+          emerald-split (GP0/PP1) = fundo dividido em dois tons de verde; terracotta-band
+          (PP2) = faixa única na paleta oficial Pulso Preto (terracota/dourado). */}
+      {variant.missionBandTheme === 'emerald-split' ? (
+        <section className="grid lg:grid-cols-2">
+          <div className="bg-folha-900 text-white px-4 sm:px-6 py-16">
+            <div className="max-w-xl mx-auto lg:ml-auto lg:mr-10">
+              <span className="eyebrow text-barro-300">Diagnóstico</span>
+              <h2 className="text-2xl font-bold mt-1 mb-4">O problema</h2>
+              <ul className="space-y-3 text-folha-100/90">
+                <li>• <strong className="text-white">2,3x maior risco</strong> de hipertensão em relação à população branca</li>
+                <li>• <strong className="text-white">60% de subdiagnóstico</strong> devido a racismo institucional</li>
+                <li>• <strong className="text-white">Menor acesso</strong> a serviços de qualidade no SUS</li>
+                <li>• <strong className="text-white">Invisibilidade epidemiológica</strong>: 56% da população é negra, mas apenas 1,5% das pesquisas em saúde incluem recorte racial</li>
+              </ul>
+            </div>
           </div>
-          <div>
-            <span className="eyebrow text-folha-700">Resposta</span>
-            <h2 className="text-2xl font-bold text-earth-900 mt-1 mb-4">A solução</h2>
-            <ul className="space-y-3 text-earth-700">
-              <li>• <strong>Escuta longitudinal</strong> — check-ins de 1-3 minutos</li>
-              <li>• <strong>Navegação em saúde</strong> — UBS + rede privada + atendimento humanizado</li>
-              <li>• <strong>Radar comunitário</strong> — sinais devolvidos com transparência, nunca vigilância silenciosa</li>
-              <li>• <strong>Produção de evidência</strong> — dados para políticas públicas</li>
-            </ul>
+          <div className="bg-folha-700 text-white px-4 sm:px-6 py-16">
+            <div className="max-w-xl mx-auto lg:mr-auto lg:ml-10">
+              <span className="eyebrow text-ouro-300">Resposta</span>
+              <h2 className="text-2xl font-bold mt-1 mb-4">A solução</h2>
+              <ul className="space-y-3 text-folha-100/90">
+                <li>• <strong className="text-white">Escuta longitudinal</strong> — check-ins de 1-3 minutos</li>
+                <li>• <strong className="text-white">Navegação em saúde</strong> — UBS + rede privada + atendimento humanizado</li>
+                <li>• <strong className="text-white">Radar comunitário</strong> — sinais devolvidos com transparência, nunca vigilância silenciosa</li>
+                <li>• <strong className="text-white">Produção de evidência</strong> — dados para políticas públicas</li>
+              </ul>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      ) : (
+        <section className="bg-pulso-terracota text-pulso-creme">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 grid lg:grid-cols-2 gap-10">
+            <div>
+              <span className="eyebrow text-pulso-creme/80">Diagnóstico</span>
+              <h2 className="text-2xl font-bold mt-1 mb-4">O problema</h2>
+              <ul className="space-y-3 text-pulso-creme/95">
+                <li>• <strong>2,3x maior risco</strong> de hipertensão em relação à população branca</li>
+                <li>• <strong>60% de subdiagnóstico</strong> devido a racismo institucional</li>
+                <li>• <strong>Menor acesso</strong> a serviços de qualidade no SUS</li>
+                <li>• <strong>Invisibilidade epidemiológica</strong>: 56% da população é negra, mas apenas 1,5% das pesquisas em saúde incluem recorte racial</li>
+              </ul>
+            </div>
+            <div>
+              <span className="eyebrow text-pulso-creme/80">Resposta</span>
+              <h2 className="text-2xl font-bold mt-1 mb-4">A solução</h2>
+              <ul className="space-y-3 text-pulso-creme/95">
+                <li>• <strong>Escuta longitudinal</strong> — check-ins de 1-3 minutos</li>
+                <li>• <strong>Navegação em saúde</strong> — UBS + rede privada + atendimento humanizado</li>
+                <li>• <strong>Radar comunitário</strong> — sinais devolvidos com transparência, nunca vigilância silenciosa</li>
+                <li>• <strong>Produção de evidência</strong> — dados para políticas públicas</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Últimas Notícias — exclusiva da variante PP2 (ver mockup de referência nº2). */}
+      {variant.showNewsSection && (
+        <section className="bg-white">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
+            <div className="flex items-end justify-between mb-8 flex-wrap gap-2">
+              <div>
+                <span className="eyebrow text-pulso-terracota">{t('home.news.eyebrow')}</span>
+                <h2 className="text-2xl font-bold text-earth-900 mt-1">{t('home.news.title')}</h2>
+              </div>
+            </div>
+            <div className="grid sm:grid-cols-3 gap-5">
+              {newsItems.map((n) => (
+                <article key={n.id} className="rounded-xl border border-earth-200 p-5 hover:shadow-md transition-shadow">
+                  <time className="text-xs text-earth-400 font-semibold uppercase tracking-wide">
+                    {new Date(n.date).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' })}
+                  </time>
+                  <h3 className="font-bold text-earth-900 mt-2 mb-2">{n.title}</h3>
+                  <p className="text-sm text-earth-600">{n.excerpt}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Rodas de conversa — dimensão comunitária visível já na Home (V2). */}
       <section className="bg-folha-900 text-white ornament-palha">

@@ -19,6 +19,12 @@ export interface Disease {
   // (AECID/APRECIA/FIOCRUZ/UnB/FEPECS) — complementa (não substitui) a
   // literatura internacional/nacional citada em study/finding.
   localStudy?: LocalStudyFinding;
+  // Sinaliza que esta condição tem conteúdo aprofundado e segmentado por
+  // audiência (médicos/enfermeiros/usuários) em um arquivo dedicado — ver
+  // site/src/data/anemiaFalciforme.ts e o registro em deepContentRegistry.ts.
+  // Quando true, DiseaseDetail.tsx renderiza as abas de audiência além do
+  // bloco padrão Estudo + Achado.
+  hasDeepContent?: boolean;
 }
 
 export interface DiseaseCategory {
@@ -249,6 +255,7 @@ export const diseaseCategories: DiseaseCategory[] = [
         study: 'Parceria técnica ABRADFAL (Associação Brasiliense das Pessoas com Doença Falciforme)',
         finding:
           'Doença genética com alta prevalência na população negra brasileira; tema prioritário do App em parceria formal com a ABRADFAL.',
+        hasDeepContent: true,
       },
       {
         id: 'lupus',

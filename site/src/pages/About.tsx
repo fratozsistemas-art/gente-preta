@@ -1,8 +1,9 @@
 import { roadmap } from '../data/project';
-import { projectInfo } from '@shared/data/project-adapter';
+import { useAppearance } from '@shared/context/AppearanceContext';
 import VideoEmbed from '../components/VideoEmbed';
 
 export default function About() {
+  const { brand: projectInfo } = useAppearance();
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-16 prose-project">
       <h1 className="text-3xl font-bold text-earth-900 mb-2">Sobre o Projeto</h1>

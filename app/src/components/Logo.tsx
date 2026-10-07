@@ -5,7 +5,7 @@
 // contas (Obaluaê/comunidade). Nenhum texto, símbolo ou cor fora da paleta do
 // projeto faz referência religiosa explícita — ver nota de cautela em
 // DesignSystem.tsx / arquitetura.md.
-import { projectInfo } from '@shared/data/project-adapter';
+import { useAppearance } from '@shared/context/AppearanceContext';
 
 interface LogoProps {
   size?: number;
@@ -14,6 +14,7 @@ interface LogoProps {
 }
 
 export default function Logo({ size = 36, className = '', monochrome = false }: LogoProps) {
+  const { brand } = useAppearance();
   const bg = monochrome ? '#f4f0e6' : '#213d34'; // palha (sobre fundo escuro) ou folha-deep
   const ring = monochrome ? '#213d34' : '#c9a04b'; // folha-deep ou ouro
   const leaf = monochrome ? '#213d34' : '#f4f0e6'; // folha-deep ou palha
@@ -31,7 +32,7 @@ export default function Logo({ size = 36, className = '', monochrome = false }: 
       viewBox="0 0 36 36"
       className={className}
       role="img"
-      aria-label={projectInfo.name}
+      aria-label={brand.name}
     >
       <circle cx="18" cy="18" r="17.5" fill={bg} />
       {dots.map((d) => (

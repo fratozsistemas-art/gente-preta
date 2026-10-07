@@ -1,10 +1,15 @@
 import { useNavigate } from 'react-router-dom';
+import VariantSwitcher from '@shared/components/VariantSwitcher';
 
 interface TopBarProps {
   title: string;
   showBack?: boolean;
 }
 
+// Inclui o VariantSwitcher (GP0/PP1/PP2 × PT/ES) em toda a TopBar do App
+// Sentinela — mesmo seletor usado no Header do site institucional (ver
+// shared/components/VariantSwitcher.tsx), garantindo troca sincronizada de
+// aparência entre site e app quando publicados no mesmo domínio.
 export default function TopBar({ title, showBack }: TopBarProps) {
   const navigate = useNavigate();
   return (
@@ -14,7 +19,8 @@ export default function TopBar({ title, showBack }: TopBarProps) {
           ←
         </button>
       )}
-      <h1 className="font-bold text-earth-900 text-base truncate">{title}</h1>
+      <h1 className="font-bold text-earth-900 text-base truncate flex-1">{title}</h1>
+      <VariantSwitcher compact />
     </div>
   );
 }

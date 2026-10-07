@@ -16,9 +16,13 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
-    /* Camada canônica compartilhada (ver /shared/README.md) */
+    /* Camada canônica compartilhada (ver /shared/README.md). Ver comentário
+       equivalente em site/tsconfig.app.json. */
     "paths": {
-      "@shared/*": ["../shared/*"]
+      "@shared/*": ["../shared/*"],
+      "react": ["./node_modules/@types/react"],
+      "react/jsx-runtime": ["./node_modules/@types/react/jsx-runtime"],
+      "react-dom": ["./node_modules/@types/react-dom"]
     },
 
     /* Linting */

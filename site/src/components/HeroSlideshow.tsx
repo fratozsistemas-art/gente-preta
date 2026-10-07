@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { heroSlides } from '../data/heroSlides';
 import { LeafMark } from './Ornaments';
-import { projectInfo } from '@shared/data/project-adapter';
+import { useAppearance } from '@shared/context/AppearanceContext';
 
 // Apresentação de slides dinâmica para a hero da Home — substitui o vídeo
 // por um carrossel autoral, focado no lado informativo do site/App e em seus
@@ -33,6 +33,7 @@ const toneDot: Record<string, string> = {
 };
 
 export default function HeroSlideshow() {
+  const { brand } = useAppearance();
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -61,7 +62,7 @@ export default function HeroSlideshow() {
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
       role="region"
-      aria-label={`Apresentação: o que é o ${projectInfo.name}`}
+      aria-label={`Apresentação: o que é o ${brand.name}`}
     >
       <div className={`relative bg-gradient-to-br ${toneBg[slide.tone]} text-white transition-colors duration-700`}>
         {/* Textura discreta, mesma linguagem "ornament-palha" do resto do site */}

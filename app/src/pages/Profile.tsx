@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useAppStore } from '../store/useAppStore';
 import { lgpdConsentLevels } from '../data/project';
-import { projectInfo } from '@shared/data/project-adapter';
+import { useAppearance } from '@shared/context/AppearanceContext';
 import TopBar from '../components/TopBar';
 
 export default function Profile() {
+  const { brand: projectInfo } = useAppearance();
   const consent = useAppStore((s) => s.consent);
   const setConsent = useAppStore((s) => s.setConsent);
   const baseline = useAppStore((s) => s.baseline);

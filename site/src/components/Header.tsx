@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import Logo from './Logo';
-import { projectInfo } from '@shared/data/project-adapter';
+import { useAppearance } from '@shared/context/AppearanceContext';
+import VariantSwitcher from '@shared/components/VariantSwitcher';
 
 // Menu reorganizado (pacote v4.3, 17/08/2026): 3 links primários + 2 grupos em
 // dropdown (Saberes / Instituição), recuperado nesta sessão.
@@ -33,12 +34,13 @@ const instituicaoGroup = {
 const allMobileItems = [...primaryNavItems, ...saberesGroup.items, ...instituicaoGroup.items];
 
 export default function Header() {
+  const { brand } = useAppearance();
   return (
     <header className="sticky top-0 z-50 bg-palha-100/95 backdrop-blur border-b border-earth-100">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
         <Link to="/" className="flex items-center gap-2 font-bold text-earth-900 text-lg shrink-0">
           <Logo size={36} />
-          <span className="hidden sm:inline font-editorial italic">{projectInfo.name}</span>
+          <span className="hidden sm:inline font-editorial italic">{brand.name}</span>
         </Link>
         <nav className="hidden lg:flex items-center gap-1 text-sm">
           {primaryNavItems.map((item) => (
@@ -59,7 +61,8 @@ export default function Header() {
           <NavDropdown label={saberesGroup.label} items={saberesGroup.items} />
           <NavDropdown label={instituicaoGroup.label} items={instituicaoGroup.items} />
         </nav>
-        <div className="hidden lg:block shrink-0">
+        <div className="hidden lg:flex items-center gap-2 shrink-0">
+          <VariantSwitcher />
           <NavLink
             to="/baixar"
             className="rounded-md bg-brand-600 text-white px-4 py-2 text-sm font-semibold hover:bg-brand-700 transition-colors"
@@ -67,7 +70,10 @@ export default function Header() {
             Baixe o App
           </NavLink>
         </div>
-        <MobileMenu />
+        <div className="lg:hidden flex items-center gap-2">
+          <VariantSwitcher compact />
+          <MobileMenu />
+        </div>
       </div>
     </header>
   );

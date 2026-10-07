@@ -84,6 +84,18 @@ export default {
           dim: '#5c605c',
         },
         linha: '#dcd6c9',
+        // Paleta OFICIAL "Pulso Preto" (pacote de marca, conversa APRECIA/Luis,
+        // out/2026) — usada nas variantes PP1/PP2 (ver shared/data/variants.ts).
+        // Não substitui folha/ouro/palha/barro (paleta "Gente Preta" original,
+        // preservada para a variante GP0) — convivem como namespaces distintos,
+        // trocados em runtime pelo VariantSwitcher conforme a variante ativa.
+        pulso: {
+          verde: '#164A3A',   // Verde profundo
+          creme: '#F5EFE3',   // Creme
+          dourado: '#C89B3C', // Dourado
+          terracota: '#A94A3D', // Terracota
+          marrom: '#6B3F2A',   // Marrom terra
+        },
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'Segoe UI', 'Roboto', 'sans-serif'],

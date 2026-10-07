@@ -8,6 +8,9 @@ export interface Disease {
   study?: string;
   finding?: string;
   isNew?: boolean; // condição de inclusão recente (realidade brasileira contemporânea)
+  // Ver nota equivalente em site/src/data/diseases.ts — sinaliza conteúdo
+  // aprofundado por audiência (shared/data/anemiaFalciforme.ts).
+  hasDeepContent?: boolean;
 }
 
 export interface DiseaseCategory {
@@ -162,6 +165,7 @@ export const diseaseCategories: DiseaseCategory[] = [
         study: 'Parceria técnica ABRADFAL (Associação Brasiliense das Pessoas com Doença Falciforme)',
         finding:
           'Doença genética com alta prevalência na população negra brasileira; tema prioritário do App em parceria formal com a ABRADFAL.',
+        hasDeepContent: true,
       },
       {
         id: 'lupus',

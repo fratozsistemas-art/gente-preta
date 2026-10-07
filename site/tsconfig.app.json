@@ -16,9 +16,16 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
-    /* Camada canônica compartilhada (ver /shared/README.md) */
+    /* Camada canônica compartilhada (ver /shared/README.md). Os arquivos em
+       @shared importam 'react'/'react-dom' como bare specifiers; como shared/
+       está fora de site/, mapeamos explicitamente para este node_modules local
+       (mesma ideia do alias Vite em vite.config.ts) para o type-checker achar
+       os tipos. */
     "paths": {
-      "@shared/*": ["../shared/*"]
+      "@shared/*": ["../shared/*"],
+      "react": ["./node_modules/@types/react"],
+      "react/jsx-runtime": ["./node_modules/@types/react/jsx-runtime"],
+      "react-dom": ["./node_modules/@types/react-dom"]
     },
 
     /* Linting */
