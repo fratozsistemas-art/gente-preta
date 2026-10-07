@@ -59,10 +59,39 @@ para facilitar manutenção futura.
 - Baixe o App: transparência radical de status (concluído/andamento/pendente), cronograma público, explicação passo a passo, consentimento LGPD (4 níveis), formulário de lista de espera, FAQ (7 perguntas).
 - Ícones autorais SVG (abstratos, sem simbologia médica literal) para todas as categorias, incluindo as duas novas (Renais/Genéticas, HIV e Prevenção).
 
+## Arquitetura CEOS (Fase 3) — Variantes de marca + Idiomas em runtime
+Camada **Canon / Variantes / Idiomas / Apresentação**, trocável em runtime (sem rebuild/redeploy), via botão único no Header (site) e TopBar (app):
+
+- `shared/data/brand-canon.ts` — **Canon**: texto/identidade de marca por versão (`BrandVersionId`), pré-existente da Fase 1.
+- `shared/data/variants.ts` — **Variantes**: `VariantId = 'gp0' | 'pp1' | 'pp2'`, cada uma referenciando um `BrandVersionId` do Canon + metadados de apresentação (tratamento de hero, imagem CC + crédito, chaves de CTA, tema da faixa de missão, tema do rodapé, exibição da seção de notícias). `DEFAULT_VARIANT = 'pp1'`.
+  - **GP0** — Gente Preta (paleta original, hero slideshow).
+  - **PP1** — Pulso Preto, hero com foto de família (placeholder CC — Flickr).
+  - **PP2** — Pulso Preto, hero com foto de mulher (placeholder CC — PickPik), inclui seção "Últimas Notícias".
+- `shared/data/locales.ts` — **Idiomas**: `LocaleId = 'pt' | 'es'`, dicionário `TRANSLATIONS` + `translate()`. `DEFAULT_LOCALE = 'pt'`. Arquitetado para permitir `'en'` futuramente sem alterar a API.
+- `shared/context/AppearanceContext.tsx` — `AppearanceProvider` + hook `useAppearance()` (`{variantId, variant, brand, localeId, setVariantId, setLocaleId, t}`), persiste escolha em `localStorage` (`pulsopreto:variant`, `pulsopreto:locale`).
+- `shared/components/VariantSwitcher.tsx` — dropdown (🎛️) com cartões de variante + botões de idioma, compartilhado entre site e app.
+- Paleta de marca oficial Pulso Preto (`pulso.verde/creme/dourado/terracota/marrom`) adicionada aos `tailwind.config.js` de ambos os projetos, coexistindo com a paleta legada `folha/ouro/palha/barro` (GP0) — a troca de tema é feita via classes condicionais no código, não por rebuild.
+- **Limitação conhecida**: apenas os textos de UI (Home, Header, Footer, CTAs) estão traduzidos PT/ES; o conteúdo clínico da Anemia Falciforme (abaixo) ainda está só em português — tradução ES do conteúdo técnico é item de próxima sprint.
+- **Painel administrativo de troca de marca**: explicitamente **não iniciado** nesta fase, por decisão do usuário.
+
+## Conteúdo aprofundado por audiência — Anemia Falciforme
+Primeira condição da Biblioteca de Saúde com conteúdo clínico completo e estratificado por público, acessível via abas na página de detalhe (`/saude/raras-autoimunes/anemia-falciforme` no site; mesma rota no app):
+
+- `shared/data/anemiaFalciforme.ts` — conteúdo único compartilhado site+app, com:
+  - **Médicos e pesquisadores**: fisiopatologia (mutação HBB, genótipos HbSS/HbSC/HbS-beta-thal), epidemiologia, diagnóstico, tratamento e condutas (hidroxiureia, voxelotor, crizanlizumabe, terapia gênica, TCTH), sinais de alarme, diretrizes/PCDT.
+  - **Enfermeiros e técnicos**: sinais que a equipe deve reconhecer, manejo da crise de dor, cuidado continuado — com atenção explícita ao viés no manejo da dor em pacientes negros.
+  - **Usuários**: linguagem acessível, sinais de alerta, cuidados do dia a dia, onde buscar ajuda no SUS — contextualizando o racismo no tratamento da dor como relevante para a comunidade.
+  - Fontes: ABRADFAL, PCDT do Ministério da Saúde, Programa Nacional de Triagem Neonatal, diretrizes NHLBI/ASH.
+  - Imagem hero placeholder CC (micrografia SEM comparando hemácias normais e falciformes, domínio público/Pixnio).
+- `site/src/data/deepContentRegistry.ts` e `app/src/data/deepContentRegistry.ts` — registro `disease.id → DiseaseDeepContent`.
+- `site/src/components/AudienceContentTabs.tsx` (desktop) e `app/src/components/AudienceContentTabs.tsx` (mobile compacto) — seletor de 3 abas (usuário/enfermeiro/médico), rótulos via `useAppearance().t()`.
+- `Disease.hasDeepContent?: boolean` (em `diseases.ts` de ambos os projetos) ativa a renderização condicional do hero + abas em `DiseaseDetail.tsx`.
+- **Próximo passo natural**: replicar esse padrão de conteúdo estratificado para as demais condições prioritárias da Biblioteca de Saúde.
+
 ## Não implementado / próximos passos
-- **Sprint imediata**: QA de acessibilidade (Lighthouse, leitor de tela); revisão clínica formal do conteúdo da Biblioteca pelo Conselho Consultivo.
-- **Sprint 2**: busca com biblioteca dedicada (Fuse.js) se o volume de condições crescer; conectar formulário de `/baixar` a serviço de e-mail transacional (SendGrid/Postmark) respeitando LGPD — hoje o submit é apenas local (sem envio real); OG images por rota; sitemap.xml atualizado.
-- **Sprint 3**: nomes reais no Conselho Consultivo (`/transparencia`); histórias reais em `/memoria`; canal oficial no YouTube; auditoria completa dos Quality Gates (QG1–QG6) do CASIO.
+- **Sprint imediata**: QA de acessibilidade (Lighthouse, leitor de tela); revisão clínica formal do conteúdo da Biblioteca pelo Conselho Consultivo; verificação funcional end-to-end do VariantSwitcher nas 3 variantes × 2 idiomas em navegador real; tradução ES do conteúdo clínico da Anemia Falciforme.
+- **Sprint 2**: busca com biblioteca dedicada (Fuse.js) se o volume de condições crescer; conectar formulário de `/baixar` a serviço de e-mail transacional (SendGrid/Postmark) respeitando LGPD — hoje o submit é apenas local (sem envio real); OG images por rota; sitemap.xml atualizado; substituir imagens placeholder CC (PP1/PP2/Anemia Falciforme) pelas fotos reais do projeto.
+- **Sprint 3**: nomes reais no Conselho Consultivo (`/transparencia`); histórias reais em `/memoria`; canal oficial no YouTube; auditoria completa dos Quality Gates (QG1–QG6) do CASIO; painel administrativo de troca de variante de marca (explicitamente fora de escopo até decisão do usuário).
 
 ## Como rodar localmente (sandbox)
 ```bash
