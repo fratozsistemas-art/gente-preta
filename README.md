@@ -97,13 +97,40 @@ padrão neste piloto; GP0 permanece acessível via VariantSwitcher como a
   `*/public/static/brand/partners/`): AECID, GDF, FEPECS, APRECIA — mapeados
   em `site/src/data/project.ts` → `partners.*.logo` e renderizados na seção
   "Parceiros e Governança" da Home (GP0).
+- **Favicon / `theme-color`**: auditoria de identidade identificou que
+  `favicon.svg` e `<meta name="theme-color">` em `site/index.html` e
+  `app/index.html` ainda eram o resquício genérico do template Hono/Vite
+  (raio lilás `#863bff`). Corrigido: novo favicon composto (fundo verde-escuro
+  `#06201B` + ícone oficial do pacote de identidade) em `favicon.svg` +
+  `favicon.png` (256×256) + `apple-touch-icon.png` (180×180), `theme-color`
+  agora `#06201B`.
+- **Tagline oficial**: o logo oficial (`LOGO/Pulso_Preto_Logo_Quadrada.png`)
+  traz o texto `"SAÚDE • CONHECIMENTO • EQUIDADE"` e o slogan de 3 linhas
+  "Informação que pulsa / Conhecimento que cuida / Equidade que transforma".
+  As taglines de cabeçalho PP1/PP2 × PT/ES (`shared/data/variantContent.ts`)
+  e a tagline do Canon (`shared/data/brand-canon.ts` →
+  `pulso-preto-v1.tagline`, usada também na meta `description` do site) foram
+  alinhadas a essa redação exata — `gente-preta-v1.tagline` (GP0, marca
+  anterior) permanece intocada.
+- **Elementos gráficos oficiais** (`ELEMENTOS/ICONES`, `ELEMENTOS/CIRCULO`,
+  `ELEMENTOS/PULSO`, redimensionados para 300–500px em
+  `*/public/static/brand/elementos/`): os 4 ícones customizados e o
+  Elemento Pulso/Círculo Dourado, antes não utilizados, agora aparecem em:
+  - **Site**: `PulsoHero` (Círculo Dourado como watermark decorativo) e
+    `PulsoMission` (Elemento Pulso dourado/branco junto à citação, PP1/PP2).
+  - **App Sentinela**: ícones dos QuickLinks da Home e do `BottomNav`
+    (UBS/mapa, Radar, Biblioteca de Saúde, Direitos), estado vazio do Radar
+    e estado de sucesso do formulário de denúncia (`ReportDiscrimination`) —
+    substituindo os emojis por ilustração oficial quando `isPulso`.
+  - Deliberadamente **não** alterados: o sistema de ícones SVG próprio do
+    site (`PulsoIcons.tsx`, `Ornaments.tsx`, `HeartbeatLine` em
+    Header/Footer) — para não misturar dois estilos de ícone visualmente
+    incompatíveis — e páginas/abas sem equivalente oficial (`AppAccess.tsx`,
+    ícones médico/enfermeiro em `AudienceContentTabs.tsx`).
 
 ### Limitações conhecidas desta fase
 - Conteúdo clínico aprofundado (Anemia Falciforme) traduzido PT/ES; demais
   32 condições da Biblioteca de Saúde seguem só em português.
-- App Sentinela (`app/`) ainda não tem layout `Pulso*` dedicado — apenas
-  Logo e paleta de cores estão disponíveis para a variante lá; replicar o
-  padrão de Home/Header/Footer do site é o próximo passo natural.
 - Painel administrativo de troca de marca: **fora de escopo**, por decisão
   do usuário — a troca aqui é um recurso de usuário final (como um seletor
   de idioma), não uma ferramenta de gestão de conteúdo.
