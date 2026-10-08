@@ -8,6 +8,7 @@ import DiseaseDetail from './pages/DiseaseDetail';
 import ClinicalTrials from './pages/ClinicalTrials';
 import TraditionalMedicine from './pages/TraditionalMedicine';
 import Memory from './pages/Memory';
+import News from './pages/News';
 import Community from './pages/Community';
 import SusNetwork from './pages/SusNetwork';
 import Transparency from './pages/Transparency';
@@ -36,6 +37,7 @@ function App() {
           <Route path="/medicina-tradicional-brasileira" element={<TraditionalMedicine />} />
           <Route path="/medicina-tradicional" element={<Navigate to="/medicina-tradicional-brasileira" replace />} />
           <Route path="/memoria" element={<Memory />} />
+          <Route path="/noticias" element={<News />} />
           <Route path="/comunidade" element={<Community />} />
           <Route path="/rede-sus" element={<SusNetwork />} />
           <Route path="/transparencia" element={<Transparency />} />

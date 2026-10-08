@@ -3,6 +3,7 @@ import Logo from './Logo';
 import { useAppearance } from '@shared/context/AppearanceContext';
 import { getVariantContent } from '@shared/data/variantContent';
 import { HeartbeatLine } from './PulsoIcons';
+import QRLink from './QRLink';
 import type { PulsoVariantContent } from '../../../shared/data/variantContent';
 
 // Estrutura do rodapé depende da variante ativa (ver shared/data/variants.ts
@@ -59,6 +60,7 @@ function GenteFooter({ brandName }: { brandName: string }) {
           <h4 className="text-white font-semibold mb-3">Instituição</h4>
           <ul className="space-y-2 text-earth-300">
             <li><Link to="/sobre" className="hover:text-white">Sobre o Projeto</Link></li>
+            <li><Link to="/noticias" className="hover:text-white">Notícias</Link></li>
             <li><Link to="/transparencia" className="hover:text-white">Transparência e Governança</Link></li>
             <li><Link to="/arquitetura" className="hover:text-white">Relatório de Arquitetura</Link></li>
           </ul>
@@ -66,9 +68,12 @@ function GenteFooter({ brandName }: { brandName: string }) {
         <div>
           <h4 className="text-white font-semibold mb-3">App Sentinela</h4>
           <p className="text-earth-300 mb-3">Escaneie o QR Code ou acesse pelo navegador do celular.</p>
-          <Link to="/baixar" className="inline-block rounded-md bg-brand-600 text-white px-4 py-2 font-medium hover:bg-brand-700">
-            Baixar / Acessar App
-          </Link>
+          <div className="flex items-center gap-3 mb-3">
+            <QRLink size={72} compact />
+            <Link to="/baixar" className="inline-block rounded-md bg-brand-600 text-white px-4 py-2 font-medium hover:bg-brand-700 text-sm">
+              Baixar / Acessar App
+            </Link>
+          </div>
         </div>
       </div>
       <div className="border-t border-earth-800 py-4 text-center text-xs text-earth-400">
@@ -84,9 +89,10 @@ function GenteFooter({ brandName }: { brandName: string }) {
 // ---------------------------------------------------------------------------
 function Pp1Footer({ content, brandName }: { content: PulsoVariantContent; brandName: string }) {
   const f = content.footer;
+  const { t } = useAppearance();
   return (
     <footer id="fale-conosco" className="bg-pulso-verde text-pulso-creme mt-24 scroll-mt-24 font-pulso-body">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-3 text-sm">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4 text-sm">
         <div>
           <div className="flex items-center gap-2 font-bold text-base mb-2 text-pulso-creme">
             <Logo size={34} monochrome />
@@ -135,6 +141,12 @@ function Pp1Footer({ content, brandName }: { content: PulsoVariantContent; brand
             </button>
           </form>
         </div>
+
+        <div>
+          <h4 className="font-semibold mb-3 text-pulso-dourado uppercase text-xs tracking-wide">{t('app.download.cta')}</h4>
+          <p className="text-pulso-creme/75 text-xs mb-3">{t('app.download.caption')}</p>
+          <QRLink size={88} compact />
+        </div>
       </div>
       <div className="border-t border-pulso-creme/15 py-4 text-center text-xs text-pulso-creme/60">
         {f.bottomText}
@@ -149,6 +161,7 @@ function Pp1Footer({ content, brandName }: { content: PulsoVariantContent; brand
 // ---------------------------------------------------------------------------
 function Pp2Footer({ content, brandName }: { content: PulsoVariantContent; brandName: string }) {
   const f = content.footer;
+  const { t } = useAppearance();
   return (
     <footer id="fale-conosco" className="bg-pulso-creme text-pulso-marrom mt-24 border-t border-pulso-dourado/30 scroll-mt-24 font-pulso-body">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 flex flex-wrap items-center justify-between gap-6">
@@ -167,6 +180,13 @@ function Pp2Footer({ content, brandName }: { content: PulsoVariantContent; brand
           <SocialIcon kind="facebook" tone="terracota" />
           <SocialIcon kind="youtube" tone="terracota" />
           <SocialIcon kind="linkedin" tone="terracota" />
+        </div>
+        <div className="flex items-center gap-3 rounded-xl border border-pulso-dourado/30 bg-white px-4 py-3">
+          <QRLink size={64} compact />
+          <div>
+            <p className="text-xs font-bold uppercase tracking-wide text-pulso-verde">{t('app.download.cta')}</p>
+            <p className="text-[11px] text-pulso-marrom/60 max-w-[160px]">{t('app.download.caption')}</p>
+          </div>
         </div>
       </div>
       <div className="border-t border-pulso-dourado/30 max-w-6xl mx-auto px-4 sm:px-6 py-4 flex flex-wrap items-center justify-between gap-3 text-xs">

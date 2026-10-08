@@ -50,6 +50,11 @@ export const TRANSLATIONS: Record<LocaleId, Dictionary> = {
     'home.news.title': 'Últimas notícias',
     'home.news.cta': 'Ver todas as notícias →',
 
+    // Baixe o App — botão/QR Code reaproveitado em Header/Footer de TODAS as
+    // variantes (GP0/PP1/PP2), sempre apontando para /baixar (ver AppAccess.tsx).
+    'app.download.cta': 'Baixe o App',
+    'app.download.caption': 'Escaneie o QR Code ou acesse pelo navegador do celular.',
+
     // Disease detail — rótulos de audiência
     'disease.audience.medico': 'Médicos e pesquisadores',
     'disease.audience.enfermeiro': 'Enfermeiros e técnicos',
@@ -81,6 +86,9 @@ export const TRANSLATIONS: Record<LocaleId, Dictionary> = {
     'home.news.eyebrow': 'Actualizaciones',
     'home.news.title': 'Últimas noticias',
     'home.news.cta': 'Ver todas las noticias →',
+
+    'app.download.cta': 'Descarga la App',
+    'app.download.caption': 'Escanea el código QR o accede desde el navegador del móvil.',
 
     'disease.audience.medico': 'Médicos e investigadores',
     'disease.audience.enfermeiro': 'Enfermeros y técnicos',

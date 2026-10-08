@@ -283,7 +283,7 @@ const SEMINAR_ES: SeminarContent = {
 // - Mulher Negra e Saúde Mental têm categoria exata → ancoram na seção
 // - "Fale Conosco" ancora no rodapé (onde vive o formulário de newsletter)
 // - "Dados e Indicadores" mapeia para /transparencia (dado público existente)
-// - "Notícias" ancora na seção de notícias da própria Home (#noticias)
+// - "Notícias" aponta para a página dedicada /noticias (ver site/src/pages/News.tsx)
 // ---------------------------------------------------------------------------
 const TO_SAUDE = '/saude';
 const TO_MULHER = '/saude#mulher-negra';
@@ -292,7 +292,7 @@ const TO_REDE_SUS = '/rede-sus';
 const TO_TRANSPARENCIA = '/transparencia';
 const TO_SOBRE = '/sobre';
 const TO_CONTATO = '/#fale-conosco';
-const TO_NOTICIAS = '/#noticias';
+const TO_NOTICIAS = '/noticias';
 
 type ContentByLocale = Record<LocaleId, PulsoVariantContent>;
 

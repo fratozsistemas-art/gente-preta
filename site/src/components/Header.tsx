@@ -30,6 +30,7 @@ const instituicaoGroup = {
   label: 'Instituição',
   items: [
     { to: '/sobre', label: 'Sobre' },
+    { to: '/noticias', label: 'Notícias' },
     { to: '/transparencia', label: 'Transparência' },
     { to: '/arquitetura', label: 'Relatório de Arquitetura' },
   ],
@@ -185,6 +186,7 @@ import type { PulsoVariantContent } from '../../../shared/data/variantContent';
 
 function PulsoHeader({ content, brandName }: { content: PulsoVariantContent; brandName: string }) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { t } = useAppearance();
   return (
     <header className="sticky top-0 z-50 bg-pulso-creme/95 backdrop-blur border-b border-pulso-dourado/30 font-pulso-body">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
@@ -230,6 +232,12 @@ function PulsoHeader({ content, brandName }: { content: PulsoVariantContent; bra
         <div className="hidden lg:flex items-center gap-2 shrink-0">
           <VariantSwitcher />
           <NavLink
+            to="/baixar"
+            className="rounded-md border border-pulso-verde text-pulso-verde px-3 py-2 text-xs font-bold uppercase tracking-wide hover:bg-pulso-verde hover:text-pulso-creme transition-colors"
+          >
+            📱 {t('app.download.cta')}
+          </NavLink>
+          <NavLink
             to={content.header.ctaTo}
             className="rounded-md bg-pulso-verde text-pulso-creme px-4 py-2 text-sm font-bold uppercase tracking-wide hover:bg-pulso-marrom transition-colors"
           >
@@ -267,6 +275,13 @@ function PulsoHeader({ content, brandName }: { content: PulsoVariantContent; bra
               {item.label}
             </Link>
           ))}
+          <Link
+            to="/baixar"
+            onClick={() => setMobileOpen(false)}
+            className="px-3 py-2 rounded-md text-sm font-bold uppercase text-center text-pulso-verde border border-pulso-verde"
+          >
+            📱 {t('app.download.cta')}
+          </Link>
           <Link
             to={content.header.ctaTo}
             onClick={() => setMobileOpen(false)}

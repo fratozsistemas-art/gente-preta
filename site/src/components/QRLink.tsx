@@ -5,10 +5,21 @@ interface QRLinkProps {
   size?: number;
   path?: string; // caminho dentro do App Sentinela, ex: '/', '/onboarding'
   label?: string;
+  compact?: boolean; // true: só o QR Code (sem card/legenda/link) — para uso em
+  // rodapés estreitos (Header/Footer Pulso Preto PP1/PP2), onde a legenda e o
+  // link textual já são renderizados ao lado pelo componente-pai.
 }
 
-export default function QRLink({ size = 220, path = '/', label }: QRLinkProps) {
+export default function QRLink({ size = 220, path = '/', label, compact = false }: QRLinkProps) {
   const url = `${APP_URL.replace(/\/$/, '')}${path}`;
+
+  if (compact) {
+    return (
+      <div className="inline-flex rounded-lg bg-white p-2 border border-earth-100 shrink-0">
+        <QRCodeSVG value={url} size={size} level="M" includeMargin />
+      </div>
+    );
+  }
 
   return (
     <div className="inline-flex flex-col items-center gap-3 rounded-2xl border border-earth-200 bg-white p-6 shadow-sm">
