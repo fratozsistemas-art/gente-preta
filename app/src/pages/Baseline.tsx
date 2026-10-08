@@ -4,14 +4,21 @@ import { useAppStore } from '../store/useAppStore';
 import { priorityThemes } from '../data/diseases';
 import { dfAdministrativeRegions, rideEntornoMunicipalities } from '../data/project';
 import { fetchAddressByCep, formatCep, isValidCepFormat } from '../lib/viacep';
+import { useAppearance } from '@shared/context/AppearanceContext';
 import TopBar from '../components/TopBar';
 
 const STEPS = ['perfil', 'saude', 'acesso', 'discriminacao'] as const;
 
+// Tema Pulso Preto (PP1/PP2): isPulso propagado para todos os sub-componentes
+// (ProgressBar, Section, Field, Select, GroupedSelect) via useAppearance()
+// direto, já que ficam no mesmo módulo — evita precisar de uma prop `pulso`
+// repetida em cada chamada.
 export default function Baseline() {
   const navigate = useNavigate();
   const saveBaseline = useAppStore((s) => s.saveBaseline);
   const completeOnboarding = useAppStore((s) => s.completeOnboarding);
+  const { variantId } = useAppearance();
+  const isPulso = variantId === 'pp1' || variantId === 'pp2';
 
   const [step, setStep] = useState(0);
   const [raceColor, setRaceColor] = useState('');
@@ -93,7 +100,7 @@ export default function Baseline() {
   }
 
   return (
-    <div>
+    <div className={isPulso ? 'min-h-screen bg-pulso-creme font-pulso-body' : undefined}>
       <TopBar title="Questionário de linha de base" showBack />
       <div className="px-5 pt-3 pb-8">
         <ProgressBar current={step} total={STEPS.length} />
@@ -119,13 +126,19 @@ export default function Baseline() {
                 placeholder="00000-000"
                 inputMode="numeric"
                 maxLength={9}
-                className="w-full rounded-lg border border-earth-200 p-3 text-sm bg-white"
+                className={
+                  isPulso
+                    ? 'w-full rounded-lg border border-pulso-dourado/30 p-3 text-sm bg-white'
+                    : 'w-full rounded-lg border border-earth-200 p-3 text-sm bg-white'
+                }
               />
               {cepStatus === 'loading' && (
-                <p className="text-xs text-earth-400 mt-1">Consultando endereço nos Correios (ViaCEP)...</p>
+                <p className={`text-xs mt-1 ${isPulso ? 'text-pulso-marrom/60' : 'text-earth-400'}`}>
+                  Consultando endereço nos Correios (ViaCEP)...
+                </p>
               )}
               {cepStatus === 'ok' && (
-                <p className="text-xs text-brand-600 mt-1">
+                <p className={`text-xs mt-1 ${isPulso ? 'text-pulso-verde-accent' : 'text-brand-600'}`}>
                   Endereço encontrado: {logradouro}{bairro ? `, ${bairro}` : ''} — {cidade}/{uf}
                 </p>
               )}
@@ -139,20 +152,32 @@ export default function Baseline() {
                     value={logradouro}
                     onChange={(e) => setLogradouro(e.target.value)}
                     placeholder="Logradouro"
-                    className="w-full rounded-lg border border-earth-200 p-3 text-sm bg-white"
+                    className={
+                      isPulso
+                        ? 'w-full rounded-lg border border-pulso-dourado/30 p-3 text-sm bg-white'
+                        : 'w-full rounded-lg border border-earth-200 p-3 text-sm bg-white'
+                    }
                   />
                   <div className="grid grid-cols-2 gap-2">
                     <input
                       value={bairro}
                       onChange={(e) => setBairro(e.target.value)}
                       placeholder="Bairro"
-                      className="w-full rounded-lg border border-earth-200 p-3 text-sm bg-white"
+                      className={
+                        isPulso
+                          ? 'w-full rounded-lg border border-pulso-dourado/30 p-3 text-sm bg-white'
+                          : 'w-full rounded-lg border border-earth-200 p-3 text-sm bg-white'
+                      }
                     />
                     <input
                       value={cidade}
                       onChange={(e) => setCidade(e.target.value)}
                       placeholder="Cidade"
-                      className="w-full rounded-lg border border-earth-200 p-3 text-sm bg-white"
+                      className={
+                        isPulso
+                          ? 'w-full rounded-lg border border-pulso-dourado/30 p-3 text-sm bg-white'
+                          : 'w-full rounded-lg border border-earth-200 p-3 text-sm bg-white'
+                      }
                     />
                   </div>
                 </div>
@@ -178,18 +203,24 @@ export default function Baseline() {
               {priorityThemes.map((t) => (
                 <label
                   key={t.id}
-                  className={`flex items-center gap-3 rounded-xl border p-3 text-sm cursor-pointer ${
-                    conditions.includes(t.id) ? 'border-brand-300 bg-brand-50' : 'border-earth-200 bg-white'
-                  }`}
+                  className={
+                    isPulso
+                      ? `flex items-center gap-3 rounded-xl border p-3 text-sm cursor-pointer ${
+                          conditions.includes(t.id) ? 'border-pulso-dourado bg-pulso-dourado/10' : 'border-pulso-dourado/25 bg-white'
+                        }`
+                      : `flex items-center gap-3 rounded-xl border p-3 text-sm cursor-pointer ${
+                          conditions.includes(t.id) ? 'border-brand-300 bg-brand-50' : 'border-earth-200 bg-white'
+                        }`
+                  }
                 >
                   <input
                     type="checkbox"
                     checked={conditions.includes(t.id)}
                     onChange={() => toggleCondition(t.id)}
-                    className="h-4 w-4 accent-brand-600"
+                    className={isPulso ? 'h-4 w-4 accent-pulso-verde' : 'h-4 w-4 accent-brand-600'}
                   />
                   <span className="text-lg">{t.icon}</span>
-                  <span className="text-earth-800">{t.name}</span>
+                  <span className={isPulso ? 'text-pulso-marrom/90' : 'text-earth-800'}>{t.name}</span>
                 </label>
               ))}
             </div>
@@ -207,7 +238,11 @@ export default function Baseline() {
                 onChange={(e) => setAccessBarriers(e.target.value)}
                 rows={3}
                 placeholder="Ex.: fila longa, falta de médico especialista, distância..."
-                className="w-full rounded-lg border border-earth-200 p-3 text-sm"
+                className={
+                  isPulso
+                    ? 'w-full rounded-lg border border-pulso-dourado/30 p-3 text-sm'
+                    : 'w-full rounded-lg border border-earth-200 p-3 text-sm'
+                }
               />
             </Field>
           </Section>
@@ -220,15 +255,21 @@ export default function Baseline() {
                 <button
                   key={n}
                   onClick={() => setDiscriminationScale(n)}
-                  className={`flex-1 aspect-square rounded-lg font-bold text-sm ${
-                    discriminationScale === n ? 'bg-brand-600 text-white' : 'bg-white border border-earth-200 text-earth-700'
-                  }`}
+                  className={
+                    isPulso
+                      ? `flex-1 aspect-square rounded-lg font-bold text-sm ${
+                          discriminationScale === n ? 'bg-pulso-verde text-pulso-creme' : 'bg-white border border-pulso-dourado/30 text-pulso-marrom'
+                        }`
+                      : `flex-1 aspect-square rounded-lg font-bold text-sm ${
+                          discriminationScale === n ? 'bg-brand-600 text-white' : 'bg-white border border-earth-200 text-earth-700'
+                        }`
+                  }
                 >
                   {n}
                 </button>
               ))}
             </div>
-            <div className="flex justify-between text-[10px] text-earth-400 mt-2 px-1">
+            <div className={`flex justify-between text-[10px] mt-2 px-1 ${isPulso ? 'text-pulso-marrom/50' : 'text-earth-400'}`}>
               <span>Nunca</span>
               <span>Frequentemente</span>
             </div>
@@ -236,10 +277,24 @@ export default function Baseline() {
         )}
 
         <div className="flex gap-3 mt-8">
-          <button onClick={back} className="flex-1 rounded-xl border border-earth-300 text-earth-700 font-semibold py-3">
+          <button
+            onClick={back}
+            className={
+              isPulso
+                ? 'flex-1 rounded-xl border border-pulso-dourado/40 text-pulso-marrom font-semibold py-3'
+                : 'flex-1 rounded-xl border border-earth-300 text-earth-700 font-semibold py-3'
+            }
+          >
             Voltar
           </button>
-          <button onClick={next} className="flex-1 rounded-xl bg-brand-600 text-white font-semibold py-3">
+          <button
+            onClick={next}
+            className={
+              isPulso
+                ? 'flex-1 rounded-xl bg-pulso-verde text-pulso-creme font-semibold py-3'
+                : 'flex-1 rounded-xl bg-brand-600 text-white font-semibold py-3'
+            }
+          >
             {step === STEPS.length - 1 ? 'Concluir' : 'Continuar'}
           </button>
         </div>
@@ -249,40 +304,57 @@ export default function Baseline() {
 }
 
 function ProgressBar({ current, total }: { current: number; total: number }) {
+  const { variantId } = useAppearance();
+  const isPulso = variantId === 'pp1' || variantId === 'pp2';
   return (
     <div className="flex gap-1 mb-6">
       {Array.from({ length: total }).map((_, i) => (
-        <div key={i} className={`h-1.5 flex-1 rounded-full ${i <= current ? 'bg-brand-600' : 'bg-earth-200'}`} />
+        <div
+          key={i}
+          className={`h-1.5 flex-1 rounded-full ${
+            i <= current ? (isPulso ? 'bg-pulso-dourado' : 'bg-brand-600') : isPulso ? 'bg-pulso-dourado/20' : 'bg-earth-200'
+          }`}
+        />
       ))}
     </div>
   );
 }
 
 function Section({ title, subtitle, children }: { title: string; subtitle?: string; children: React.ReactNode }) {
+  const { variantId } = useAppearance();
+  const isPulso = variantId === 'pp1' || variantId === 'pp2';
   return (
     <div>
-      <h2 className="font-bold text-earth-900 mb-1">{title}</h2>
-      {subtitle && <p className="text-xs text-earth-500 mb-4">{subtitle}</p>}
+      <h2 className={`font-bold mb-1 ${isPulso ? 'text-pulso-verde font-pulso-display' : 'text-earth-900'}`}>{title}</h2>
+      {subtitle && <p className={`text-xs mb-4 ${isPulso ? 'text-pulso-marrom/70' : 'text-earth-500'}`}>{subtitle}</p>}
       <div className="space-y-4 mt-4">{children}</div>
     </div>
   );
 }
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
+  const { variantId } = useAppearance();
+  const isPulso = variantId === 'pp1' || variantId === 'pp2';
   return (
     <div>
-      <label className="block text-xs font-semibold text-earth-700 mb-1.5">{label}</label>
+      <label className={`block text-xs font-semibold mb-1.5 ${isPulso ? 'text-pulso-marrom' : 'text-earth-700'}`}>{label}</label>
       {children}
     </div>
   );
 }
 
 function Select({ value, onChange, options }: { value: string; onChange: (v: string) => void; options: string[] }) {
+  const { variantId } = useAppearance();
+  const isPulso = variantId === 'pp1' || variantId === 'pp2';
   return (
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="w-full rounded-lg border border-earth-200 p-3 text-sm bg-white"
+      className={
+        isPulso
+          ? 'w-full rounded-lg border border-pulso-dourado/30 p-3 text-sm bg-white'
+          : 'w-full rounded-lg border border-earth-200 p-3 text-sm bg-white'
+      }
     >
       <option value="">Selecione...</option>
       {options.map((o) => (
@@ -301,11 +373,17 @@ function GroupedSelect({
   onChange: (v: string) => void;
   groups: { label: string; options: string[] }[];
 }) {
+  const { variantId } = useAppearance();
+  const isPulso = variantId === 'pp1' || variantId === 'pp2';
   return (
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="w-full rounded-lg border border-earth-200 p-3 text-sm bg-white"
+      className={
+        isPulso
+          ? 'w-full rounded-lg border border-pulso-dourado/30 p-3 text-sm bg-white'
+          : 'w-full rounded-lg border border-earth-200 p-3 text-sm bg-white'
+      }
     >
       <option value="">Selecione...</option>
       {groups.map((g) => (
