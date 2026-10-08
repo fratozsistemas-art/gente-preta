@@ -30,6 +30,7 @@ export const TRANSLATIONS: Record<LocaleId, Dictionary> = {
     'switcher.locale.label': 'Idioma',
     'switcher.title': 'Aparência',
     'switcher.description': 'Teste de arquitetura CEOS — troque marca/design e idioma sem recarregar a página.',
+    'switcher.close': 'Fechar',
 
     // CTAs por variante
     'home.cta.primary.original': 'Baixar o App Sentinela',
@@ -63,6 +64,7 @@ export const TRANSLATIONS: Record<LocaleId, Dictionary> = {
     'switcher.locale.label': 'Idioma',
     'switcher.title': 'Apariencia',
     'switcher.description': 'Prueba de arquitectura CEOS — cambie marca/diseño e idioma sin recargar la página.',
+    'switcher.close': 'Cerrar',
 
     'home.cta.primary.original': 'Descargar la App Centinela',
     'home.cta.secondary.original': 'Explorar Biblioteca de Salud',

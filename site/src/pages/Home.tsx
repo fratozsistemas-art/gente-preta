@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom';
 import { priorityThemes, emergentThemes, totalConditionsCount } from '../data/diseases';
 import { partners, hardServices, phytotherapy } from '../data/project';
-import { newsItems } from '../data/news';
 import { useAppearance } from '@shared/context/AppearanceContext';
+import { getVariantContent } from '@shared/data/variantContent';
+import type { PulsoVariantContent } from '../../../shared/data/variantContent';
 import { LeafMark, PalhaLine, ContasRing } from '../components/Ornaments';
 import ThemeIcon from '../components/ThemeIcons';
 import HeroSlideshow from '../components/HeroSlideshow';
+import PulsoIcon from '../components/PulsoIcons';
 
 const tickerStats = [
   '2,3x mais risco de hipertensão',
@@ -29,16 +31,23 @@ const toneText: Record<string, string> = {
 };
 
 export default function Home() {
-  const { variant, brand, t } = useAppearance();
+  const { variant, variantId, localeId, brand, t } = useAppearance();
+
+  // PP1/PP2 — reconstrução integral fiel aos mockups de referência (arquitetura
+  // CEOS "full-fledged": texto, estrutura e cartões próprios, não apenas troca
+  // de cor/imagem/CTA sobre a base GP0). Ver shared/data/variantContent.ts.
+  if (variantId === 'pp1' || variantId === 'pp2') {
+    const content = getVariantContent(variantId, localeId);
+    if (content) return <PulsoHome content={content} />;
+  }
+
+  // GP0 — Home original "Gente Preta", intacta.
   const heroTreatment = variant.hero.treatment;
   const ctaPrimary = t(variant.hero.ctaPrimaryKey);
   const ctaSecondary = t(variant.hero.ctaSecondaryKey);
 
   return (
     <div>
-      {/* Hero — tratamento depende da variante ativa (GP0 = slideshow original,
-          PP1 = foto de família, PP2 = retrato de mulher). Ver shared/data/variants.ts.
-          Texto institucional (nome/tagline) vem sempre do Brand Canon via `brand`. */}
       <section className="relative overflow-hidden bg-gradient-to-b from-folha-50 via-brand-50 to-white ornament-folha">
         <ContasRing size={160} className="hidden sm:block absolute top-8 right-8 opacity-[0.15] pointer-events-none" />
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24 grid lg:grid-cols-2 gap-10 items-center relative">
@@ -73,31 +82,10 @@ export default function Home() {
                 </p>
               </>
             )}
-            {(heroTreatment === 'family-photo' || heroTreatment === 'woman-photo') && variant.hero.image && (
-              <>
-                <div className="relative w-full overflow-hidden rounded-2xl border border-earth-200 shadow-sm aspect-[4/3]">
-                  <img
-                    src={variant.hero.image.url}
-                    alt={variant.hero.image.alt}
-                    className="absolute inset-0 w-full h-full object-cover"
-                    loading="eager"
-                  />
-                  <span className="absolute bottom-2 right-2 rounded bg-black/55 text-white text-[10px] px-2 py-1">
-                    Imagem placeholder (CC) — foto própria em breve
-                  </span>
-                </div>
-                <p className="text-xs text-earth-500 mt-2 text-center">
-                  {t('home.hero.caption', { brand: brand.name })}
-                </p>
-              </>
-            )}
           </div>
         </div>
       </section>
 
-      {/* Ticker de dados — serviço-duro (V3) embutido na base V2: faixa contínua de
-          indicadores epidemiológicos, sempre com rótulo de "meta de projeção" (ver
-          Transparência) para não confundir dado real com projeção. */}
       <div className="bg-earth-900 text-earth-100 overflow-hidden py-2 text-xs sm:text-sm border-y border-earth-800">
         <div className="ticker-track gap-12 px-6">
           {[...tickerStats, ...tickerStats].map((stat, i) => (
@@ -108,9 +96,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Stats — semântica de cor por tipo (crítico/barro · avanço/folha · meta/ouro ·
-          info/folha-soft), inspirada no StatCard do design system em Storybook
-          recebido para revisão — reimplementada em Tailwind puro, sem Ant Design. */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-12 grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
         <Stat value="2,3x" label="mais risco de hipertensão" type="critical" />
         <Stat value={`${totalConditionsCount}+`} label="condições de saúde mapeadas" type="progress" />
@@ -118,8 +103,6 @@ export default function Home() {
         <Stat value="10" label="UBSs piloto no DF" type="info" />
       </section>
 
-      {/* Folhas de Gente Preta — serviço-duro concreto (diferenciais brasileiros),
-          apresentado sobre a base editorial-ancestral V2. Ouvidoria em tom "barro". */}
       <section className="bg-white ornament-palha">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
           <div className="flex items-end justify-between mb-8 flex-wrap gap-2">
@@ -145,10 +128,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Folhas com Ciência — coluna de fitoterapia popular com evidência, inspirada
-          na seção "Folhas de Ossaim" da referência de design Ìlera (V2 cultural-ancestral):
-          fundo folha profundo, borda superior listrada em ouro, sem misticismo — apenas
-          estudo, achado e alerta de segurança por planta. */}
       <section className="bg-folha-900 text-palha-100 relative">
         <div
           className="h-[3px] w-full"
@@ -193,90 +172,33 @@ export default function Home() {
         </div>
       </section>
 
-      {/* O Problema / A Solução — "faixa de missão". Tratamento visual depende da
-          variante ativa (ver shared/data/variants.ts → missionBandTheme):
-          emerald-split (GP0/PP1) = fundo dividido em dois tons de verde; terracotta-band
-          (PP2) = faixa única na paleta oficial Pulso Preto (terracota/dourado). */}
-      {variant.missionBandTheme === 'emerald-split' ? (
-        <section className="grid lg:grid-cols-2">
-          <div className="bg-folha-900 text-white px-4 sm:px-6 py-16">
-            <div className="max-w-xl mx-auto lg:ml-auto lg:mr-10">
-              <span className="eyebrow text-barro-300">Diagnóstico</span>
-              <h2 className="text-2xl font-bold mt-1 mb-4">O problema</h2>
-              <ul className="space-y-3 text-folha-100/90">
-                <li>• <strong className="text-white">2,3x maior risco</strong> de hipertensão em relação à população branca</li>
-                <li>• <strong className="text-white">60% de subdiagnóstico</strong> devido a racismo institucional</li>
-                <li>• <strong className="text-white">Menor acesso</strong> a serviços de qualidade no SUS</li>
-                <li>• <strong className="text-white">Invisibilidade epidemiológica</strong>: 56% da população é negra, mas apenas 1,5% das pesquisas em saúde incluem recorte racial</li>
-              </ul>
-            </div>
+      <section className="grid lg:grid-cols-2">
+        <div className="bg-folha-900 text-white px-4 sm:px-6 py-16">
+          <div className="max-w-xl mx-auto lg:ml-auto lg:mr-10">
+            <span className="eyebrow text-barro-300">Diagnóstico</span>
+            <h2 className="text-2xl font-bold mt-1 mb-4">O problema</h2>
+            <ul className="space-y-3 text-folha-100/90">
+              <li>• <strong className="text-white">2,3x maior risco</strong> de hipertensão em relação à população branca</li>
+              <li>• <strong className="text-white">60% de subdiagnóstico</strong> devido a racismo institucional</li>
+              <li>• <strong className="text-white">Menor acesso</strong> a serviços de qualidade no SUS</li>
+              <li>• <strong className="text-white">Invisibilidade epidemiológica</strong>: 56% da população é negra, mas apenas 1,5% das pesquisas em saúde incluem recorte racial</li>
+            </ul>
           </div>
-          <div className="bg-folha-700 text-white px-4 sm:px-6 py-16">
-            <div className="max-w-xl mx-auto lg:mr-auto lg:ml-10">
-              <span className="eyebrow text-ouro-300">Resposta</span>
-              <h2 className="text-2xl font-bold mt-1 mb-4">A solução</h2>
-              <ul className="space-y-3 text-folha-100/90">
-                <li>• <strong className="text-white">Escuta longitudinal</strong> — check-ins de 1-3 minutos</li>
-                <li>• <strong className="text-white">Navegação em saúde</strong> — UBS + rede privada + atendimento humanizado</li>
-                <li>• <strong className="text-white">Radar comunitário</strong> — sinais devolvidos com transparência, nunca vigilância silenciosa</li>
-                <li>• <strong className="text-white">Produção de evidência</strong> — dados para políticas públicas</li>
-              </ul>
-            </div>
+        </div>
+        <div className="bg-folha-700 text-white px-4 sm:px-6 py-16">
+          <div className="max-w-xl mx-auto lg:mr-auto lg:ml-10">
+            <span className="eyebrow text-ouro-300">Resposta</span>
+            <h2 className="text-2xl font-bold mt-1 mb-4">A solução</h2>
+            <ul className="space-y-3 text-folha-100/90">
+              <li>• <strong className="text-white">Escuta longitudinal</strong> — check-ins de 1-3 minutos</li>
+              <li>• <strong className="text-white">Navegação em saúde</strong> — UBS + rede privada + atendimento humanizado</li>
+              <li>• <strong className="text-white">Radar comunitário</strong> — sinais devolvidos com transparência, nunca vigilância silenciosa</li>
+              <li>• <strong className="text-white">Produção de evidência</strong> — dados para políticas públicas</li>
+            </ul>
           </div>
-        </section>
-      ) : (
-        <section className="bg-pulso-terracota text-pulso-creme">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 grid lg:grid-cols-2 gap-10">
-            <div>
-              <span className="eyebrow text-pulso-creme/80">Diagnóstico</span>
-              <h2 className="text-2xl font-bold mt-1 mb-4">O problema</h2>
-              <ul className="space-y-3 text-pulso-creme/95">
-                <li>• <strong>2,3x maior risco</strong> de hipertensão em relação à população branca</li>
-                <li>• <strong>60% de subdiagnóstico</strong> devido a racismo institucional</li>
-                <li>• <strong>Menor acesso</strong> a serviços de qualidade no SUS</li>
-                <li>• <strong>Invisibilidade epidemiológica</strong>: 56% da população é negra, mas apenas 1,5% das pesquisas em saúde incluem recorte racial</li>
-              </ul>
-            </div>
-            <div>
-              <span className="eyebrow text-pulso-creme/80">Resposta</span>
-              <h2 className="text-2xl font-bold mt-1 mb-4">A solução</h2>
-              <ul className="space-y-3 text-pulso-creme/95">
-                <li>• <strong>Escuta longitudinal</strong> — check-ins de 1-3 minutos</li>
-                <li>• <strong>Navegação em saúde</strong> — UBS + rede privada + atendimento humanizado</li>
-                <li>• <strong>Radar comunitário</strong> — sinais devolvidos com transparência, nunca vigilância silenciosa</li>
-                <li>• <strong>Produção de evidência</strong> — dados para políticas públicas</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-      )}
+        </div>
+      </section>
 
-      {/* Últimas Notícias — exclusiva da variante PP2 (ver mockup de referência nº2). */}
-      {variant.showNewsSection && (
-        <section className="bg-white">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
-            <div className="flex items-end justify-between mb-8 flex-wrap gap-2">
-              <div>
-                <span className="eyebrow text-pulso-terracota">{t('home.news.eyebrow')}</span>
-                <h2 className="text-2xl font-bold text-earth-900 mt-1">{t('home.news.title')}</h2>
-              </div>
-            </div>
-            <div className="grid sm:grid-cols-3 gap-5">
-              {newsItems.map((n) => (
-                <article key={n.id} className="rounded-xl border border-earth-200 p-5 hover:shadow-md transition-shadow">
-                  <time className="text-xs text-earth-400 font-semibold uppercase tracking-wide">
-                    {new Date(n.date).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' })}
-                  </time>
-                  <h3 className="font-bold text-earth-900 mt-2 mb-2">{n.title}</h3>
-                  <p className="text-sm text-earth-600">{n.excerpt}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Rodas de conversa — dimensão comunitária visível já na Home (V2). */}
       <section className="bg-folha-900 text-white ornament-palha">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 flex flex-wrap items-center justify-between gap-6">
           <div>
@@ -299,7 +221,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 7 temas prioritários */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
         <div className="flex items-end justify-between mb-8 flex-wrap gap-2">
           <div>
@@ -325,9 +246,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Temas emergentes — realidade brasileira contemporânea. Seção própria,
-          separada dos 7 temas prioritários, com o mesmo tratamento visual das
-          demais seções (sem badge/cor que os destaque como "diferentes"). */}
       <section className="bg-earth-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
           <div className="flex items-end justify-between mb-8 flex-wrap gap-2">
@@ -356,7 +274,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Parceiros */}
       <section className="bg-earth-900 text-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
           <h2 className="text-2xl font-bold mb-8 text-center">Parceiros e Governança</h2>
@@ -404,5 +321,310 @@ function Stat({
       <div className={`text-3xl font-bold ${statTypeClasses[type]}`}>{value}</div>
       <div className="text-sm text-earth-500 mt-1">{label}</div>
     </div>
+  );
+}
+
+// ============================================================================
+// PP1 / PP2 — Home "Pulso Preto", reconstrução integral fiel aos mockups de
+// referência (texto, estrutura, cartões, imagens) — ver shared/data/
+// variantContent.ts para o conteúdo completo. Seções institucionais da Home
+// GP0 (serviços-duro, fitoterapia, rodas de conversa, grids de temas,
+// parceiros) não aparecem aqui porque não existem nos mockups de referência;
+// permanecem acessíveis via nav/rodapé (Sobre, Dados e Indicadores, Temas de
+// Saúde) para não perder conteúdo institucional.
+// ============================================================================
+
+function PulsoHome({ content }: { content: PulsoVariantContent }) {
+  return (
+    <div className="bg-pulso-creme">
+      <PulsoHero content={content} />
+      <PulsoFeatures content={content} />
+      <PulsoThemes content={content} />
+      <PulsoStats content={content} />
+      <PulsoMission content={content} />
+      {content.news && <PulsoNews content={content} />}
+    </div>
+  );
+}
+
+function PulsoHero({ content }: { content: PulsoVariantContent }) {
+  const { variantId, variant } = useAppearance();
+  const image = variant.hero.image;
+  const h = content.hero;
+  return (
+    <section className="relative overflow-hidden bg-pulso-verde text-pulso-creme">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20 grid lg:grid-cols-2 gap-10 items-center relative">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-wider text-pulso-dourado mb-4 leading-relaxed">
+            {h.eyebrow.map((line, i) => (
+              <span key={i} className="block">{line}</span>
+            ))}
+          </p>
+          <h1 className="font-serif text-4xl sm:text-5xl font-bold leading-tight mb-5">
+            {h.headline.map((line, i) => (
+              <span key={i} className="block">
+                {h.headlineHighlight && line.includes(h.headlineHighlight.replace('.', ''))
+                  ? (
+                    <>
+                      {line.replace(h.headlineHighlight, '')}
+                      <span className="text-pulso-dourado">{h.headlineHighlight}</span>
+                    </>
+                  )
+                  : line}
+              </span>
+            ))}
+          </h1>
+          <p className="text-base text-pulso-creme/85 mb-8 max-w-md">{h.paragraph}</p>
+          <Link
+            to="/saude"
+            className="inline-block rounded-md bg-pulso-dourado text-pulso-verde px-6 py-3 font-bold uppercase text-sm tracking-wide hover:bg-pulso-creme transition-colors"
+          >
+            {h.ctaLabel}
+          </Link>
+        </div>
+
+        <div>
+          <p className="font-serif italic text-pulso-dourado text-xl sm:text-2xl leading-snug text-right mb-3">
+            {h.cursive.map((line, i) => (
+              <span key={i} className="block">{line}</span>
+            ))}
+          </p>
+          {image && (
+            <div className="relative w-full overflow-hidden rounded-2xl shadow-xl aspect-[4/3]">
+              <img src={image.url} alt={image.alt} className="absolute inset-0 w-full h-full object-cover" loading="eager" />
+              <span className="absolute bottom-2 left-2 rounded bg-black/55 text-white text-[10px] px-2 py-1">
+                Imagem placeholder (CC) — foto própria em breve
+              </span>
+            </div>
+          )}
+          {h.wordList && (
+            <ul className="flex flex-wrap justify-end gap-1.5 mt-3">
+              {h.wordList.map((w) => (
+                <li key={w} className="text-[10px] font-bold uppercase tracking-wider text-pulso-creme bg-pulso-marrom/70 px-2 py-1 rounded">
+                  {w}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
+      {/* Marca d'água decorativa — evita área totalmente vazia em telas largas */}
+      <span className="sr-only">Variante ativa: {variantId}</span>
+    </section>
+  );
+}
+
+function PulsoFeatures({ content }: { content: PulsoVariantContent }) {
+  const cols = content.features.length === 5 ? 'sm:grid-cols-2 lg:grid-cols-5' : 'sm:grid-cols-2 lg:grid-cols-4';
+  return (
+    <section className="bg-pulso-creme border-b border-pulso-dourado/20">
+      <div className={`max-w-6xl mx-auto px-4 sm:px-6 py-12 grid ${cols} gap-6`}>
+        {content.features.map((f, i) => (
+          <div key={i} className="flex flex-col items-start gap-3">
+            <div className="rounded-full bg-pulso-verde/10 p-3">
+              <PulsoIcon id={f.icon} size={26} color="#164A3A" />
+            </div>
+            <h3 className="font-bold text-pulso-verde text-sm uppercase tracking-wide leading-tight">
+              {f.title.map((line, j) => (
+                <span key={j} className="block">{line}</span>
+              ))}
+            </h3>
+            <p className="text-xs text-pulso-marrom/75 leading-snug">{f.subtitle}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function PulsoThemes({ content }: { content: PulsoVariantContent }) {
+  const th = content.themes;
+  return (
+    <section className="bg-white">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
+        <div className="flex items-end justify-between mb-8 flex-wrap gap-2">
+          <span className="text-xs font-bold uppercase tracking-wider text-pulso-terracota">{th.eyebrow}</span>
+          <Link to="/saude" className="text-pulso-verde text-sm font-bold hover:underline">{th.viewAllLabel}</Link>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {th.cards.map((card) => (
+            <Link
+              key={card.id}
+              to={card.to}
+              className="group relative overflow-hidden rounded-2xl aspect-[4/5] block"
+            >
+              <img
+                src={card.image.url}
+                alt={card.image.alt}
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-4 flex items-end justify-between gap-2">
+                <div>
+                  <h3 className="text-white font-bold text-lg leading-tight">
+                    {card.title.map((line, i) => (
+                      <span key={i} className="block">{line}</span>
+                    ))}
+                  </h3>
+                  {card.subtitle && <p className="text-white/80 text-xs mt-1">{card.subtitle}</p>}
+                </div>
+                <span className="shrink-0 rounded-full bg-pulso-dourado text-pulso-verde w-8 h-8 flex items-center justify-center font-bold">→</span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PulsoStats({ content }: { content: PulsoVariantContent }) {
+  const s = content.stats;
+  return (
+    <section className="bg-pulso-marrom/5">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
+        <div className="flex flex-wrap items-end justify-between gap-6 mb-10">
+          <div className="max-w-md">
+            <span className="text-xs font-bold uppercase tracking-wider text-pulso-terracota block mb-2">{s.eyebrow}</span>
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-pulso-verde leading-tight">
+              {s.heading.map((line, i) => (
+                <span key={i} className="block">{line}</span>
+              ))}
+            </h2>
+            {s.paragraph && <p className="text-sm text-pulso-marrom/75 mt-3">{s.paragraph}</p>}
+          </div>
+          <Link
+            to="/transparencia"
+            className="rounded-md bg-pulso-verde text-pulso-creme px-5 py-3 font-bold text-sm uppercase tracking-wide hover:bg-pulso-marrom transition-colors shrink-0"
+          >
+            {s.ctaLabel}
+          </Link>
+        </div>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+          {s.cards.map((c, i) => (
+            <div key={i} className="rounded-xl bg-white border border-pulso-dourado/20 p-5">
+              <div className="text-3xl font-bold text-pulso-terracota mb-2">{c.value}</div>
+              <p className="text-xs text-pulso-marrom/80 leading-snug mb-2">
+                {c.label.map((line, j) => (
+                  <span key={j} className="block">{line}</span>
+                ))}
+              </p>
+              <p className="text-[10px] text-pulso-marrom/50 uppercase tracking-wide">{c.source}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PulsoMission({ content }: { content: PulsoVariantContent }) {
+  const { variantId } = useAppearance();
+  const m = content.mission;
+
+  if (variantId === 'pp1') {
+    // PP1 — layout dividido: foto (mulher) à esquerda, cartão creme à direita
+    // com eyebrow/heading/paragraph/CTA + lista vertical de palavras + cursiva.
+    return (
+      <section className="bg-pulso-verde">
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-2">
+          <div className="relative aspect-[4/3] lg:aspect-auto">
+            <img src={m.photo.url} alt={m.photo.alt} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+            <span className="absolute bottom-2 right-2 rounded bg-black/55 text-white text-[10px] px-2 py-1">
+              Imagem placeholder (CC) — foto própria em breve
+            </span>
+          </div>
+          <div className="bg-pulso-creme px-6 sm:px-10 py-14 relative">
+            {m.eyebrow && <span className="text-xs font-bold uppercase tracking-wider text-pulso-terracota block mb-2">{m.eyebrow}</span>}
+            {m.heading && (
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-pulso-verde leading-tight mb-4">
+                {m.heading.map((line, i) => (
+                  <span key={i} className="block">{line}</span>
+                ))}
+              </h2>
+            )}
+            <p className="text-sm text-pulso-marrom/80 mb-6 max-w-sm">{m.paragraph}</p>
+            <Link
+              to={m.ctaTo}
+              className="inline-block rounded-md bg-pulso-verde text-pulso-creme px-5 py-3 font-bold text-sm uppercase tracking-wide hover:bg-pulso-marrom transition-colors mb-8"
+            >
+              {m.ctaLabel}
+            </Link>
+            <ul className="space-y-1.5 mb-6">
+              {m.wordList.map((w) => (
+                <li key={w} className="text-xs font-bold uppercase tracking-wider text-pulso-marrom/70">{w}</li>
+              ))}
+            </ul>
+            <p className="font-serif italic text-pulso-terracota text-xl leading-snug">
+              {m.cursive.map((line, i) => (
+                <span key={i} className="block">{line}</span>
+              ))}
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // PP2 — faixa única terracota, foto recortada (mãe+filho) sobreposta,
+  // cursiva à esquerda + paragraph/CTA ao centro + lista vertical à direita.
+  return (
+    <section className="relative bg-pulso-terracota text-pulso-creme overflow-hidden">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 grid lg:grid-cols-[1fr_1.2fr_auto] gap-8 items-center relative">
+        <p className="font-serif italic text-2xl sm:text-3xl leading-snug">
+          {m.cursive.map((line, i) => (
+            <span key={i} className="block">{line}</span>
+          ))}
+        </p>
+        <div className="relative rounded-2xl overflow-hidden aspect-[16/10] lg:aspect-[4/3] order-first lg:order-none">
+          <img src={m.photo.url} alt={m.photo.alt} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+          <span className="absolute bottom-2 right-2 rounded bg-black/55 text-white text-[10px] px-2 py-1">
+            Imagem placeholder (CC) — foto própria em breve
+          </span>
+        </div>
+        <div className="lg:text-right">
+          <p className="text-sm text-pulso-creme/90 mb-4 max-w-xs lg:ml-auto">{m.paragraph}</p>
+          <Link
+            to={m.ctaTo}
+            className="inline-block rounded-md bg-pulso-creme text-pulso-terracota px-5 py-3 font-bold text-sm uppercase tracking-wide hover:bg-pulso-verde hover:text-pulso-creme transition-colors mb-6"
+          >
+            {m.ctaLabel}
+          </Link>
+          <ul className="space-y-1 lg:text-right">
+            {m.wordList.map((w) => (
+              <li key={w} className="text-xs font-bold uppercase tracking-wider text-pulso-creme/80">{w}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PulsoNews({ content }: { content: PulsoVariantContent }) {
+  const n = content.news!;
+  return (
+    <section id="noticias" className="bg-white scroll-mt-24">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
+        <div className="flex items-end justify-between mb-8 flex-wrap gap-2">
+          <span className="text-xs font-bold uppercase tracking-wider text-pulso-terracota">{n.eyebrow}</span>
+          <Link to="/sobre" className="text-pulso-verde text-sm font-bold hover:underline">{n.viewAllLabel}</Link>
+        </div>
+        <div className="grid sm:grid-cols-3 gap-5">
+          {n.cards.map((card, i) => (
+            <article key={i} className="rounded-xl border border-pulso-dourado/20 overflow-hidden hover:shadow-md transition-shadow">
+              <div className="relative aspect-[16/9]">
+                <img src={card.image.url} alt={card.image.alt} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+              </div>
+              <div className="p-4">
+                <time className="text-xs text-pulso-terracota font-bold uppercase tracking-wide">{card.date}</time>
+                <h3 className="font-bold text-pulso-verde mt-2 leading-snug">{card.title}</h3>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

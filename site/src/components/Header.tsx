@@ -2,10 +2,14 @@ import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import Logo from './Logo';
 import { useAppearance } from '@shared/context/AppearanceContext';
+import { getVariantContent } from '@shared/data/variantContent';
 import VariantSwitcher from '@shared/components/VariantSwitcher';
+import { HeartbeatLine } from './PulsoIcons';
 
 // Menu reorganizado (pacote v4.3, 17/08/2026): 3 links primários + 2 grupos em
-// dropdown (Saberes / Instituição), recuperado nesta sessão.
+// dropdown (Saberes / Instituição) — usado SOMENTE pela variante GP0 (Gente
+// Preta original). PP1/PP2 usam nav totalmente diferente, fiel aos mockups de
+// referência da marca "Pulso Preto" (ver Header dedicado mais abaixo).
 const primaryNavItems = [
   { to: '/', label: 'Início' },
   { to: '/saude', label: 'Biblioteca de Saúde' },
@@ -34,13 +38,26 @@ const instituicaoGroup = {
 const allMobileItems = [...primaryNavItems, ...saberesGroup.items, ...instituicaoGroup.items];
 
 export default function Header() {
-  const { brand } = useAppearance();
+  const { brand, variantId, localeId } = useAppearance();
+
+  if (variantId === 'pp1' || variantId === 'pp2') {
+    const content = getVariantContent(variantId, localeId);
+    if (content) return <PulsoHeader content={content} brandName={brand.name} />;
+  }
+
+  return <GenteHeader brandName={brand.name} />;
+}
+
+// ---------------------------------------------------------------------------
+// GP0 — Header original "Gente Preta" (intacto, preservado pelo Brand Canon)
+// ---------------------------------------------------------------------------
+function GenteHeader({ brandName }: { brandName: string }) {
   return (
     <header className="sticky top-0 z-50 bg-palha-100/95 backdrop-blur border-b border-earth-100">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
         <Link to="/" className="flex items-center gap-2 font-bold text-earth-900 text-lg shrink-0">
           <Logo size={36} />
-          <span className="hidden sm:inline font-editorial italic">{brand.name}</span>
+          <span className="hidden sm:inline font-editorial italic">{brandName}</span>
         </Link>
         <nav className="hidden lg:flex items-center gap-1 text-sm">
           {primaryNavItems.map((item) => (
@@ -155,5 +172,110 @@ function MobileMenu() {
         </div>
       )}
     </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// PP1 / PP2 — Header "Pulso Preto", fiel aos mockups de referência: logo +
+// subtítulo em maiúsculas, nav plana de 6 itens, ícone de busca, CTA sólido.
+// Cor do CTA e fundo variam por variante via classes utilitárias Tailwind
+// (pulso.verde para PP1/PP2 ambos usam o mesmo header claro com CTA colorido).
+// ---------------------------------------------------------------------------
+import type { PulsoVariantContent } from '../../../shared/data/variantContent';
+
+function PulsoHeader({ content, brandName }: { content: PulsoVariantContent; brandName: string }) {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  return (
+    <header className="sticky top-0 z-50 bg-pulso-creme/95 backdrop-blur border-b border-pulso-dourado/30">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
+        <Link to="/" className="flex items-center gap-2.5 shrink-0">
+          <Logo size={38} />
+          <span className="hidden sm:flex flex-col leading-tight">
+            <span className="font-bold text-pulso-verde text-base tracking-tight flex items-center gap-1.5">
+              {brandName}
+              <HeartbeatLine width={28} height={10} color="#C89B3C" />
+            </span>
+            <span className="text-[9px] font-semibold uppercase tracking-wider text-pulso-marrom/70">
+              {content.header.tagline}
+            </span>
+          </span>
+        </Link>
+
+        <nav className="hidden lg:flex items-center gap-1 text-sm">
+          {content.header.navItems.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              className={({ isActive }) =>
+                `px-3 py-2 rounded-md font-medium transition-colors ${
+                  isActive ? 'text-pulso-verde font-bold' : 'text-pulso-marrom hover:text-pulso-verde'
+                }`
+              }
+            >
+              {item.label}
+            </NavLink>
+          ))}
+          <button
+            type="button"
+            aria-label={content.header.searchLabel}
+            className="ml-1 rounded-md p-2 text-pulso-marrom hover:text-pulso-verde hover:bg-pulso-dourado/10 transition-colors"
+          >
+            <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
+              <circle cx="8" cy="8" r="5.5" fill="none" stroke="currentColor" strokeWidth="1.6" />
+              <path d="M12.2 12.2 L17 17" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+            </svg>
+          </button>
+        </nav>
+
+        <div className="hidden lg:flex items-center gap-2 shrink-0">
+          <VariantSwitcher />
+          <NavLink
+            to={content.header.ctaTo}
+            className="rounded-md bg-pulso-verde text-pulso-creme px-4 py-2 text-sm font-bold uppercase tracking-wide hover:bg-pulso-marrom transition-colors"
+          >
+            {content.header.ctaLabel}
+          </NavLink>
+        </div>
+
+        <div className="lg:hidden flex items-center gap-2">
+          <VariantSwitcher compact />
+          <button
+            type="button"
+            onClick={() => setMobileOpen((v) => !v)}
+            aria-expanded={mobileOpen}
+            aria-label="Abrir menu de navegação"
+            className="rounded-md border border-pulso-dourado/40 p-2.5 text-pulso-verde flex items-center justify-center"
+          >
+            <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
+              <rect x="2" y="4" width="16" height="1.8" rx="0.9" fill="currentColor" />
+              <rect x="2" y="9.1" width="16" height="1.8" rx="0.9" fill="currentColor" />
+              <rect x="2" y="14.2" width="16" height="1.8" rx="0.9" fill="currentColor" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {mobileOpen && (
+        <div className="lg:hidden border-t border-pulso-dourado/30 bg-pulso-creme px-4 sm:px-6 py-3 flex flex-col gap-1">
+          {content.header.navItems.map((item) => (
+            <Link
+              key={item.to}
+              to={item.to}
+              onClick={() => setMobileOpen(false)}
+              className="px-3 py-2 rounded-md text-sm font-medium text-pulso-marrom hover:bg-pulso-dourado/10"
+            >
+              {item.label}
+            </Link>
+          ))}
+          <Link
+            to={content.header.ctaTo}
+            onClick={() => setMobileOpen(false)}
+            className="mt-1 px-3 py-2 rounded-md text-sm font-bold uppercase text-center text-pulso-creme bg-pulso-verde hover:bg-pulso-marrom"
+          >
+            {content.header.ctaLabel}
+          </Link>
+        </div>
+      )}
+    </header>
   );
 }
