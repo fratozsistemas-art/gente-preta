@@ -85,7 +85,7 @@ function GenteFooter({ brandName }: { brandName: string }) {
 function Pp1Footer({ content, brandName }: { content: PulsoVariantContent; brandName: string }) {
   const f = content.footer;
   return (
-    <footer id="fale-conosco" className="bg-pulso-verde text-pulso-creme mt-24 scroll-mt-24">
+    <footer id="fale-conosco" className="bg-pulso-verde text-pulso-creme mt-24 scroll-mt-24 font-pulso-body">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-3 text-sm">
         <div>
           <div className="flex items-center gap-2 font-bold text-base mb-2 text-pulso-creme">
@@ -150,7 +150,7 @@ function Pp1Footer({ content, brandName }: { content: PulsoVariantContent; brand
 function Pp2Footer({ content, brandName }: { content: PulsoVariantContent; brandName: string }) {
   const f = content.footer;
   return (
-    <footer id="fale-conosco" className="bg-pulso-creme text-pulso-marrom mt-24 border-t border-pulso-dourado/30 scroll-mt-24">
+    <footer id="fale-conosco" className="bg-pulso-creme text-pulso-marrom mt-24 border-t border-pulso-dourado/30 scroll-mt-24 font-pulso-body">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 flex flex-wrap items-center justify-between gap-6">
         <div>
           <div className="flex items-center gap-2 font-bold text-base mb-1 text-pulso-verde">

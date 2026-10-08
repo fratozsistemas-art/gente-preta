@@ -85,6 +85,9 @@ export default {
       fontFamily: {
         sans: ['system-ui', 'Segoe UI', 'Roboto', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+        // Tipografia oficial "Pulso Preto" — ver site/tailwind.config.js.
+        'pulso-display': ['"Hurme Geometric Sans 3"', 'system-ui', 'sans-serif'],
+        'pulso-body': ['"Sans Serif Collection"', 'system-ui', 'sans-serif'],
       },
     },
   },

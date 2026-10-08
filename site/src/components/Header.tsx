@@ -186,7 +186,7 @@ import type { PulsoVariantContent } from '../../../shared/data/variantContent';
 function PulsoHeader({ content, brandName }: { content: PulsoVariantContent; brandName: string }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   return (
-    <header className="sticky top-0 z-50 bg-pulso-creme/95 backdrop-blur border-b border-pulso-dourado/30">
+    <header className="sticky top-0 z-50 bg-pulso-creme/95 backdrop-blur border-b border-pulso-dourado/30 font-pulso-body">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
         <Link to="/" className="flex items-center gap-2.5 shrink-0">
           <Logo size={38} />

@@ -1,124 +1,218 @@
-# Gente Preta — Site Institucional + App Sentinela
+# Gente Preta / Pulso Preto — Site Institucional + App Sentinela
+
+> Plataforma de saúde para a população negra (piloto Distrito Federal), com
+> **arquitetura CEOS** (Canon · Variants · Locales · Presentation) que permite
+> operar **3 identidades de marca × 2 idiomas** a partir de uma única base de
+> código, com troca 100% em runtime — sem rebuild, sem redeploy.
 
 ## Visão geral
-- **Nome**: Gente Preta — Sentinela de Saúde da População Negra
-- **Objetivo**: reduzir inequidades em saúde enfrentadas pela população negra no SUS, começando pelo Distrito Federal, por meio de (1) um site institucional com base científica, transparência e governança pública, e (2) o App Sentinela (webapp), com escuta longitudinal, navegação SUS e radar comunitário.
-- **Financiamento/parceiros**: AECID, SEJUS/DF, APRECIA, FEPECS, UnB, FIOCRUZ, CUFA/DF, ABRADFAL, CASIO V2 Studio.
 
-## Arquitetura de deploy (Opção A — domínio único Cloudflare)
-Monorepo com dois SPAs React/Vite compartilhando um único Worker Cloudflare Pages:
-- `site/` — Site institucional (React + Vite + Tailwind + React Router), servido na raiz `/`.
-- `app/` — App Sentinela (React + Vite + Tailwind + Zustand), servido em `/app/`.
-- `worker/index.js` — Worker mínimo que serve os assets (`dist/`) e aplica fallback de SPA por prefixo de rota (`/app/*` → `dist/app/index.html`; qualquer outra rota → `dist/index.html`).
-- `npm run build` na raiz: instala dependências dos dois projetos, builda cada um e monta `dist/` combinado (`assemble`).
+| | |
+|---|---|
+| **Nome do projeto** | Gente Preta — Sentinela de Saúde da População Negra |
+| **Marca ativa (piloto)** | Pulso Preto (variantes PP1/PP2) sobre o Canon original Gente Preta (GP0) |
+| **Objetivo** | Reduzir inequidades em saúde da população negra no SUS/DF via (1) site institucional com base científica, transparência e governança pública, e (2) App Sentinela (escuta longitudinal, navegação SUS, radar comunitário) |
+| **Financiamento** | AECID (€ 235.152,41, 24 meses) |
+| **Execução** | APRECIA + CASIO V2 Studio |
+| **Parceiros** | GDF, SEJUS/DF, FEPECS, UnB, FIOCRUZ, CUFA/DF, ABRADFAL |
+| **Evento-âncora** | Seminário Latino-Americano "Saúde, Tecnologia e Prevenção" — **18 e 19 de novembro de 2026**, Brasília/DF |
+
+---
+
+## Arquitetura CEOS — Canon / Variants / Locales / Presentation
+
+Este projeto é, antes de tudo, um **teste de arquitetura de marca multi-tenant**:
+a mesma base de código institucional (rotas, dados científicos, governança,
+LGPD) precisa servir **identidades visuais e editoriais completamente
+distintas** sem duplicar projeto, sem feature flags espalhados pelo código e
+sem exigir novo deploy a cada troca de marca. A solução é uma pilha de 4
+camadas, cada uma com responsabilidade única:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  C — CANON          shared/data/brand-canon.ts                  │
+│      Identidade de marca "crua": nome, tagline, cores-base por   │
+│      BrandVersionId. Camada mais estável — raramente muda.       │
+├─────────────────────────────────────────────────────────────────┤
+│  E/O — VARIANTS      shared/data/variants.ts                     │
+│      VariantId = 'gp0' | 'pp1' | 'pp2'. Cada variante referencia │
+│      um BrandVersionId do Canon + metadados de apresentação      │
+│      (tratamento de hero, tema de rodapé, exibição de seções).   │
+│      shared/data/variantContent.ts — conteúdo editorial completo │
+│      por variante (hero, features, temas, stats, missão,         │
+│      notícias, seminário, rodapé) — cada campo em PT e ES.        │
+├─────────────────────────────────────────────────────────────────┤
+│  S — LOCALES         shared/data/locales.ts                      │
+│      LocaleId = 'pt' | 'es'. Dicionário TRANSLATIONS +            │
+│      translate(). Arquitetado para 'en' futuro sem mudar a API.  │
+├─────────────────────────────────────────────────────────────────┤
+│  PRESENTATION        shared/context/AppearanceContext.tsx         │
+│                      shared/components/VariantSwitcher.tsx        │
+│      useAppearance() expõe {variantId, variant, brand, localeId,  │
+│      setVariantId, setLocaleId, t()} para toda a árvore React —   │
+│      site/ e app/ consomem o MESMO hook. Persiste escolha em      │
+│      localStorage (pulsopreto:variant / pulsopreto:locale).       │
+│      VariantSwitcher é o único ponto de troca: um botão (🎛️),     │
+│      fechável via "✕" ou Esc, nunca "prende" o usuário.           │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+**Por que 4 camadas e não uma única tabela de temas?** Porque GP0 e
+PP1/PP2 não são apenas paletas diferentes sobre o mesmo layout — são
+**estruturas de página distintas** (número de colunas no rodapé, presença ou
+ausência de seção de notícias, layout de hero). Uma camada de "tema CSS"
+não resolveria isso; por isso `Home.tsx`, `Header.tsx` e `Footer.tsx`
+brancham 100% entre `Gente*` (GP0) e `Pulso*` (PP1/PP2) a partir de um único
+`if (variantId === 'pp1' || variantId === 'pp2')`, delegando todo o resto do
+app (rotas, dados científicos, LGPD, governança) à mesma base intocada.
+
+### Variantes implementadas
+
+| Variante | Identidade | Header/Footer | CTA principal |
+|---|---|---|---|
+| **GP0** | Gente Preta (original) | Layout histórico, paleta `folha/ouro/palha/barro` | "Baixe o App" |
+| **PP1** | Pulso Preto "Família" | Verde-escuro + dourado + creme, rodapé 3 colunas | "CUIDE-SE" |
+| **PP2** | Pulso Preto "Mulher" | CTA terracota, faixa de missão full-width, seção de notícias | "Acesse serviços SUS" |
+
+`DEFAULT_VARIANT = 'pp1'` — a identidade Pulso Preto é a que carrega por
+padrão neste piloto; GP0 permanece acessível via VariantSwitcher como a
+"marca-mãe" original, preservada e nunca alterada por este trabalho.
+
+### Identidade visual oficial "Pulso Preto"
+
+- **Cores** (`tailwind.config.js` → namespace `pulso.*`), verificadas pixel a
+  pixel contra o PDF/PNG de paleta oficial: `verde` `#06201B`, `verde-medio`
+  `#1A5C3A`, `verde-accent` `#2DA864`, `creme` `#F7F5F0`, `dourado` `#D4A84B`,
+  `dourado-claro` `#E8C05A`, `marrom/terracota` `#8F4B21`.
+- **Tipografia oficial** (`00_Identidade/FONTES/Tipografia.docx`): **Hurme
+  Geometric Sans 3** como fonte de títulos/display (`font-pulso-display`,
+  pesos Light/Regular/SemiBold/Bold) e **Sans Serif Collection** como fonte
+  de corpo/legenda (`font-pulso-body`) — ambas declaradas via `@font-face`
+  em `site/src/index.css` e `app/src/index.css`, mapeadas como utilitários
+  Tailwind escopados: só os componentes `Pulso*` (PP1/PP2) usam essas
+  classes; GP0 mantém Inter/Newsreader, intocado.
+- **Logo**: ícone oficial do pacote de identidade (`LOGO/`, recortado via
+  `pdftocairo`) em `*/public/static/brand/pulso-preto-icon.png`.
+- **Logos de parceiros** (`Logotipos.zip`, SVGs vetoriais em
+  `*/public/static/brand/partners/`): AECID, GDF, FEPECS, APRECIA — mapeados
+  em `site/src/data/project.ts` → `partners.*.logo` e renderizados na seção
+  "Parceiros e Governança" da Home (GP0).
+
+### Limitações conhecidas desta fase
+- Conteúdo clínico aprofundado (Anemia Falciforme) traduzido PT/ES; demais
+  32 condições da Biblioteca de Saúde seguem só em português.
+- App Sentinela (`app/`) ainda não tem layout `Pulso*` dedicado — apenas
+  Logo e paleta de cores estão disponíveis para a variante lá; replicar o
+  padrão de Home/Header/Footer do site é o próximo passo natural.
+- Painel administrativo de troca de marca: **fora de escopo**, por decisão
+  do usuário — a troca aqui é um recurso de usuário final (como um seletor
+  de idioma), não uma ferramenta de gestão de conteúdo.
+
+---
+
+## Evento-âncora — Seminário Latino-Americano
+
+**"Saúde, Tecnologia e Prevenção: Desafios e Inovações para a População
+Negra"** — **18 e 19 de novembro de 2026**, Brasília/DF.
+
+> ⚠️ **Nota de divergência de fonte**: o Relatório de Planejamento Técnico do
+> Produto 2.2 (datado de 19/06/2026) registrava uma previsão anterior de
+> "20 e 21 de novembro de 2026". As datas **18-19/11** usadas neste site
+> foram confirmadas diretamente pelo usuário como a versão vigente — é
+> recomendável validar com a coordenação do projeto se a documentação
+> interna (contratos, propostas) deve ser atualizada para refletir o ajuste.
+
+| Dia | Público | Atividades |
+|---|---|---|
+| **18/11** | ~150 profissionais de saúde, pesquisadores e estudantes | Apresentação técnica da plataforma + **painel técnico** de discussão sobre funcionalidades, contribuições e aperfeiçoamento do app |
+| **19/11** | ~150 pessoas da comunidade/beneficiários | Estação interativa com tablets + sessão prática (hands-on) de experimentação do aplicativo |
+
+Eixos temáticos: *doenças que mais afetam a população negra* · *soluções
+tecnológicas para equidade em saúde* · *prevenção, cuidado e políticas
+públicas*. Conteúdo implementado em `site/src/pages/Community.tsx` (GP0) e
+como seção dedicada (`PulsoSeminar`) em `site/src/pages/Home.tsx` via o novo
+campo `seminar?: SeminarContent` em `shared/data/variantContent.ts`
+(PP1/PP2, PT/ES).
+
+Fontes primárias: Anexo de Intervenção AECID (nome oficial do seminário,
+estrutura de 2 dias, 300 participantes) e Relatório de Planejamento Técnico
+— Produto 2.2 (estratégia de demonstração / painel técnico).
+
+---
+
+## Arquitetura de deploy (Cloudflare Pages — domínio único)
+
+Monorepo com dois SPAs React/Vite compartilhando um único Worker:
+
+- `site/` — Site institucional (React + Vite + Tailwind + React Router), raiz `/`.
+- `app/` — App Sentinela (React + Vite + Tailwind + Zustand), em `/app/`.
+- `shared/` — Camadas CEOS (Canon/Variants/Locales/Presentation), importadas
+  por ambos os projetos via alias `@shared/*`.
+- `worker/index.js` — Worker mínimo: serve `dist/` e aplica fallback de SPA
+  por prefixo (`/app/*` → `dist/app/index.html`; demais rotas →
+  `dist/index.html`).
+- `npm run build` na raiz: instala dependências dos dois projetos, builda
+  cada um e monta `dist/` combinado (`assemble`).
 
 ## Rotas do Site Institucional (`site/src/App.tsx`)
+
 | Rota | Página | Observação |
 |---|---|---|
-| `/` | Home | Hero, stats, serviços-duro, temas prioritários/emergentes, parceiros |
+| `/` | Home | Hero, features, temas, stats, missão, **seminário** (PP1/PP2), notícias (PP2), parceiros (GP0) |
 | `/sobre` | About | |
-| `/saude` | HealthLibrary (legado) | Biblioteca por 9 categorias (`data/diseases.ts`) — mantida para deep-links `/saude/:categoryId/:diseaseId` |
-| `/saude/:categoryId/:diseaseId` | DiseaseDetail | Detalhe de condição (base `diseases.ts`) |
-| **`/biblioteca-saude`** | **BibliotecaSaude** | **Nova (v4.2)** — 10 categorias, 33 condições, busca + filtros (categoria/tipo de evidência) |
-| `/biblioteca` | *redirect* → `/biblioteca-saude` | Alias |
-| `/ensaios-clinicos` | ClinicalTrials | **Reescrita (v4.2)** — fases, direitos, histórico (Tuskegee/Lacks/Brasil), plataformas oficiais, checklist, 3 instrumentos de coleta do projeto |
-| `/ensaios` | *redirect* → `/ensaios-clinicos` | Alias |
+| `/saude` | HealthLibrary | 9 categorias (`data/diseases.ts`) |
+| `/saude/:categoryId/:diseaseId` | DiseaseDetail | Conteúdo estratificado por audiência (Anemia Falciforme) |
+| `/biblioteca-saude` | BibliotecaSaude | 10 categorias, 33 condições, busca + filtros |
+| `/ensaios-clinicos` | ClinicalTrials | Fases, direitos, histórico, checklist |
 | `/memoria` | Memory | |
-| `/comunidade` | Community | |
-| `/rede-sus` | SusNetwork | UBS/UPA/CEPAV/CAPS/Hospitais por Região de Saúde do DF |
-| `/transparencia` | Transparency | LGPD, 4 níveis de consentimento, 3 domínios de dados, governança |
-| `/arquitetura` | Architecture | Sistema de design + Relatório de Arquitetura (Markdown) |
-| **`/baixar`** | **AppAccess** | **Nova rota canônica (v4.2)** — status radical, cronograma, como funciona, direitos LGPD, formulário de acesso antecipado, FAQ, seções profissionais/acadêmica |
-| `/baixe-o-app` | *redirect* → `/baixar` | Alias |
-| `/acessar-app` | AppAccess | Rota legada mantida (mesmo componente de `/baixar`) |
+| `/comunidade` | Community | Parceiros comunitários + **card do Seminário Latino-Americano** |
+| `/rede-sus` | SusNetwork | UBS/UPA/CEPAV/CAPS por Região de Saúde do DF |
+| `/transparencia` | Transparency | LGPD, consentimento, governança |
+| `/arquitetura` | Architecture | Sistema de design + relatório de arquitetura |
+| `/baixar` | AppAccess | Status, cronograma, LGPD, waitlist, FAQ |
 | `*` | NotFound | 404 |
 
-### Pacote v4.2 (16/08/2026) — 3 páginas que retornavam 404
-As três páginas abaixo foram criadas a partir do pacote de conteúdo CASIO v10.0
-("Gente Preta v4.2 — Conteúdo para 3 Páginas 404"), rastreável a
-`BASE CIENTIFICA DE DOENÇAS - NEGROS.pdf`, `GUIA DA SAUDE -DOENÇAS NEGROS E DX.pdf`
-e à Arquitetura Reconciliada V4.1:
-
-- **`/biblioteca-saude`** — dados em `site/src/data/biblioteca.ts`
-- **`/ensaios-clinicos`** — dados em `site/src/data/ensaiosClinicosContent.ts`
-- **`/baixar`** — dados em `site/src/data/baixarAppContent.ts`
-
-Cada arquivo de dados segue um schema uniforme (`hero`, seções com `title`/conteúdo
-específico, `footer_ctas`) espelhando os JSONs originais entregues pelo CASIO,
-para facilitar manutenção futura.
-
 ## Dados e armazenamento
-- Não há backend/banco de dados neste site — todo o conteúdo é estático, embutido em arquivos TypeScript (`site/src/data/*.ts`).
-- O formulário de acesso antecipado em `/baixar` é client-side apenas (sem persistência real ainda) — ver "Próximos passos".
-- App Sentinela (`app/`) usa Zustand para estado local; não possui persistência em Cloudflare D1/KV/R2 nesta fase.
-
-## Funcionalidades já implementadas
-- Site institucional completo com 15 rotas (incluindo aliases).
-- Biblioteca de Saúde nova: 33 condições em 10 categorias, com busca textual e filtros por categoria/tipo de evidência.
-- Ensaios Clínicos: conteúdo educativo completo (fases, direitos, reconhecimento histórico, checklist, distinção dos 3 instrumentos de coleta do projeto).
-- Baixe o App: transparência radical de status (concluído/andamento/pendente), cronograma público, explicação passo a passo, consentimento LGPD (4 níveis), formulário de lista de espera, FAQ (7 perguntas).
-- Ícones autorais SVG (abstratos, sem simbologia médica literal) para todas as categorias, incluindo as duas novas (Renais/Genéticas, HIV e Prevenção).
-
-## Arquitetura CEOS (Fase 3) — Variantes de marca + Idiomas em runtime
-Camada **Canon / Variantes / Idiomas / Apresentação**, trocável em runtime (sem rebuild/redeploy), via botão único no Header (site) e TopBar (app):
-
-- `shared/data/brand-canon.ts` — **Canon**: texto/identidade de marca por versão (`BrandVersionId`), pré-existente da Fase 1.
-- `shared/data/variants.ts` — **Variantes**: `VariantId = 'gp0' | 'pp1' | 'pp2'`, cada uma referenciando um `BrandVersionId` do Canon + metadados de apresentação (tratamento de hero, imagem CC + crédito, tema da faixa de missão, tema do rodapé, exibição da seção de notícias). `DEFAULT_VARIANT = 'pp1'`.
-- `shared/data/variantContent.ts` — **Conteúdo completo por variante** (Fase 3.1 — reconstrução "full-fledged"): hero (eyebrow/headline/parágrafo/CTA/cursiva/lista de palavras), faixa de atalhos (4 cards PP1 / 5 cards PP2), "Temas em Destaque" (6 cartões com foto real — PP1 sem subtítulo, PP2 com subtítulo), faixa de indicadores (eyebrow/heading/4 stat cards), faixa de missão (layout e copy distintos por variante), seção "Últimas Notícias" (exclusiva PP2) e estrutura do rodapé — tudo em PT e ES, transcrito **verbatim** dos 2 mockups de referência fornecidos pelo usuário (incluindo a grafia "PULSS DA SAÚDE NEGRA" no eyebrow de estatísticas da PP1, que aparenta ser um erro de digitação do mockup original — mantida por fidelidade à referência; avaliar com o usuário se deve ser corrigida para "PULSO").
-  - **GP0** — Gente Preta (paleta/Header/Footer/Home originais, intactos — não usa `variantContent.ts`).
-  - **PP1** — Pulso Preto "Família": header/footer verde-escuro+dourado+creme, CTA "CUIDE-SE", rodapé 3 colunas (Links/Redes Sociais/Newsletter "Receba novidades").
-  - **PP2** — Pulso Preto "Mulher": CTA "Acesse serviços SUS", faixa de missão terracota full-width, seção "Últimas Notícias" (3 cards), rodapé claro (topo logo+social / barra inferior com links separados por "|" + citação em itálico).
-  - `site/src/components/Header.tsx` e `Footer.tsx` brancham 100% entre o layout original GP0 e o layout `Pulso*` (PP1/PP2) — não é troca de cor sobre uma base única, são dois conjuntos de JSX distintos por variante.
-  - `site/src/pages/Home.tsx` idem: GP0 renderiza a Home histórica; PP1/PP2 renderizam `PulsoHome` com Hero/Features/Temas/Stats/Mission/News próprios, consumindo `getVariantContent()`.
-  - `site/src/components/PulsoIcons.tsx` — ícones SVG autorais (book/location/chart/people/heart/document) + `HeartbeatLine` (traço de ECG decorativo usado junto ao nome da marca no Header/Footer Pulso Preto).
-  - Imagens CC/PD validadas via `understand_images` para as 6 cartões de tema, 2 fotos de faixa de missão e 3 thumbnails de notícia (PP2) — ver créditos embutidos em cada `PlaceholderImage.credit` em `variantContent.ts`.
-- `shared/data/locales.ts` — **Idiomas**: `LocaleId = 'pt' | 'es'`, dicionário `TRANSLATIONS` + `translate()`. `DEFAULT_LOCALE = 'pt'`. Arquitetado para permitir `'en'` futuramente sem alterar a API.
-- `shared/context/AppearanceContext.tsx` — `AppearanceProvider` + hook `useAppearance()` (`{variantId, variant, brand, localeId, setVariantId, setLocaleId, t}`), persiste escolha em `localStorage` (`pulsopreto:variant`, `pulsopreto:locale`).
-- `shared/components/VariantSwitcher.tsx` — dropdown (🎛️) com cartões de variante + botões de idioma, compartilhado entre site e app. **Fechável** via botão "✕" explícito e tecla **Esc** (devolve o foco ao botão disparador), garantindo que o usuário sempre consiga voltar à navegação normal sem ficar "preso" no painel.
-- Paleta de marca oficial Pulso Preto (`pulso.verde/creme/dourado/terracota/marrom`) adicionada aos `tailwind.config.js` de ambos os projetos, coexistindo com a paleta legada `folha/ouro/palha/barro` (GP0) — a troca de tema é feita via classes condicionais no código, não por rebuild.
-- **Rotas reaproveitadas** (nenhuma página nova criada neste teste): "Dados e Indicadores" → `/transparencia`; "Fale Conosco" → âncora no rodapé (`#fale-conosco`, onde vive o formulário de newsletter); "Notícias" → âncora na própria Home (`#noticias`, PP2); "Mulher Negra"/"Saúde Mental" nos cartões de tema → âncoras diretas nas categorias correspondentes de `/saude` (`#mulher-negra`, `#saude-mental`); demais temas → `/saude` (biblioteca completa, sem categoria 1:1 ainda).
-- **Verificação visual**: todas as 3 variantes × 2 idiomas testadas via Playwright headless neste sandbox (screenshots + `understand_images`) — hero, faixa de atalhos, grid de temas, faixa de indicadores, faixa de missão, notícias (PP2) e rodapé confirmados sem sobreposição de texto, imagem quebrada ou overflow, em desktop (1440px) e mobile (390px). Um bug de sobreposição na hero da PP2 (cursiva + lista de palavras + badge de placeholder colidindo sobre a foto) foi identificado e corrigido nesta sessão.
-- **Limitação conhecida**: apenas os textos de UI (Home, Header, Footer, CTAs) estão traduzidos PT/ES; o conteúdo clínico da Anemia Falciforme (abaixo) ainda está só em português — tradução ES do conteúdo técnico é item de próxima sprint.
-- **Painel administrativo de troca de marca**: explicitamente **não iniciado** nesta fase, por decisão do usuário.
-- **Logo**: o usuário apresentou 2 novas opções de logo "Pulso Preto" (heartbeat + silhueta de mulher OU heartbeat + continente africano) — **ainda não decididas/confirmadas**; o `Logo.tsx` atual (grafismo abstrato Ossaim/Obaluaê, herdado da marca "Gente Preta") continua em uso em todas as variantes enquanto a decisão não é tomada.
-
-## Conteúdo aprofundado por audiência — Anemia Falciforme
-Primeira condição da Biblioteca de Saúde com conteúdo clínico completo e estratificado por público, acessível via abas na página de detalhe (`/saude/raras-autoimunes/anemia-falciforme` no site; mesma rota no app):
-
-- `shared/data/anemiaFalciforme.ts` — conteúdo único compartilhado site+app, com:
-  - **Médicos e pesquisadores**: fisiopatologia (mutação HBB, genótipos HbSS/HbSC/HbS-beta-thal), epidemiologia, diagnóstico, tratamento e condutas (hidroxiureia, voxelotor, crizanlizumabe, terapia gênica, TCTH), sinais de alarme, diretrizes/PCDT.
-  - **Enfermeiros e técnicos**: sinais que a equipe deve reconhecer, manejo da crise de dor, cuidado continuado — com atenção explícita ao viés no manejo da dor em pacientes negros.
-  - **Usuários**: linguagem acessível, sinais de alerta, cuidados do dia a dia, onde buscar ajuda no SUS — contextualizando o racismo no tratamento da dor como relevante para a comunidade.
-  - Fontes: ABRADFAL, PCDT do Ministério da Saúde, Programa Nacional de Triagem Neonatal, diretrizes NHLBI/ASH.
-  - Imagem hero placeholder CC (micrografia SEM comparando hemácias normais e falciformes, domínio público/Pixnio).
-- `site/src/data/deepContentRegistry.ts` e `app/src/data/deepContentRegistry.ts` — registro `disease.id → DiseaseDeepContent`.
-- `site/src/components/AudienceContentTabs.tsx` (desktop) e `app/src/components/AudienceContentTabs.tsx` (mobile compacto) — seletor de 3 abas (usuário/enfermeiro/médico), rótulos via `useAppearance().t()`.
-- `Disease.hasDeepContent?: boolean` (em `diseases.ts` de ambos os projetos) ativa a renderização condicional do hero + abas em `DiseaseDetail.tsx`.
-- **Próximo passo natural**: replicar esse padrão de conteúdo estratificado para as demais condições prioritárias da Biblioteca de Saúde.
-
-## Não implementado / próximos passos
-- **Decisão pendente do usuário**: escolha entre as 2 opções de logo "Pulso Preto" apresentadas (heartbeat+mulher vs. heartbeat+África) — ver nota na seção CEOS acima.
-- **Sprint imediata**: QA de acessibilidade (Lighthouse, leitor de tela); revisão clínica formal do conteúdo da Biblioteca pelo Conselho Consultivo; tradução ES do conteúdo clínico da Anemia Falciforme; criar páginas dedicadas para "Fale Conosco" e "Seus Direitos" (hoje mapeadas para âncoras/`/transparencia` como solução provisória).
-- **Sprint 2**: busca com biblioteca dedicada (Fuse.js) se o volume de condições crescer; conectar formulário de `/baixar` a serviço de e-mail transacional (SendGrid/Postmark) respeitando LGPD — hoje o submit é apenas local (sem envio real); OG images por rota; sitemap.xml atualizado; substituir imagens placeholder CC (PP1/PP2/Anemia Falciforme) pelas fotos reais do projeto.
-- **Sprint 3**: nomes reais no Conselho Consultivo (`/transparencia`); histórias reais em `/memoria`; canal oficial no YouTube; auditoria completa dos Quality Gates (QG1–QG6) do CASIO; painel administrativo de troca de variante de marca (explicitamente fora de escopo até decisão do usuário).
+- Sem backend/banco de dados — conteúdo estático embutido em TypeScript
+  (`site/src/data/*.ts`, `shared/data/*.ts`).
+- Formulário de `/baixar` é client-side apenas (sem persistência real).
+- App Sentinela usa Zustand para estado local; sem Cloudflare D1/KV/R2 nesta fase.
 
 ## Como rodar localmente (sandbox)
 ```bash
 cd /home/user/webapp
 npm run build                 # instala deps, builda site + app, monta dist/
 pm2 start ecosystem.config.cjs
-curl http://localhost:3000/biblioteca-saude
-curl http://localhost:3000/ensaios-clinicos
-curl http://localhost:3000/baixar
+curl http://localhost:3000/
+curl http://localhost:3000/comunidade
 ```
 
 ## Deploy
-- **Plataforma**: **Cloudflare Pages** (projeto `gente-preta`), modo avançado com `_worker.js` customizado para o fallback de SPA duplo (site + app).
+- **Plataforma**: Cloudflare Pages (projeto `gente-preta`), `_worker.js`
+  customizado para fallback de SPA duplo (site + app).
 - **URL de produção**: https://gente-preta.pages.dev
-- **URL alternativa (Worker plano, mantida)**: https://gente-preta.fratozsistemas.workers.dev
-- **Conta Cloudflare**: fratozsistemas@gmail.com (BYOK — token do próprio usuário via Deploy panel).
-- **Stack**: React + TypeScript + Vite + Tailwind CSS + React Router + `_worker.js` mínimo (fallback de SPA por prefixo de rota, sem Pages Functions).
-- **Comando de deploy**: `npm run build && npx wrangler pages deploy dist --project-name gente-preta --branch main` (a etapa `assemble` do build já copia `worker/index.js` para `dist/_worker.js`, ativando o modo avançado do Pages).
-- **Importante**: `wrangler.jsonc` está no formato Worker+Assets (`main` + `assets.binding`), por isso o Pages ignora esse arquivo e exige `--project-name`/`--branch` explícitos no comando; isso é esperado e não é um erro.
-- **Status**: ✅ Deployado em produção no Cloudflare Pages — 11/11 rotas verificadas com HTTP 200 (incluindo os 3 novos endpoints e seus aliases, mais fallback SPA para rotas inexistentes).
-- **Última atualização**: 16/08/2026 — deploy no Cloudflare Pages (projeto `gente-preta`) via BYOK.
+- **Conta Cloudflare**: BYOK (token do próprio usuário via Deploy panel).
+- **Comando de deploy**: `npm run build && npx wrangler pages deploy dist --project-name gente-preta --branch main`
+- **Repositório**: `github.com/fratozsistemas-art/gente-preta`, branch `genspark_ai_developer` (Git-integration auto-deploy).
+
+## Não implementado / próximos passos
+- Layout `Pulso*` dedicado para o App Sentinela (hoje só Logo/paleta).
+- Tradução ES do conteúdo clínico completo (32 condições restantes).
+- Auditoria de links/navegação ("Notícias" ainda aponta para âncora `#noticias`
+  na Home em vez de uma página `/noticias` dedicada — pendente de decisão de
+  escopo com o usuário).
+- Decisão final entre as variantes PP1/PP2 como identidade única de produção
+  (hoje ambas coexistem via VariantSwitcher para fins de teste A/B visual).
+- QA de acessibilidade (Lighthouse, leitor de tela); revisão clínica formal
+  pelo Conselho Consultivo; nomes reais no Conselho (`/transparencia`).
+- Conectar formulário de `/baixar` a serviço de e-mail transacional
+  (SendGrid/Postmark) respeitando LGPD — hoje é client-side apenas.
+
+## Última atualização
+08/10/2026 — Seminário Latino-Americano (18-19 nov 2026, nome oficial e
+programação de 2 dias/painel técnico) adicionado a Community.tsx (GP0) e
+Home.tsx (PP1/PP2 via novo campo `seminar` em `variantContent.ts`); logos
+vetoriais oficiais de 4 parceiros (AECID/GDF/FEPECS/APRECIA) integrados;
+tipografia oficial Pulso Preto (Hurme Geometric Sans 3 + Sans Serif
+Collection) wireada via `@font-face` + Tailwind `font-pulso-display`/
+`font-pulso-body`; README reescrito com foco na arquitetura CEOS.

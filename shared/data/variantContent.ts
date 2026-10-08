@@ -58,6 +58,26 @@ export interface NewsCard {
   image: PlaceholderImage;
 }
 
+export interface SeminarDay {
+  label: string;
+  audience: string;
+  description: string;
+}
+
+export interface SeminarContent {
+  eyebrow: string;
+  name: string;
+  dates: string;
+  location: string;
+  intro: string;
+  days: SeminarDay[];
+  axesHeading: string;
+  axes: string[];
+  panelHeading: string;
+  panelText: string;
+  sourceNote: string;
+}
+
 export interface PulsoVariantContent {
   header: {
     tagline: string;
@@ -103,6 +123,7 @@ export interface PulsoVariantContent {
     viewAllLabel: string;
     cards: NewsCard[];
   };
+  seminar?: SeminarContent;
   footer: {
     slogan: string;
     linksHeading?: string;
@@ -178,6 +199,83 @@ const IMG_PROFISSIONAL = img(
   'Profissional de saúde negra, de máscara e luvas, examinando um frasco de vacina em ambiente clínico',
   'Rawpixel — CC0/domínio público (placeholder, substituir por fotografia própria)'
 );
+
+// ---------------------------------------------------------------------------
+// SEMINÁRIO LATINO-AMERICANO — conteúdo compartilhado PP1/PP2 (PT/ES)
+// Fontes primárias: Anexo de Intervenção AECID ("Saúde, Tecnologia e Prevenção:
+// Desafios e Inovações para a População Negra" — objetivo, 300 participantes,
+// estrutura de 2 dias) + Relatório de Planejamento Técnico do Produto 2.2
+// (estratégia de demonstração: estação interativa, apresentação técnica,
+// sessão hands-on, painel técnico). Datas 18-19/11/2026 confirmadas pelo
+// usuário como a versão vigente — nota: o Relatório Técnico (19/06/2026)
+// registrava uma previsão anterior de "20 e 21 de novembro", provavelmente
+// ajustada depois; mantemos 18-19/11 por ser a informação mais recente.
+// ---------------------------------------------------------------------------
+const SEMINAR_PT: SeminarContent = {
+  eyebrow: 'EVENTO-ÂNCORA —',
+  name: 'Seminário Latino-Americano "Saúde, Tecnologia e Prevenção: Desafios e Inovações para a População Negra"',
+  dates: '18 e 19 de novembro de 2026',
+  location: 'Brasília/DF',
+  intro:
+    'Reúne especialistas da América Latina e do Caribe para discutir as doenças que mais afetam a população negra e as inovações tecnológicas que podem transformar o cuidado em saúde — com profissionais de saúde, pesquisadores, desenvolvedores de tecnologia, formuladores de políticas e membros da comunidade.',
+  days: [
+    {
+      label: 'Dia 1 — 18/11',
+      audience: 'Profissionais, pesquisadores e estudantes',
+      description:
+        '~150 participantes de Medicina, Enfermagem e áreas afins — apresentação técnica da plataforma e painel técnico sobre funcionalidades, contribuições e aperfeiçoamento do app.',
+    },
+    {
+      label: 'Dia 2 — 19/11',
+      audience: 'Comunidade e beneficiários',
+      description:
+        '~150 pessoas representando a população local — estação interativa com tablets e sessão prática (hands-on) de experimentação do aplicativo.',
+    },
+  ],
+  axesHeading: 'Eixos temáticos',
+  axes: [
+    'Doenças que mais afetam a população negra',
+    'Soluções tecnológicas para equidade em saúde',
+    'Prevenção, cuidado e políticas públicas',
+  ],
+  panelHeading: 'Painel técnico',
+  panelText:
+    'Espaço de apresentação do aplicativo e da cartilha científica, com mesa de discussão sobre funcionalidades, contribuições e caminhos de aperfeiçoamento da plataforma.',
+  sourceNote: 'Fontes: Anexo de Intervenção AECID · Relatório de Planejamento Técnico — Produto 2.2.',
+};
+
+const SEMINAR_ES: SeminarContent = {
+  eyebrow: 'EVENTO INSIGNIA —',
+  name: 'Seminario Latinoamericano "Salud, Tecnología y Prevención: Desafíos e Innovaciones para la Población Negra"',
+  dates: '18 y 19 de noviembre de 2026',
+  location: 'Brasilia/DF',
+  intro:
+    'Reúne a especialistas de América Latina y el Caribe para debatir las enfermedades que más afectan a la población negra y las innovaciones tecnológicas que pueden transformar la atención en salud — con profesionales de la salud, investigadores, desarrolladores de tecnología, formuladores de políticas y miembros de la comunidad.',
+  days: [
+    {
+      label: 'Día 1 — 18/11',
+      audience: 'Profesionales, investigadores y estudiantes',
+      description:
+        '~150 participantes de Medicina, Enfermería y áreas afines — presentación técnica de la plataforma y panel técnico sobre funcionalidades, contribuciones y mejoras de la app.',
+    },
+    {
+      label: 'Día 2 — 19/11',
+      audience: 'Comunidad y beneficiarios',
+      description:
+        '~150 personas representando a la población local — estación interactiva con tablets y sesión práctica (hands-on) de experimentación de la aplicación.',
+    },
+  ],
+  axesHeading: 'Ejes temáticos',
+  axes: [
+    'Enfermedades que más afectan a la población negra',
+    'Soluciones tecnológicas para la equidad en salud',
+    'Prevención, cuidado y políticas públicas',
+  ],
+  panelHeading: 'Panel técnico',
+  panelText:
+    'Espacio de presentación de la aplicación y de la cartilla científica, con mesa de discusión sobre funcionalidades, contribuciones y caminos de mejora de la plataforma.',
+  sourceNote: 'Fuentes: Anexo de Intervención AECID · Informe de Planificación Técnica — Producto 2.2.',
+};
 
 // ---------------------------------------------------------------------------
 // Rotas reaproveitadas da IA existente (sem criar páginas novas neste teste):
@@ -267,6 +365,7 @@ const pp1_pt: PulsoVariantContent = {
     cursive: ['Juntos', 'por mais', 'vidas.'],
     photo: IMG_MULHER_RETRATO,
   },
+  seminar: SEMINAR_PT,
   footer: {
     slogan: 'Saúde hoje. Mais futuro amanhã.',
     linksHeading: 'Links',
@@ -347,6 +446,7 @@ const pp1_es: PulsoVariantContent = {
     cursive: ['Juntos', 'por más', 'vidas.'],
     photo: IMG_MULHER_RETRATO,
   },
+  seminar: SEMINAR_ES,
   footer: {
     slogan: 'Salud hoy. Más futuro mañana.',
     linksHeading: 'Enlaces',
@@ -442,6 +542,7 @@ const pp2_pt: PulsoVariantContent = {
       { date: '10 SET 2026', title: 'SUS e equidade racial: avanços e desafios no Brasil.', image: IMG_PROFISSIONAL },
     ],
   },
+  seminar: SEMINAR_PT,
   footer: {
     slogan: 'Saúde hoje. Mais futuro amanhã.',
     bottomLinks: [
@@ -528,6 +629,7 @@ const pp2_es: PulsoVariantContent = {
       { date: '10 SEP 2026', title: 'SUS y equidad racial: avances y desafíos en Brasil.', image: IMG_PROFISSIONAL },
     ],
   },
+  seminar: SEMINAR_ES,
   footer: {
     slogan: 'Salud hoy. Más futuro mañana.',
     bottomLinks: [

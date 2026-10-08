@@ -278,13 +278,19 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
           <h2 className="text-2xl font-bold mb-8 text-center">Parceiros e Governança</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 text-sm">
-            {[...partners.financiamento, ...partners.institucional, ...partners.execucao, ...partners.academico, ...partners.comunitario].map((p) => (
-              <div key={p.name} className="rounded-lg bg-earth-800 p-4">
-                <div className="font-bold text-brand-300">{p.name}</div>
-                <div className="text-earth-300 text-xs mb-1">{p.full}</div>
-                <div className="text-earth-400 text-xs">{p.role}</div>
-              </div>
-            ))}
+            {[...partners.financiamento, ...partners.institucional, ...partners.execucao, ...partners.academico, ...partners.comunitario].map((p) => {
+              const logo = (p as { logo?: string }).logo;
+              return (
+                <div key={p.name} className="rounded-lg bg-earth-800 p-4">
+                  {logo && (
+                    <img src={logo} alt={`Logotipo ${p.name}`} className="h-8 w-auto mb-3 bg-white rounded p-1 object-contain" loading="lazy" />
+                  )}
+                  <div className="font-bold text-brand-300">{p.name}</div>
+                  <div className="text-earth-300 text-xs mb-1">{p.full}</div>
+                  <div className="text-earth-400 text-xs">{p.role}</div>
+                </div>
+              );
+            })}
           </div>
           <div className="text-center mt-8">
             <Link to="/transparencia" className="text-brand-300 hover:underline font-medium">
@@ -335,13 +341,17 @@ function Stat({
 // ============================================================================
 
 function PulsoHome({ content }: { content: PulsoVariantContent }) {
+  // Tipografia oficial "Pulso Preto": Sans Serif Collection como fonte-base de
+  // corpo (herdada por toda a subárvore), com Hurme Geometric Sans 3 aplicada
+  // pontualmente em títulos/display via font-pulso-display (ver notas acima).
   return (
-    <div className="bg-pulso-creme">
+    <div className="bg-pulso-creme font-pulso-body">
       <PulsoHero content={content} />
       <PulsoFeatures content={content} />
       <PulsoThemes content={content} />
       <PulsoStats content={content} />
       <PulsoMission content={content} />
+      {content.seminar && <PulsoSeminar content={content} />}
       {content.news && <PulsoNews content={content} />}
     </div>
   );
@@ -360,7 +370,7 @@ function PulsoHero({ content }: { content: PulsoVariantContent }) {
               <span key={i} className="block">{line}</span>
             ))}
           </p>
-          <h1 className="font-serif text-4xl sm:text-5xl font-bold leading-tight mb-5">
+          <h1 className="font-pulso-display text-4xl sm:text-5xl font-bold leading-tight mb-5">
             {h.headline.map((line, i) => (
               <span key={i} className="block">
                 {h.headlineHighlight && line.includes(h.headlineHighlight.replace('.', ''))
@@ -384,7 +394,7 @@ function PulsoHero({ content }: { content: PulsoVariantContent }) {
         </div>
 
         <div>
-          <p className="font-serif italic text-pulso-dourado text-xl sm:text-2xl leading-snug text-right mb-3">
+          <p className="font-pulso-display italic text-pulso-dourado text-xl sm:text-2xl leading-snug text-right mb-3">
             {h.cursive.map((line, i) => (
               <span key={i} className="block">{line}</span>
             ))}
@@ -487,7 +497,7 @@ function PulsoStats({ content }: { content: PulsoVariantContent }) {
         <div className="flex flex-wrap items-end justify-between gap-6 mb-10">
           <div className="max-w-md">
             <span className="text-xs font-bold uppercase tracking-wider text-pulso-terracota block mb-2">{s.eyebrow}</span>
-            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-pulso-verde leading-tight">
+            <h2 className="font-pulso-display text-2xl sm:text-3xl font-bold text-pulso-verde leading-tight">
               {s.heading.map((line, i) => (
                 <span key={i} className="block">{line}</span>
               ))}
@@ -538,7 +548,7 @@ function PulsoMission({ content }: { content: PulsoVariantContent }) {
           <div className="bg-pulso-creme px-6 sm:px-10 py-14 relative">
             {m.eyebrow && <span className="text-xs font-bold uppercase tracking-wider text-pulso-terracota block mb-2">{m.eyebrow}</span>}
             {m.heading && (
-              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-pulso-verde leading-tight mb-4">
+              <h2 className="font-pulso-display text-2xl sm:text-3xl font-bold text-pulso-verde leading-tight mb-4">
                 {m.heading.map((line, i) => (
                   <span key={i} className="block">{line}</span>
                 ))}
@@ -556,7 +566,7 @@ function PulsoMission({ content }: { content: PulsoVariantContent }) {
                 <li key={w} className="text-xs font-bold uppercase tracking-wider text-pulso-marrom/70">{w}</li>
               ))}
             </ul>
-            <p className="font-serif italic text-pulso-terracota text-xl leading-snug">
+            <p className="font-pulso-display italic text-pulso-terracota text-xl leading-snug">
               {m.cursive.map((line, i) => (
                 <span key={i} className="block">{line}</span>
               ))}
@@ -572,7 +582,7 @@ function PulsoMission({ content }: { content: PulsoVariantContent }) {
   return (
     <section className="relative bg-pulso-terracota text-pulso-creme overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 grid lg:grid-cols-[1fr_1.2fr_auto] gap-8 items-center relative">
-        <p className="font-serif italic text-2xl sm:text-3xl leading-snug">
+        <p className="font-pulso-display italic text-2xl sm:text-3xl leading-snug">
           {m.cursive.map((line, i) => (
             <span key={i} className="block">{line}</span>
           ))}
@@ -597,6 +607,49 @@ function PulsoMission({ content }: { content: PulsoVariantContent }) {
             ))}
           </ul>
         </div>
+      </div>
+    </section>
+  );
+}
+
+function PulsoSeminar({ content }: { content: PulsoVariantContent }) {
+  const s = content.seminar!;
+  return (
+    <section id="seminario" className="bg-pulso-verde text-pulso-creme scroll-mt-24">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
+        <span className="text-xs font-bold uppercase tracking-wider text-pulso-dourado block mb-2">{s.eyebrow}</span>
+        <h2 className="font-pulso-display text-2xl sm:text-3xl font-bold leading-tight mb-3 max-w-3xl">{s.name}</h2>
+        <p className="text-sm text-pulso-creme/85 max-w-2xl mb-2">
+          <strong className="text-pulso-dourado">{s.dates}</strong> — {s.location}
+        </p>
+        <p className="text-sm text-pulso-creme/80 max-w-2xl mb-10">{s.intro}</p>
+
+        <div className="grid sm:grid-cols-2 gap-5 mb-10">
+          {s.days.map((d, i) => (
+            <div key={i} className="rounded-xl bg-pulso-creme/10 border border-pulso-dourado/25 p-5">
+              <div className="text-xs font-bold uppercase tracking-wide text-pulso-dourado mb-1">{d.label}</div>
+              <p className="font-bold text-pulso-creme mb-1">{d.audience}</p>
+              <p className="text-xs text-pulso-creme/75 leading-relaxed">{d.description}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="grid sm:grid-cols-2 gap-8">
+          <div>
+            <h3 className="text-xs font-bold uppercase tracking-wide text-pulso-dourado mb-3">{s.axesHeading}</h3>
+            <ul className="space-y-2 text-sm text-pulso-creme/85">
+              {s.axes.map((a, i) => (
+                <li key={i} className="flex gap-2"><span className="text-pulso-dourado">•</span>{a}</li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h3 className="text-xs font-bold uppercase tracking-wide text-pulso-dourado mb-3">{s.panelHeading}</h3>
+            <p className="text-sm text-pulso-creme/80 leading-relaxed">{s.panelText}</p>
+          </div>
+        </div>
+
+        <p className="text-[11px] text-pulso-creme/50 border-t border-pulso-creme/15 mt-10 pt-4">{s.sourceNote}</p>
       </div>
     </section>
   );

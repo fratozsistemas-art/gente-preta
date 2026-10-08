@@ -127,6 +127,10 @@ export default {
         sans: ['Inter', 'system-ui', 'Segoe UI', 'Roboto', 'sans-serif'],
         serif: ['Newsreader', 'Georgia', 'serif'],
         mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+        // Tipografia oficial "Pulso Preto" (00_Identidade/FONTES/Tipografia.docx) —
+        // usada apenas em componentes Pulso* (PP1/PP2), nunca na variante GP0.
+        'pulso-display': ['"Hurme Geometric Sans 3"', 'system-ui', 'sans-serif'],
+        'pulso-body': ['"Sans Serif Collection"', 'system-ui', 'sans-serif'],
       },
     },
   },

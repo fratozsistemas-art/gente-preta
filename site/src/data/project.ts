@@ -77,19 +77,23 @@ export const phytotherapy = [
   },
 ];
 
+// `logo`: caminho do SVG oficial do parceiro (site/public/static/brand/partners/),
+// extraído de Logotipos.zip (pacote de identidade de marca). Campo opcional —
+// parceiros sem arquivo vetorial oficial disponível ainda exibem apenas texto.
 export const partners = {
   financiamento: [
-    { name: 'AECID', full: 'Agência Espanhola de Cooperação Internacional para o Desenvolvimento', value: '€ 235.152,41', role: 'Financiador principal (24 meses)' },
+    { name: 'AECID', full: 'Agência Espanhola de Cooperação Internacional para o Desenvolvimento', value: '€ 235.152,41', role: 'Financiador principal (24 meses)', logo: '/static/brand/partners/aecid.svg' },
   ],
   institucional: [
+    { name: 'GDF', full: 'Governo do Distrito Federal', role: 'Governo parceiro', logo: '/static/brand/partners/gdf.svg' },
     { name: 'SEJUS/DF', full: 'Secretaria de Justiça e Cidadania do Distrito Federal', role: 'Parceiro institucional / contrapartida' },
   ],
   execucao: [
-    { name: 'APRECIA', full: 'Associação Pró Educação, Cultura, Inclusão e Autonomia', role: 'Execução do projeto' },
+    { name: 'APRECIA', full: 'Associação Pró Educação, Cultura, Inclusão e Autonomia', role: 'Execução do projeto', logo: '/static/brand/partners/aprecia.svg' },
     { name: 'CASIO V2 Studio', full: 'CASIO V2 Studio', role: 'Coordenação técnica e desenvolvimento' },
   ],
   academico: [
-    { name: 'FEPECS', full: 'Fundação de Ensino e Pesquisa em Ciências da Saúde', role: 'Capacitação de 100 estudantes (AVA)' },
+    { name: 'FEPECS', full: 'Fundação de Ensino e Pesquisa em Ciências da Saúde', role: 'Capacitação de 100 estudantes (AVA)', logo: '/static/brand/partners/fepecs.svg' },
     { name: 'UnB', full: 'Universidade de Brasília', role: 'Apoio acadêmico e conselho consultivo' },
     { name: 'FIOCRUZ', full: 'Fundação Oswaldo Cruz', role: 'Base científica e vigilância epidemiológica' },
   ],
