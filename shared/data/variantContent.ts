@@ -302,7 +302,7 @@ type ContentByLocale = Record<LocaleId, PulsoVariantContent>;
 
 const pp1_pt: PulsoVariantContent = {
   header: {
-    tagline: 'INFORMAÇÃO • SAÚDE • EQUIDADE',
+    tagline: 'SAÚDE • CONHECIMENTO • EQUIDADE',
     navItems: [
       { label: 'Início', to: '/' },
       { label: 'Sobre', to: TO_SOBRE },
@@ -385,7 +385,7 @@ const pp1_pt: PulsoVariantContent = {
 
 const pp1_es: PulsoVariantContent = {
   header: {
-    tagline: 'INFORMACIÓN • SALUD • EQUIDAD',
+    tagline: 'SALUD • CONOCIMIENTO • EQUIDAD',
     navItems: [
       { label: 'Inicio', to: '/' },
       { label: 'Sobre', to: TO_SOBRE },
@@ -470,7 +470,7 @@ const pp1_es: PulsoVariantContent = {
 
 const pp2_pt: PulsoVariantContent = {
   header: {
-    tagline: 'SAÚDE • INFORMAÇÃO • EQUIDADE',
+    tagline: 'SAÚDE • CONHECIMENTO • EQUIDADE',
     navItems: [
       { label: 'Início', to: '/' },
       { label: 'Sobre', to: TO_SOBRE },
@@ -557,7 +557,7 @@ const pp2_pt: PulsoVariantContent = {
 
 const pp2_es: PulsoVariantContent = {
   header: {
-    tagline: 'SALUD • INFORMACIÓN • EQUIDAD',
+    tagline: 'SALUD • CONOCIMIENTO • EQUIDAD',
     navItems: [
       { label: 'Inicio', to: '/' },
       { label: 'Sobre', to: TO_SOBRE },

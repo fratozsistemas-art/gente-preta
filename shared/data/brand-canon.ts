@@ -95,7 +95,9 @@ export const BRAND_VERSIONS: Record<BrandVersionId, BrandIdentity> = {
     name: 'Pulso Preto',
     slug: 'pulso-preto',
     subtitle: 'Sentinela de Saúde da População Negra',
-    tagline: 'Conhecimento que transforma políticas. Sua saúde, sua voz, sua comunidade.',
+    // Alinhado ao slogan oficial de 3 linhas gravado no logo (LOGO/Pulso_Preto_Logo_Quadrada.png):
+    // "Informação que pulsa / Conhecimento que cuida / Equidade que transforma"
+    tagline: 'Informação que pulsa, conhecimento que cuida, equidade que transforma.',
     
     effectiveDate: '2026-10-07',
     supersededBy: undefined, // Versão atual
