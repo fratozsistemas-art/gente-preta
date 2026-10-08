@@ -193,7 +193,7 @@ function PulsoHeader({ content, brandName }: { content: PulsoVariantContent; bra
           <span className="hidden sm:flex flex-col leading-tight">
             <span className="font-bold text-pulso-verde text-base tracking-tight flex items-center gap-1.5">
               {brandName}
-              <HeartbeatLine width={28} height={10} color="#C89B3C" />
+              <HeartbeatLine width={28} height={10} color="#D4A84B" />
             </span>
             <span className="text-[9px] font-semibold uppercase tracking-wider text-pulso-marrom/70">
               {content.header.tagline}

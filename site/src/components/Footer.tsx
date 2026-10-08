@@ -92,7 +92,7 @@ function Pp1Footer({ content, brandName }: { content: PulsoVariantContent; brand
             <Logo size={34} monochrome />
             <span className="flex items-center gap-1.5">
               {brandName}
-              <HeartbeatLine width={26} height={10} color="#C89B3C" />
+              <HeartbeatLine width={26} height={10} color="#D4A84B" />
             </span>
           </div>
           <p className="text-[10px] uppercase tracking-wider text-pulso-dourado/90 mb-3">{content.header.tagline}</p>
@@ -157,7 +157,7 @@ function Pp2Footer({ content, brandName }: { content: PulsoVariantContent; brand
             <Logo size={34} />
             <span className="flex items-center gap-1.5">
               {brandName}
-              <HeartbeatLine width={26} height={10} color="#A94A3D" />
+              <HeartbeatLine width={26} height={10} color="#8F4B21" />
             </span>
           </div>
           <p className="text-sm text-pulso-marrom/70">{f.slogan}</p>
@@ -185,7 +185,7 @@ function Pp2Footer({ content, brandName }: { content: PulsoVariantContent; brand
 }
 
 function SocialIcon({ kind, tone = 'dourado' }: { kind: 'instagram' | 'facebook' | 'youtube' | 'linkedin'; tone?: 'dourado' | 'terracota' }) {
-  const color = tone === 'terracota' ? '#A94A3D' : '#C89B3C';
+  const color = tone === 'terracota' ? '#8F4B21' : '#D4A84B';
   const common = { width: 18, height: 18, viewBox: '0 0 24 24', 'aria-hidden': true as const, fill: 'none', stroke: color, strokeWidth: 1.8 };
   const wrapClass =
     tone === 'terracota'

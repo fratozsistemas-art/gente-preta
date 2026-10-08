@@ -68,14 +68,18 @@ export default {
           dim: '#5c605c',
         },
         linha: '#dcd6c9',
-        // Paleta OFICIAL "Pulso Preto" — espelha site/tailwind.config.js (ver
-        // comentário lá para contexto completo).
+        // Paleta OFICIAL "Pulso Preto" — CORRIGIDA (Fase 3.2), espelha
+        // site/tailwind.config.js (ver comentário lá para contexto completo
+        // sobre a fonte oficial e a fusão terracota/marrom em um único hex).
         pulso: {
-          verde: '#164A3A',
-          creme: '#F5EFE3',
-          dourado: '#C89B3C',
-          terracota: '#A94A3D',
-          marrom: '#6B3F2A',
+          verde: '#06201B',
+          'verde-medio': '#1A5C3A',
+          'verde-accent': '#2DA864',
+          creme: '#F7F5F0',
+          dourado: '#D4A84B',
+          'dourado-claro': '#E8C05A',
+          marrom: '#8F4B21',
+          terracota: '#8F4B21',
         },
       },
       fontFamily: {

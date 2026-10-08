@@ -14,6 +14,20 @@
 //
 // Parceria técnica: ABRADFAL (Associação Brasiliense das Pessoas com Doença
 // Falciforme) — ver site/src/data/project.ts. Tema prioritário do App Sentinela.
+//
+// FASE 3.2 — Conteúdo bilíngue (PT/ES): a estrutura foi promovida de um único
+// objeto `anemiaFalciformeContent` para um dicionário por idioma
+// `anemiaFalciformeContent: Record<LocaleId, DiseaseDeepContent>`, espelhando
+// o padrão já usado em shared/data/variantContent.ts (VARIANT_CONTENT +
+// getVariantContent). A tradução em espanhol foi revisada para manter a
+// terminologia clínica correta (ex.: "drepanocito" em vez de tradução literal
+// de "hemácia em foice", "rasgo falciforme" para o traço heterozigoto HbAS)
+// e preserva a mesma estrutura de seções/parágrafos do conteúdo em português,
+// garantindo que nenhuma informação clínica seja perdida na tradução.
+// Consumido via getDeepContent(diseaseId, localeId) — ver
+// site|app/src/data/deepContentRegistry.ts.
+
+import type { LocaleId } from './locales';
 
 export interface AudienceSection {
   heading: string;
@@ -47,13 +61,26 @@ export interface DiseaseDeepContent {
   sources: DiseaseSource[];
 }
 
-export const anemiaFalciformeContent: DiseaseDeepContent = {
-  heroImage: {
-    url: 'https://sspark.genspark.ai/i/U0fgB9sbw0tFlBV7?width=2560',
-    alt: 'Micrografia eletrônica colorizada comparando hemácias normais em forma de disco biconcavo com uma hemácia em formato de foice (drepanócito), característica da doença falciforme',
-    credit: 'Pixnio — domínio público / CC0 (placeholder científico, substituir por material próprio se necessário)',
-    isPlaceholder: true,
-  },
+// Imagem científica (micrografia) — mesma em ambos os idiomas, apenas o
+// texto alternativo (alt) é traduzido para acessibilidade correta em cada
+// idioma; credit/licença permanece igual (atribuição de fonte, não é texto
+// de interface).
+const heroImage_pt: DiseaseHeroImage = {
+  url: 'https://sspark.genspark.ai/i/U0fgB9sbw0tFlBV7?width=2560',
+  alt: 'Micrografia eletrônica colorizada comparando hemácias normais em forma de disco biconcavo com uma hemácia em formato de foice (drepanócito), característica da doença falciforme',
+  credit: 'Pixnio — domínio público / CC0 (placeholder científico, substituir por material próprio se necessário)',
+  isPlaceholder: true,
+};
+
+const heroImage_es: DiseaseHeroImage = {
+  url: 'https://sspark.genspark.ai/i/U0fgB9sbw0tFlBV7?width=2560',
+  alt: 'Micrografía electrónica coloreada que compara glóbulos rojos normales con forma de disco bicóncavo con un glóbulo rojo en forma de hoz (drepanocito), característico de la enfermedad falciforme',
+  credit: 'Pixnio — dominio público / CC0 (placeholder científico, sustituir por material propio si es necesario)',
+  isPlaceholder: true,
+};
+
+const anemiaFalciformeContent_pt: DiseaseDeepContent = {
+  heroImage: heroImage_pt,
 
   audiences: {
     // ======================= MÉDICOS E PESQUISADORES =======================
@@ -237,4 +264,199 @@ export const anemiaFalciformeContent: DiseaseDeepContent = {
       detail: 'Diretrizes internacionais de manejo clínico baseado em evidência, usadas como referência complementar.',
     },
   ],
+};
+
+// ============================================================================
+// ESPANHOL — tradução integral e revisão terminológica clínica (Fase 3.2)
+// ============================================================================
+const anemiaFalciformeContent_es: DiseaseDeepContent = {
+  heroImage: heroImage_es,
+
+  audiences: {
+    // ==================== MÉDICOS Y PERSONAL INVESTIGADOR ===================
+    medico: {
+      summary:
+        'Fisiopatología, diagnóstico diferencial, conductas clínicas y evidencia actualizada para la práctica médica y la investigación en enfermedad falciforme (EF).',
+      sections: [
+        {
+          heading: 'Qué es — fisiopatología',
+          body: [
+            'La enfermedad falciforme (EF) es una hemoglobinopatía hereditaria autosómica recesiva causada por una mutación puntual en el gen de la beta-globina (HBB), en el cromosoma 11 (sustitución de ácido glutámico por valina en la posición 6 de la cadena beta — GAG→GTG), que da lugar a la hemoglobina S (HbS).',
+            'En condiciones de baja tensión de oxígeno, acidosis o deshidratación, la HbS polimeriza, deformando el glóbulo rojo en forma de hoz (drepanocito). Estas células rígidas y poco deformables provocan vasoclusión microvascular, hemólisis extravascular e intravascular crónica, inflamación endotelial sostenida y un estado de hipercoagulabilidad — la tríada fisiopatológica central (vasoclusión, hemólisis, inflamación) que explica la mayoría de las manifestaciones clínicas.',
+            'Genotipos clínicamente relevantes: HbSS (forma más grave, "anemia de células falciformes" en sentido estricto), HbSC, HbS/beta-talasemia (S-beta-cero y S-beta-más) y el rasgo falciforme heterocigoto HbAS (portador asintomático en la mayoría de los casos, aunque no exento de riesgo en situaciones extremas de hipoxia/ejercicio intenso — se han descrito rabdomiólisis y muerte súbita por esfuerzo extremo, aunque son raras).',
+          ],
+        },
+        {
+          heading: 'Por qué importa — epidemiología y enfoque racial',
+          body: [
+            'La EF es la enfermedad monogénica más prevalente en Brasil, con una incidencia estimada de 1:1.000 a 1:1.400 nacidos vivos, y una prevalencia del rasgo falciforme (HbAS) de alrededor del 2% en la población general — llegando al 6-10% en poblaciones afrodescendientes de algunas regiones, lo que refleja el origen de la mutación como una probable ventaja selectiva histórica contra la malaria (heterocigoto protegido) en el África subsahariana.',
+            'Por su distribución genética vinculada a la ascendencia africana, la EF es un marcador directo de cómo el racismo estructural se traduce en inequidad en salud: subdiagnóstico, retraso en el inicio del tratamiento, descrédito del dolor relatado por pacientes negros (sesgo documentado en la literatura internacional de manejo del dolor) y menor inversión histórica en investigación comparada con condiciones de prevalencia similar en poblaciones mayoritariamente blancas.',
+          ],
+        },
+        {
+          heading: 'Diagnóstico',
+          body: [
+            'Cribado neonatal universal (Programa Nacional de Cribado Neonatal / "prueba del talón", normativa del Ministerio de Salud de Brasil) mediante electroforesis en pH alcalino o HPLC — estándar de referencia para la confirmación diagnóstica, complementado con estudio familiar cuando esté indicado.',
+            'El diagnóstico diferencial incluye otras hemoglobinopatías (HbC, HbD-Punjab, talasemias), anemias hemolíticas de otras etiologías y, en la crisis aguda, abdomen agudo quirúrgico, osteomielitis y artritis séptica (importante en niños con dolor óseo y fiebre).',
+            'Seguimiento de laboratorio de rutina: hemograma completo con reticulocitos, LDH, bilirrubina indirecta, función renal (la nefropatía falciforme está subdiagnosticada), ecografía transcraneal con Doppler en niños (cribado de riesgo de ictus isquémico) y evaluación cardiopulmonar periódica (ecocardiograma para hipertensión pulmonar, función respiratoria).',
+          ],
+        },
+        {
+          heading: 'Tratamiento y conductas',
+          body: [
+            'La hidroxiurea es la terapia modificadora de la enfermedad de primera línea, disponible en el SUS (sistema público de salud de Brasil) — aumenta la HbF (hemoglobina fetal), reduciendo la frecuencia de crisis vasoclusivas y del síndrome torácico agudo; requiere monitorización hematológica (riesgo de mielosupresión) y ajuste de dosis individualizado.',
+            'La profilaxis con penicilina oral hasta los 5 años (riesgo aumentado de sepsis por S. pneumoniae debido a asplenia funcional) y un esquema de vacunación ampliado (neumocócica conjugada y polisacárida, meningocócica, Haemophilus influenzae tipo b) son conductas estándar en niños con HbSS/S-beta-cero.',
+            'Manejo de la crisis vasoclusiva: hidratación, analgesia multimodal y escalonada (incluyendo opioides cuando esté indicado — vigilancia activa contra el subtratamiento del dolor por sesgo racial), oxigenoterapia si hay hipoxemia, e investigación de desencadenantes/complicaciones asociadas.',
+            'La transfusión crónica (programa de hipertransfusión o exanguinotransfusión parcial) está indicada en la prevención secundaria de ictus, síndrome torácico agudo grave y otras complicaciones graves recurrentes; requiere vigilancia de la sobrecarga de hierro (quelación) y de la aloinmunización.',
+            'Terapias emergentes: voxelotor (inhibidor de la polimerización de la HbS), crizanlizumab (anti-P-selectina, reducción de crisis vasoclusivas), L-glutamina oral, y terapia génica (edición genética — exa-cel/Casgevy, lovotibeglogene autotemcel) ya aprobadas en otras jurisdicciones, con discusión en curso sobre su incorporación al SUS — seguir el PCDT (Protocolo Clínico y Directrices Terapéuticas) vigente del Ministerio de Salud de Brasil.',
+            'El trasplante alogénico de células progenitoras hematopoyéticas (TCPH) sigue siendo la única modalidad curativa establecida, reservada para casos graves con donante compatible, dado el riesgo de morbimortalidad del procedimiento.',
+          ],
+        },
+        {
+          heading: 'Cuándo referir / signos de alarma clínica',
+          body: [
+            'La fiebre ≥38°C en un paciente con EF es una urgencia hasta que se demuestre lo contrario (riesgo de sepsis por asplenia funcional) — hemocultivo y antibioticoterapia empírica precoz.',
+            'El síndrome torácico agudo (nuevo infiltrado radiológico + fiebre/dolor torácico/hipoxemia) es la principal causa de muerte en adultos con EF — manejo hospitalario agresivo, soporte respiratorio y considerar exanguinotransfusión.',
+            'Un déficit neurológico focal agudo (incluso transitorio) exige investigación inmediata de ictus — mayor riesgo en niños con HbSS; el cribado con Doppler transcraneal permite la prevención primaria mediante transfusión crónica.',
+            'El priapismo de más de 4 horas, el secuestro esplénico agudo (niño pequeño, esplenomegalia súbita + caída de Hb) y la crisis aplásica (generalmente por parvovirus B19) son urgencias que exigen intervención inmediata.',
+          ],
+        },
+        {
+          heading: 'Fuentes y directrices',
+          body: [
+            'Protocolo Clínico y Directrices Terapéuticas (PCDT) de la Enfermedad Falciforme, Ministerio de Salud de Brasil — referencia normativa para la conducta en el SUS.',
+            'La colaboración técnica con ABRADFAL (Asociación Brasiliense de Personas con Enfermedad Falciforme) fundamenta la curaduría y revisión de este contenido junto con el App Sentinela.',
+            'La literatura internacional consolidada (NHLBI Evidence-Based Management of Sickle Cell Disease; directrices de la American Society of Hematology) orienta las conductas descritas anteriormente — siempre cotejar con el protocolo institucional local.',
+          ],
+        },
+      ],
+    },
+
+    // ================== ENFERMERÍA Y PERSONAL TÉCNICO =======================
+    enfermeiro: {
+      summary:
+        'Cribado, manejo de crisis, cuidado continuo y orientación al paciente/familia — contenido clínico de nivel intermedio para la rutina de enfermería en Atención Primaria y en urgencias/emergencias.',
+      sections: [
+        {
+          heading: 'Qué es',
+          body: [
+            'La enfermedad falciforme es una condición genética hereditaria (no es contagiosa, no es "contaminación") en la que los glóbulos rojos, en lugar de mantener la forma redondeada normal, pueden adoptar forma de hoz bajo ciertas condiciones (falta de oxígeno, deshidratación, frío, esfuerzo físico intenso, infección).',
+            'Estos glóbulos en forma de hoz son más rígidos y "obstruyen" vasos sanguíneos pequeños, causando dolor (crisis) y, con el tiempo, daño a órganos como el bazo, los riñones, los pulmones y los huesos. La persona con EF también tiene anemia crónica, porque estos glóbulos se rompen (se hemolizan) más rápido de lo normal.',
+          ],
+        },
+        {
+          heading: 'Señales que el equipo debe reconocer',
+          body: [
+            'Dolor agudo e intenso, generalmente en huesos largos, pecho, abdomen o articulaciones — es el motivo más común de búsqueda de atención, llamado "crisis de dolor" o "crisis vasoclusiva". La intensidad relatada por el paciente siempre debe tomarse en serio: las personas negras históricamente han tenido su dolor subestimado y subtratado en el sistema de salud — es un sesgo que debe combatirse activamente en la clasificación de riesgo (triage).',
+            'La palidez, la ictericia (ojos/piel amarillentos), el cansancio desproporcionado y la falta de aire pueden indicar un empeoramiento de la anemia o un secuestro esplénico (en niños pequeños).',
+            'La fiebre en una persona con EF NUNCA debe minimizarse — clasificar como prioridad alta/roja en la recepción, ya que puede ser señal de una infección grave (el bazo generalmente no funciona bien en estas personas, lo que aumenta el riesgo de infecciones graves).',
+            'La falta de aire asociada a dolor en el pecho y fiebre puede ser un síndrome torácico agudo, una complicación grave que necesita evaluación médica inmediata.',
+            'En hombres, una erección dolorosa prolongada (priapismo, más de 4 horas) es una urgencia urológica — orientar la búsqueda inmediata de atención.',
+          ],
+        },
+        {
+          heading: 'Quién debe estar atento — grupos de riesgo y seguimiento',
+          body: [
+            'Todo niño debe tener verificado el resultado de la "prueba del talón" — es así como la EF suele identificarse en Brasil, en los primeros días de vida. Los niños diagnosticados necesitan seguimiento regular, vacunación al día (incluyendo vacunas adicionales recomendadas) y, hasta los 5 años, uso continuo de penicilina para prevenir infecciones graves — reforzar la adherencia con la familia en cada contacto.',
+            'Los adultos con EF necesitan seguimiento hematológico regular, incluso en períodos sin crisis — la enfermedad sigue "trabajando" silenciosamente en los órganos.',
+            'Las personas con rasgo falciforme (que tienen el "gen", pero no la enfermedad) generalmente no presentan síntomas, pero deben saber informarlo en situaciones de ejercicio físico extremo, deshidratación severa o altitud elevada, y es información relevante para la planificación familiar (riesgo de tener un hijo con la enfermedad si la pareja también tiene el rasgo).',
+          ],
+        },
+        {
+          heading: 'Manejo de la crisis de dolor — qué hacer en la unidad',
+          body: [
+            'Recibir rápidamente, clasificar el riesgo considerando el antecedente de EF como factor automático de atención prioritaria, e iniciar hidratación (oral si se tolera, intravenosa si es necesario) lo antes posible.',
+            'Seguir el protocolo de analgesia escalonada de la unidad sin demora — las crisis de dolor falciforme exigen un control rápido y eficaz del dolor; no es "drama" ni "búsqueda de medicamento controlado", es una manifestación directa de la enfermedad.',
+            'Observar los signos vitales, la saturación de oxígeno y la temperatura con frecuencia — aplicar oxígeno si hay caída de la saturación.',
+            'Registrar y comunicar inmediatamente al equipo médico cualquier señal de alarma: fiebre, dificultad respiratoria, dolor torácico, alteración neurológica (habla, fuerza, visión), priapismo o bazo muy aumentado en un niño.',
+          ],
+        },
+        {
+          heading: 'Cuidado continuo y orientación al paciente/familia',
+          body: [
+            'Reforzar la hidratación adecuada en el día a día, evitar la exposición al frío intenso y a esfuerzos físicos extremos sin preparación, y buscar atención temprana ante fiebre — son las orientaciones de autocuidado más efectivas para reducir las crisis.',
+            'Orientar sobre la importancia de no interrumpir la hidroxiurea (cuando esté prescrita) sin orientación médica, incluso en períodos sin síntomas — es un tratamiento continuo, no "de crisis".',
+            'Apoyar psicosocialmente: la EF es una enfermedad crónica, dolorosa y muchas veces invisibilizada; la atención humanizada del equipo de enfermería es determinante para la adherencia al tratamiento y para la confianza en el sistema de salud.',
+            'Derivar a la Red SUS local (ver la página "Red SUS" de esta plataforma) para vincular con hematología de referencia, servicio social y, cuando sea pertinente, con ABRADFAL (asociación de pacientes, socia técnica de este proyecto).',
+          ],
+        },
+      ],
+    },
+
+    // =============================== USUARIOS ================================
+    usuario: {
+      summary:
+        'Qué es la anemia falciforme, señales de alerta, cuidados del día a día y dónde buscar ayuda en el SUS — en lenguaje simple y directo.',
+      sections: [
+        {
+          heading: 'Qué es',
+          body: [
+            'La anemia falciforme (también llamada enfermedad falciforme) es una enfermedad de la sangre con la que la persona ya nace — transmitida por los padres, en la "sangre" (genes). No es una enfermedad contagiosa: no se "contagia" de nadie.',
+            'En la anemia falciforme, los glóbulos rojos de la sangre (que llevan oxígeno al cuerpo) pueden cambiar de forma: en lugar de ser redonditos, se parecen a una hoz (luna creciente). Estos glóbulos en forma de hoz obstruyen vasos sanguíneos pequeños, lo que causa dolores fuertes y puede dañar órganos del cuerpo con el tiempo.',
+            'Es la enfermedad genética más común en Brasil, y es mucho más frecuente entre personas negras — por eso es un tema tan importante para nuestra comunidad.',
+          ],
+        },
+        {
+          heading: 'Por qué esto importa',
+          body: [
+            'Quien tiene anemia falciforme puede tener una vida larga y de calidad con seguimiento médico regular, los medicamentos correctos y cuidados simples en el día a día. El problema no es que la enfermedad "no tenga solución" — es el retraso en el diagnóstico, el prejuicio, y que el dolor de la persona no sea tomado en serio en las atenciones de salud.',
+            'Históricamente, el dolor de las personas negras es más desacreditado en los hospitales. Esto es un tipo de racismo institucional que cuesta vidas — y es algo que esta plataforma existe para combatir.',
+          ],
+        },
+        {
+          heading: 'Señales de alerta — esté atento(a)',
+          body: [
+            'Dolor fuerte y repentino en huesos, barriga, pecho o articulaciones — es la llamada "crisis de dolor" y es la señal más común. Nunca lo minimice: busque atención.',
+            'La fiebre siempre es una señal de alerta en una persona con anemia falciforme — aunque parezca "solo una febrecita", busque la Unidad Básica de Salud (UBS) o emergencia el mismo día.',
+            'Cansancio fuera de lo normal, falta de aire, ojos o piel amarillentos (ictericia) y palidez pueden indicar que la anemia está más fuerte — vale la pena una consulta.',
+            'Un niño pequeño con la barriga hinchándose de repente (bazo aumentado) necesita atención urgente.',
+            'En hombres, una erección dolorida que no pasa (más de 4 horas) es una emergencia — busque el hospital inmediatamente, no espere.',
+          ],
+        },
+        {
+          heading: 'Cuidados del día a día',
+          body: [
+            'Beba suficiente agua todos los días — la deshidratación es uno de los principales desencadenantes de la crisis de dolor.',
+            'Evite estar mucho tiempo con frío intenso y evite el esfuerzo físico muy pesado sin preparación — ambos pueden provocar crisis.',
+            'Si toma un medicamento continuo (como hidroxiurea), no lo suspenda por cuenta propia, aunque se sienta bien — ayuda a prevenir crisis incluso cuando usted no siente nada.',
+            'Mantenga las vacunas al día — las personas con anemia falciforme tienen mayor riesgo de infecciones graves, por lo que estar vacunado(a) es una protección extra importante.',
+            'Si su hijo(a) tiene anemia falciforme y tiene menos de 5 años, el uso diario de penicilina (según orientación médica) ayuda a prevenir infecciones graves — es un cuidado simple, pero que salva vidas.',
+          ],
+        },
+        {
+          heading: 'Dónde buscar ayuda en el SUS',
+          body: [
+            'A todo bebé se le hace la "prueba del talón" en los primeros días de vida — así es como la anemia falciforme suele descubrirse en Brasil. Si su hijo(a) tiene el diagnóstico, busque la Unidad Básica de Salud (UBS) de su región para ser derivado(a) al seguimiento con hematología.',
+            'Para dolor fuerte o fiebre, vaya a la UBS más cercana o, si es fuera de horario o el dolor es muy intenso, busque la UPA (Unidad de Atención Inmediata) o el servicio de urgencias.',
+            'Use la página "Red SUS" de esta plataforma para encontrar las unidades de salud más cercanas a usted en el Distrito Federal.',
+            'ABRADFAL (Asociación Brasiliense de Personas con Enfermedad Falciforme) es socia de este proyecto y puede ofrecer apoyo, información y acogida entre personas que viven la misma realidad.',
+          ],
+        },
+      ],
+    },
+  },
+
+  sources: [
+    {
+      label: 'ABRADFAL',
+      detail: 'Asociación Brasiliense de Personas con Enfermedad Falciforme — colaboración técnica de contenido y curaduría clínica.',
+    },
+    {
+      label: 'Ministerio de Salud de Brasil — PCDT Enfermedad Falciforme',
+      detail: 'Protocolo Clínico y Directrices Terapéuticas vigente, referencia normativa para la conducta en el SUS.',
+    },
+    {
+      label: 'Programa Nacional de Cribado Neonatal',
+      detail: '"Prueba del talón" — diagnóstico precoz estándar en Brasil, base de la identificación neonatal de la enfermedad falciforme.',
+    },
+    {
+      label: 'NHLBI / American Society of Hematology',
+      detail: 'Directrices internacionales de manejo clínico basado en evidencia, usadas como referencia complementaria.',
+    },
+  ],
+};
+
+export const anemiaFalciformeContent: Record<LocaleId, DiseaseDeepContent> = {
+  pt: anemiaFalciformeContent_pt,
+  es: anemiaFalciformeContent_es,
 };

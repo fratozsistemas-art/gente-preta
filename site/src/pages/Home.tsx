@@ -422,7 +422,7 @@ function PulsoFeatures({ content }: { content: PulsoVariantContent }) {
         {content.features.map((f, i) => (
           <div key={i} className="flex flex-col items-start gap-3">
             <div className="rounded-full bg-pulso-verde/10 p-3">
-              <PulsoIcon id={f.icon} size={26} color="#164A3A" />
+              <PulsoIcon id={f.icon} size={26} color="#06201B" />
             </div>
             <h3 className="font-bold text-pulso-verde text-sm uppercase tracking-wide leading-tight">
               {f.title.map((line, j) => (

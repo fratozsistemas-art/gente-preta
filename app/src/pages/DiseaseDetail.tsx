@@ -3,12 +3,14 @@ import { diseaseCategories } from '../data/diseases';
 import TopBar from '../components/TopBar';
 import { getDeepContent } from '../data/deepContentRegistry';
 import AudienceContentTabs from '../components/AudienceContentTabs';
+import { useAppearance } from '@shared/context/AppearanceContext';
 
 export default function DiseaseDetail() {
   const { categoryId, diseaseId } = useParams();
+  const { localeId } = useAppearance();
   const category = diseaseCategories.find((c) => c.id === categoryId);
   const disease = category?.diseases.find((d) => d.id === diseaseId);
-  const deepContent = disease?.hasDeepContent ? getDeepContent(disease.id) : undefined;
+  const deepContent = disease?.hasDeepContent ? getDeepContent(disease.id, localeId) : undefined;
 
   if (!category || !disease) {
     return (

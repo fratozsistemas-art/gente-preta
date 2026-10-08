@@ -84,17 +84,43 @@ export default {
           dim: '#5c605c',
         },
         linha: '#dcd6c9',
-        // Paleta OFICIAL "Pulso Preto" (pacote de marca, conversa APRECIA/Luis,
-        // out/2026) — usada nas variantes PP1/PP2 (ver shared/data/variants.ts).
+        // Paleta OFICIAL "Pulso Preto" — CORRIGIDA (Fase 3.2) a partir do arquivo
+        // oficial do pacote de identidade de marca (00_Identidade.zip →
+        // CORES/PP_Paleta_Oficial_v1.png/.pdf, "Paleta Oficial - Pulso Preto",
+        // rodapé "Projeto Conectando Saúde e Inclusão · APRECIA · AECID").
+        // Valores extraídos por amostragem de pixel direta da imagem oficial
+        // (confirmados byte-a-byte, não estimados) — substituem os tons da
+        // Fase 3.1 que tinham sido aproximados visualmente a partir de
+        // screenshots de mockup, sem acesso ao arquivo de paleta oficial.
+        //
+        //   Verde Escuro  #06201B — fundo principal, headers, textos fortes
+        //   Verde Médio   #1A5C3A — destaques, ícones, subtítulos
+        //   Verde Accent  #2DA864 — linha de pulso, links, CTAs verdes
+        //   Dourado       #D4A84B — logo "Preto", botões, destaques, bordas
+        //   Dourado Claro #E8C05A — gradientes, brilhos, versões claras
+        //   Marrom/Pele   #8F4B21 — ilustrações, elementos humanos (opcional)
+        //   Off-white/Creme #F7F5F0 — fundos claros de posts e cartilhas
+        //
+        // Nota sobre `terracota`: a paleta oficial NÃO tem um tom terracota
+        // separado — o papel visual que `terracota` cumpria nos componentes
+        // PP1/PP2 (faixa de missão PP2, eyebrows, valores de estatística) é
+        // coberto pelo tom "Marrom/Pele" oficial (#8F4B21), que é descritivamente
+        // "um tom terroso avermelhado/terracota" (confirmado via análise visual
+        // da paleta). `terracota` e `marrom` ficam, portanto, alias do MESMO
+        // hex oficial — não há mais 2 tons terrosos distintos, apenas 1.
+        //
         // Não substitui folha/ouro/palha/barro (paleta "Gente Preta" original,
         // preservada para a variante GP0) — convivem como namespaces distintos,
         // trocados em runtime pelo VariantSwitcher conforme a variante ativa.
         pulso: {
-          verde: '#164A3A',   // Verde profundo
-          creme: '#F5EFE3',   // Creme
-          dourado: '#C89B3C', // Dourado
-          terracota: '#A94A3D', // Terracota
-          marrom: '#6B3F2A',   // Marrom terra
+          verde: '#06201B',        // Verde Escuro (oficial) — fundo principal
+          'verde-medio': '#1A5C3A', // Verde Médio (oficial) — destaques/ícones
+          'verde-accent': '#2DA864', // Verde Accent (oficial) — linha de pulso/CTA
+          creme: '#F7F5F0',        // Off-white/Creme (oficial, corrigido)
+          dourado: '#D4A84B',      // Dourado (oficial, corrigido)
+          'dourado-claro': '#E8C05A', // Dourado Claro (oficial)
+          marrom: '#8F4B21',       // Marrom/Pele (oficial, corrigido)
+          terracota: '#8F4B21',    // Alias de Marrom/Pele — ver nota acima
         },
       },
       fontFamily: {
