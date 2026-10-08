@@ -26,7 +26,15 @@ export default function ReportDiscrimination() {
       <div className={isPulso ? 'min-h-screen bg-pulso-creme font-pulso-body' : undefined}>
         <TopBar title="Direito à Saúde" showBack />
         <div className="px-5 pt-16 text-center">
-          <div className="text-5xl mb-4">⚖️</div>
+          {isPulso ? (
+            <img
+              src="/static/brand/elementos/icone-mao-balanca.png"
+              alt=""
+              className="w-16 h-16 object-contain mx-auto mb-4"
+            />
+          ) : (
+            <div className="text-5xl mb-4">⚖️</div>
+          )}
           <h2 className={`font-bold text-lg mb-2 ${isPulso ? 'text-pulso-verde font-pulso-display' : 'text-earth-900'}`}>
             Relato registrado
           </h2>

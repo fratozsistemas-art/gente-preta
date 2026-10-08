@@ -4,9 +4,9 @@ import { useAppearance } from '@shared/context/AppearanceContext';
 const items = [
   { to: '/', label: 'Início', icon: '🏠' },
   { to: '/checkin', label: 'Check-in', icon: '✅' },
-  { to: '/saude', label: 'Saúde', icon: '📚' },
-  { to: '/mapa', label: 'UBS', icon: '📍' },
-  { to: '/radar', label: 'Radar', icon: '📡' },
+  { to: '/saude', label: 'Saúde', icon: '📚', pulsoIcon: '/static/brand/elementos/icone-livro-ideias.png' },
+  { to: '/mapa', label: 'UBS', icon: '📍', pulsoIcon: '/static/brand/elementos/icone-hospital-comunidade.png' },
+  { to: '/radar', label: 'Radar', icon: '📡', pulsoIcon: '/static/brand/elementos/icone-coracao-pulsa.png' },
   { to: '/perfil', label: 'Perfil', icon: '👤' },
 ];
 
@@ -38,7 +38,11 @@ export default function BottomNav() {
                 }`
           }
         >
-          <span className="text-base">{item.icon}</span>
+          {isPulso && item.pulsoIcon ? (
+            <img src={item.pulsoIcon} alt="" className="w-4 h-4 object-contain" />
+          ) : (
+            <span className="text-base">{item.icon}</span>
+          )}
           {item.label}
         </NavLink>
       ))}

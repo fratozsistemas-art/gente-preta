@@ -77,10 +77,34 @@ export default function Home() {
             Acesso rápido
           </h3>
           <div className="grid grid-cols-2 gap-3">
-            <QuickLink to="/mapa" icon="📍" label="Encontrar UBS" pulso={isPulso} />
-            <QuickLink to="/radar" icon="📡" label="Radar comunitário" pulso={isPulso} />
-            <QuickLink to="/saude" icon="📚" label="Biblioteca de saúde" pulso={isPulso} />
-            <QuickLink to="/denunciar" icon="⚖️" label="Direito à saúde" pulso={isPulso} />
+            <QuickLink
+              to="/mapa"
+              icon="📍"
+              pulsoIcon="/static/brand/elementos/icone-hospital-comunidade.png"
+              label="Encontrar UBS"
+              pulso={isPulso}
+            />
+            <QuickLink
+              to="/radar"
+              icon="📡"
+              pulsoIcon="/static/brand/elementos/icone-coracao-pulsa.png"
+              label="Radar comunitário"
+              pulso={isPulso}
+            />
+            <QuickLink
+              to="/saude"
+              icon="📚"
+              pulsoIcon="/static/brand/elementos/icone-livro-ideias.png"
+              label="Biblioteca de saúde"
+              pulso={isPulso}
+            />
+            <QuickLink
+              to="/denunciar"
+              icon="⚖️"
+              pulsoIcon="/static/brand/elementos/icone-mao-balanca.png"
+              label="Direito à saúde"
+              pulso={isPulso}
+            />
           </div>
         </div>
 
@@ -120,7 +144,19 @@ export default function Home() {
   );
 }
 
-function QuickLink({ to, icon, label, pulso }: { to: string; icon: string; label: string; pulso: boolean }) {
+function QuickLink({
+  to,
+  icon,
+  pulsoIcon,
+  label,
+  pulso,
+}: {
+  to: string;
+  icon: string;
+  pulsoIcon?: string;
+  label: string;
+  pulso: boolean;
+}) {
   return (
     <Link
       to={to}
@@ -130,7 +166,11 @@ function QuickLink({ to, icon, label, pulso }: { to: string; icon: string; label
           : 'rounded-xl border border-earth-200 bg-white p-4 flex flex-col gap-2 items-start'
       }
     >
-      <span className="text-2xl">{icon}</span>
+      {pulso && pulsoIcon ? (
+        <img src={pulsoIcon} alt="" className="w-7 h-7 object-contain" />
+      ) : (
+        <span className="text-2xl">{icon}</span>
+      )}
       <span className={`text-xs font-semibold ${pulso ? 'text-pulso-verde' : 'text-earth-800'}`}>{label}</span>
     </Link>
   );

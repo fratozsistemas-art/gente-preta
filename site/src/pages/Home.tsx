@@ -363,6 +363,14 @@ function PulsoHero({ content }: { content: PulsoVariantContent }) {
   const h = content.hero;
   return (
     <section className="relative overflow-hidden bg-pulso-verde text-pulso-creme">
+      {/* Elemento Círculo Dourado oficial (ELEMENTOS/CIRCULO) — marca d'água decorativa,
+          mesma função do ContasRing na Home GP0. */}
+      <img
+        src="/static/brand/elementos/circulo-dourado.png"
+        alt=""
+        aria-hidden="true"
+        className="hidden sm:block absolute -top-10 -right-10 w-64 h-64 opacity-[0.12] pointer-events-none select-none"
+      />
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20 grid lg:grid-cols-2 gap-10 items-center relative">
         <div>
           <p className="text-xs font-bold uppercase tracking-wider text-pulso-dourado mb-4 leading-relaxed">
@@ -566,11 +574,19 @@ function PulsoMission({ content }: { content: PulsoVariantContent }) {
                 <li key={w} className="text-xs font-bold uppercase tracking-wider text-pulso-marrom/70">{w}</li>
               ))}
             </ul>
-            <p className="font-pulso-display italic text-pulso-terracota text-xl leading-snug">
+            <p className="font-pulso-display italic text-pulso-terracota text-xl leading-snug mb-3">
               {m.cursive.map((line, i) => (
                 <span key={i} className="block">{line}</span>
               ))}
             </p>
+            {/* Elemento Pulso oficial (ELEMENTOS/PULSO) — linha de batimento, assinatura
+                visual "Pulso Preto" aplicada junto à citação cursiva. */}
+            <img
+              src="/static/brand/elementos/pulso-dourado.png"
+              alt=""
+              aria-hidden="true"
+              className="h-5 w-auto opacity-80"
+            />
           </div>
         </div>
       </section>
@@ -582,11 +598,19 @@ function PulsoMission({ content }: { content: PulsoVariantContent }) {
   return (
     <section className="relative bg-pulso-terracota text-pulso-creme overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 grid lg:grid-cols-[1fr_1.2fr_auto] gap-8 items-center relative">
-        <p className="font-pulso-display italic text-2xl sm:text-3xl leading-snug">
-          {m.cursive.map((line, i) => (
-            <span key={i} className="block">{line}</span>
-          ))}
-        </p>
+        <div>
+          <p className="font-pulso-display italic text-2xl sm:text-3xl leading-snug mb-3">
+            {m.cursive.map((line, i) => (
+              <span key={i} className="block">{line}</span>
+            ))}
+          </p>
+          <img
+            src="/static/brand/elementos/pulso-branco.png"
+            alt=""
+            aria-hidden="true"
+            className="h-5 w-auto opacity-80"
+          />
+        </div>
         <div className="relative rounded-2xl overflow-hidden aspect-[16/10] lg:aspect-[4/3] order-first lg:order-none">
           <img src={m.photo.url} alt={m.photo.alt} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
           <span className="absolute bottom-2 right-2 rounded bg-black/55 text-white text-[10px] px-2 py-1">

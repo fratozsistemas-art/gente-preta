@@ -74,7 +74,15 @@ export default function Radar() {
 
         {!radarOptIn ? (
           <div className="text-center py-16">
-            <div className="text-4xl mb-3">📡</div>
+            {isPulso ? (
+              <img
+                src="/static/brand/elementos/icone-coracao-pulsa.png"
+                alt=""
+                className="w-14 h-14 object-contain mx-auto mb-3"
+              />
+            ) : (
+              <div className="text-4xl mb-3">📡</div>
+            )}
             <p className={`text-sm max-w-xs mx-auto ${isPulso ? 'text-pulso-marrom/60' : 'text-earth-500'}`}>
               Ative o Radar Comunitário acima para ver sinais transparentes da sua região.
             </p>
