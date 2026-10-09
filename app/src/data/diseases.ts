@@ -35,6 +35,7 @@ export const diseaseCategories: DiseaseCategory[] = [
         study: 'NEJM / Parsa et al. 2013',
         finding:
           'Pessoas negras têm risco até 2,3x maior de desenvolver hipertensão em comparação à população branca, com pior controle pressórico mesmo em tratamento equivalente.',
+        hasDeepContent: true,
       },
       {
         id: 'infarto',
@@ -70,6 +71,7 @@ export const diseaseCategories: DiseaseCategory[] = [
         study: 'CDC 2021',
         finding:
           'Adultos negros têm probabilidade ~60% maior de serem diagnosticados com diabetes tipo 2 em comparação a adultos brancos não hispânicos.',
+        hasDeepContent: true,
       },
       { id: 'pre-diabetes', name: 'Pré-Diabetes' },
       {
@@ -96,6 +98,7 @@ export const diseaseCategories: DiseaseCategory[] = [
         study: 'JAMA Psychiatry / Williams et al. 2022',
         finding:
           'Pessoas negras com depressão têm menor probabilidade de receber tratamento adequado e maior probabilidade de terem o quadro subdiagnosticado por racismo institucional em saúde.',
+        hasDeepContent: true,
       },
       { id: 'ansiedade', name: 'Ansiedade' },
       { id: 'tept', name: 'TEPT (Transtorno de Estresse Pós-Traumático)' },
@@ -123,6 +126,7 @@ export const diseaseCategories: DiseaseCategory[] = [
         study: 'CDC 2020',
         finding:
           'Crianças negras têm taxa de mortalidade por asma ~7x maior que crianças brancas, associada a maior exposição ambiental e menor acesso a tratamento contínuo.',
+        hasDeepContent: true,
       },
       {
         id: 'covid-19',
@@ -140,7 +144,15 @@ export const diseaseCategories: DiseaseCategory[] = [
     subtitle: 'Risco ↑ + Acesso Desigual',
     icon: '🤱',
     diseases: [
-      { id: 'miomas-uterinos', name: 'Miomas Uterinos' },
+      {
+        id: 'miomas-uterinos',
+        name: 'Miomas Uterinos',
+        isPriorityTheme: true,
+        study: 'FEBRASGO / ACOG — leiomiomas uterinos',
+        finding:
+          'Mulheres negras têm prevalência de miomas 2 a 3 vezes maior, com início mais precoce, tumores maiores e mais numerosos, sintomas mais graves e maior taxa de histerectomia em comparação a mulheres brancas.',
+        hasDeepContent: true,
+      },
       { id: 'parto-prematuro', name: 'Parto Prematuro' },
       {
         id: 'mortalidade-materna',
@@ -174,6 +186,7 @@ export const diseaseCategories: DiseaseCategory[] = [
         study: 'Literatura clínica consolidada',
         finding:
           'Mulheres negras têm incidência de lúpus 2 a 3 vezes maior e desenvolvem a doença de forma mais grave e mais precoce do que mulheres brancas.',
+        hasDeepContent: true,
       },
       { id: 'nmosd', name: 'NMOSD (Doença do Espectro da Neuromielite Óptica)' },
       { id: 'attr-cm', name: 'ATTR-CM (Amiloidose Cardíaca)' },

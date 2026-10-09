@@ -129,8 +129,10 @@ padrão neste piloto; GP0 permanece acessível via VariantSwitcher como a
     ícones médico/enfermeiro em `AudienceContentTabs.tsx`).
 
 ### Limitações conhecidas desta fase
-- Conteúdo clínico aprofundado (Anemia Falciforme) traduzido PT/ES; demais
-  32 condições da Biblioteca de Saúde seguem só em português.
+- Conteúdo clínico aprofundado das **7 doenças prioritárias** (Anemia
+  Falciforme, Hipertensão, Diabetes, Miomas Uterinos, Lúpus, Depressão e Asma)
+  traduzido PT/ES; as demais condições da Biblioteca de Saúde seguem só em
+  português e em formato "Estudo + Achado".
 - Painel administrativo de troca de marca: **fora de escopo**, por decisão
   do usuário — a troca aqui é um recurso de usuário final (como um seletor
   de idioma), não uma ferramenta de gestão de conteúdo.
@@ -188,7 +190,7 @@ Monorepo com dois SPAs React/Vite compartilhando um único Worker:
 | `/` | Home | Hero, features, temas, stats, missão, **seminário** (PP1/PP2), notícias (PP2), parceiros (GP0) |
 | `/sobre` | About | |
 | `/saude` | HealthLibrary | 9 categorias (`data/diseases.ts`) |
-| `/saude/:categoryId/:diseaseId` | DiseaseDetail | Conteúdo estratificado por audiência (Anemia Falciforme) |
+| `/saude/:categoryId/:diseaseId` | DiseaseDetail | Conteúdo estratificado por audiência — 7 doenças prioritárias |
 | `/biblioteca-saude` | BibliotecaSaude | 10 categorias, 33 condições, busca + filtros |
 | `/ensaios-clinicos` | ClinicalTrials | Fases, direitos, histórico, checklist |
 | `/memoria` | Memory | |
@@ -199,11 +201,27 @@ Monorepo com dois SPAs React/Vite compartilhando um único Worker:
 | `/baixar` | AppAccess | Status, cronograma, LGPD, waitlist, FAQ |
 | `*` | NotFound | 404 |
 
-## Dados e armazenamento
-- Sem backend/banco de dados — conteúdo estático embutido em TypeScript
-  (`site/src/data/*.ts`, `shared/data/*.ts`).
-- Formulário de `/baixar` é client-side apenas (sem persistência real).
-- App Sentinela usa Zustand para estado local; sem Cloudflare D1/KV/R2 nesta fase.
+## Dados, conteúdo e base de dados
+- **Conteúdo aprofundado (Nível 3)** das 7 doenças prioritárias vive nas
+  fontes canônicas em TypeScript (`shared/data/*.ts`, contrato
+  `DiseaseDeepContent`), segmentado por audiência (médico/enfermeiro/usuário),
+  bilíngue PT/ES, com hero image e fontes científicas.
+- **Base de dados de conteúdo**: `database/schema.sql` é o esquema canônico
+  (SQLite/D1); `database/content.json` e `database/seed.sql` são gerados a
+  partir das fontes por `scripts/db/export-content.mjs` (que também **verifica**
+  o resultado abrindo um SQLite real via `node:sqlite`). O descritor
+  `.tables/schema.json` provisiona o **único banco D1 gerenciado** no deploy
+  hospedado do Genspark.
+- **API de conteúdo** (`worker/index.js`): `GET /api/content`,
+  `GET /api/content/:diseaseId?locale=pt|es` e `GET /api/health`. Lê do D1
+  quando o binding está disponível e faz **fallback automático** para o JSON
+  estático embutido (`dist/api/content.json`) — a aplicação nunca quebra sem
+  banco.
+- Comandos: `npm run db:export` (regenera + verifica a base) e
+  `npm run build` (já inclui o `db:export` e copia o JSON para `dist/api/`).
+- Sem Cloudflare KV/R2 nesta fase; o formulário de `/baixar` permanece
+  client-side (sem persistência real) e o App Sentinela usa Zustand para
+  estado local.
 
 ## Como rodar localmente (sandbox)
 ```bash
@@ -224,7 +242,11 @@ curl http://localhost:3000/comunidade
 
 ## Não implementado / próximos passos
 - Layout `Pulso*` dedicado para o App Sentinela (hoje só Logo/paleta).
-- Tradução ES do conteúdo clínico completo (32 condições restantes).
+- Tradução ES do conteúdo clínico das condições restantes (fora das 7
+  prioritárias, já bilíngues).
+- Provisionar/validar o D1 gerenciado no deploy hospedado (hoje a API roda com
+  fallback estático até o `.tables/schema.json` ser publicado no deploy) e
+  substituir as hero images placeholder por material próprio (licenciado).
 - Auditoria de links/navegação ("Notícias" ainda aponta para âncora `#noticias`
   na Home em vez de uma página `/noticias` dedicada — pendente de decisão de
   escopo com o usuário).

@@ -55,6 +55,7 @@ export const diseaseCategories: DiseaseCategory[] = [
             'No DF, a mortalidade cardiovascular padronizada por idade é 50% maior em negros (180/100.000) do que em brancos (120/100.000) — a hipertensão é o principal fator de risco modificável dessa disparidade.',
           source: 'Estudo Pop. Negra DF 2015–2024 · Indicador 13 (estimativa, estratificação racial em consolidação)',
         },
+        hasDeepContent: true,
       },
       {
         id: 'infarto',
@@ -96,6 +97,7 @@ export const diseaseCategories: DiseaseCategory[] = [
             'No DF, diabetes caiu do 3º lugar (2014) para o 8º lugar (2024) nas causas de morte — pode indicar melhora no controle (acesso a insulina/antidiabéticos pelo SUS) ou subnotificação como causa associada. Dados ainda não estratificados por raça/cor no boletim agregado.',
           source: 'Estudo Pop. Negra DF 2015–2024 · Indicador 14 (estratificação racial pendente)',
         },
+        hasDeepContent: true,
       },
       { id: 'pre-diabetes', name: 'Pré-Diabetes' },
       {
@@ -154,6 +156,7 @@ export const diseaseCategories: DiseaseCategory[] = [
         study: 'JAMA Psychiatry / Williams et al. 2022',
         finding:
           'Pessoas negras com depressão têm menor probabilidade de receber tratamento adequado e maior probabilidade de terem o quadro subdiagnosticado por racismo institucional em saúde.',
+        hasDeepContent: true,
       },
       { id: 'ansiedade', name: 'Ansiedade' },
       { id: 'tept', name: 'TEPT (Transtorno de Estresse Pós-Traumático)' },
@@ -181,6 +184,7 @@ export const diseaseCategories: DiseaseCategory[] = [
         study: 'CDC 2020',
         finding:
           'Crianças negras têm taxa de mortalidade por asma ~7x maior que crianças brancas, associada a maior exposição ambiental e menor acesso a tratamento contínuo.',
+        hasDeepContent: true,
       },
       {
         id: 'covid-19',
@@ -211,7 +215,15 @@ export const diseaseCategories: DiseaseCategory[] = [
     subtitle: 'Risco ↑ + Acesso Desigual',
     icon: '🤱',
     diseases: [
-      { id: 'miomas-uterinos', name: 'Miomas Uterinos' },
+      {
+        id: 'miomas-uterinos',
+        name: 'Miomas Uterinos',
+        isPriorityTheme: true,
+        study: 'FEBRASGO / ACOG — leiomiomas uterinos',
+        finding:
+          'Mulheres negras têm prevalência de miomas 2 a 3 vezes maior, com início mais precoce, tumores maiores e mais numerosos, sintomas mais graves e maior taxa de histerectomia em comparação a mulheres brancas.',
+        hasDeepContent: true,
+      },
       { id: 'parto-prematuro', name: 'Parto Prematuro' },
       {
         id: 'mortalidade-materna',
@@ -264,6 +276,7 @@ export const diseaseCategories: DiseaseCategory[] = [
         study: 'Literatura clínica consolidada',
         finding:
           'Mulheres negras têm incidência de lúpus 2 a 3 vezes maior e desenvolvem a doença de forma mais grave e mais precoce do que mulheres brancas.',
+        hasDeepContent: true,
       },
       { id: 'nmosd', name: 'NMOSD (Doença do Espectro da Neuromielite Óptica)' },
       { id: 'attr-cm', name: 'ATTR-CM (Amiloidose Cardíaca)' },
